@@ -1864,9 +1864,15 @@ button{font:inherit}
   .group-cards,.card-grid-4{grid-template-columns:1fr 1fr}
 }
 @media (max-width:760px){
-  .grid-2,.grid-3,.grid-4,.layout-2col,.layout-2col-visual,.card-grid-4,.group-cards,.metric-pair,.metrics-3,.split-pair,.role-opinion-grid,.gender-role-grid,.age-nuke-grid,.supplement-grid{grid-template-columns:1fr}
+  .grid-2,.grid-3,.grid-4,.layout-2col,.layout-2col-visual,.card-grid-4,.group-cards,.metric-pair,.metrics-3,.split-pair,.role-opinion-grid,.gender-role-grid,.age-nuke-grid,.supplement-grid,.gender-analysis-cluster,.age-market-stack{grid-template-columns:1fr}
   .role-card-grid{grid-template-columns:1fr}
   .bar-row{grid-template-columns:minmax(120px,180px) minmax(0,1fr) 48px}
+  .bar-list.scene-bars .bar-row{grid-template-columns:minmax(118px,156px) minmax(0,1fr) 46px}
+  .bar-list.scene-bars .bar-label{
+    font-size:12.5px;
+    line-height:1.34;
+    max-height:3.95em;
+  }
   .bar-pct{text-align:left}
   .score-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
   .hero h1{font-size:clamp(1.1rem,4.1vw,1.5rem)}
@@ -1875,6 +1881,55 @@ button{font:inherit}
   .dual-row{grid-template-columns:40px minmax(0,1fr) 48px}
   .donut-wrap{grid-template-columns:1fr;gap:14px;width:100%}
   .legend{width:min(100%,320px);margin-inline:auto}
+  .gender-role-card{min-height:auto}
+  .gender-role-donuts,
+  .gender-analysis-cluster .gender-role-card.compact .gender-role-donuts{grid-template-columns:1fr}
+  .gender-role-donut,
+  .gender-analysis-cluster .gender-role-card.compact .gender-role-donut{padding:14px 12px}
+  .gender-role-donut .donut-wrap,
+  .age-nuke-card .gender-role-donut .donut-wrap,
+  .age-market-card .gender-role-donut .donut-wrap{
+    grid-template-columns:1fr;
+    gap:12px;
+    width:min(100%,260px);
+    margin-inline:auto;
+    padding-top:16px;
+  }
+  .gender-role-donut .donut,
+  .age-nuke-card .gender-role-donut .donut,
+  .age-market-card .gender-role-donut .donut{
+    width:132px;
+    height:132px;
+  }
+  .gender-role-donut .donut::after,
+  .age-nuke-card .gender-role-donut .donut::after,
+  .age-market-card .gender-role-donut .donut::after{inset:24px}
+  .gender-role-donut .donut-center strong{font-size:22px}
+  .gender-role-donut .donut-center span{font-size:12px}
+  .gender-role-donut .legend{width:min(100%,240px);justify-self:center}
+  .gender-role-donut .legend-label{font-size:13px}
+  .age-nuke-card .age-nuke-label,
+  .age-market-card .age-market-label{
+    position:static;
+    margin:0 0 10px;
+    text-align:center;
+  }
+  .metric-card{min-height:unset;padding:20px 18px}
+  .metric-card strong{font-size:clamp(1.6rem,8vw,2.2rem)}
+  .page-head{margin-bottom:24px;padding-bottom:14px}
+  .role-opinion-card{grid-template-rows:auto auto auto}
+  .line-legend{
+    flex-wrap:wrap;
+    gap:10px 16px;
+    justify-content:flex-start;
+  }
+  .power-matrix-wrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .power-matrix{
+    min-width:680px;
+  }
   .role-chart-section{height:auto}
   .qualitative-header-row,
   .qual-row{grid-template-columns:1fr}
@@ -1884,11 +1939,179 @@ button{font:inherit}
 }
 @media (max-width:560px){
   .hero{padding-left:16px;padding-right:16px}
-  .sticky-inner{padding-left:16px;padding-right:16px}
+  .sticky-inner{
+    padding:12px 16px;
+    width:min(var(--max-width), calc(100vw - 20px));
+  }
   .hero-inner,.sticky-inner,.page{width:min(var(--max-width), calc(100vw - 32px))}
+  .eyebrow{font-size:11px;letter-spacing:.18em}
   .hero-sub{font-size:16px;gap:8px 10px}
-  .nav{gap:10px}
-  .nav-btn{min-width:calc(50% - 5px);padding:12px 16px;font-size:15px}
+  .sticky{
+    overflow:hidden;
+  }
+  .nav{
+    flex-wrap:nowrap;
+    gap:10px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    padding-bottom:2px;
+    scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .nav::-webkit-scrollbar{display:none}
+  .nav-btn{
+    flex:0 0 auto;
+    min-width:132px;
+    padding:13px 18px;
+    font-size:15px;
+    border-width:1.75px;
+    scroll-snap-align:start;
+  }
+  .bar-row{grid-template-columns:minmax(104px,144px) minmax(0,1fr) 44px;gap:6px}
+  .bar-list.scene-bars .bar-row{grid-template-columns:minmax(104px,142px) minmax(0,1fr) 44px}
+  .bar-label,
+  .bar-list.scene-bars .bar-label{font-size:12px}
+  .linked-title{font-size:13px}
+  .page-sub{font-size:14px;line-height:1.55}
+  .chart-insight{font-size:14px;line-height:1.75}
+  .line-legend{gap:8px 14px}
+  .supplement-card .supplement-body{padding:18px 18px 18px 20px}
+}
+@media (min-width:391px) and (max-width:430px){
+  .hero{
+    padding:
+      78px
+      max(18px, env(safe-area-inset-right))
+      44px
+      max(18px, env(safe-area-inset-left));
+  }
+  .hero-inner,
+  .page{
+    width:100%;
+    max-width:none;
+  }
+  .sticky-inner{
+    width:100%;
+    max-width:none;
+    padding:
+      12px
+      max(16px, env(safe-area-inset-right))
+      12px
+      max(16px, env(safe-area-inset-left));
+  }
+  .page{
+    width:100%;
+    max-width:none;
+    padding-inline:max(18px, env(safe-area-inset-left)) max(18px, env(safe-area-inset-right));
+  }
+  .hero h1{
+    white-space:normal;
+    font-size:clamp(1.6rem, 7.4vw, 2.2rem);
+    line-height:1.18;
+  }
+  .hero-sub{
+    font-size:15px;
+    gap:8px 12px;
+    line-height:1.55;
+  }
+  .hero-sub-item{
+    gap:3px;
+  }
+  .nav{
+    gap:10px;
+  }
+  .nav-btn{
+    min-width:136px;
+    padding:13px 18px;
+    font-size:15px;
+  }
+}
+@media (max-width:390px){
+  .hero{
+    padding:
+      72px
+      max(14px, env(safe-area-inset-right))
+      40px
+      max(14px, env(safe-area-inset-left));
+  }
+  .hero-inner,
+  .page{
+    width:100%;
+    max-width:none;
+  }
+  .sticky-inner{
+    width:100%;
+    max-width:none;
+    padding:
+      10px
+      max(12px, env(safe-area-inset-right))
+      10px
+      max(12px, env(safe-area-inset-left));
+  }
+  .page{
+    width:100%;
+    max-width:none;
+    padding-inline:max(14px, env(safe-area-inset-left)) max(14px, env(safe-area-inset-right));
+    padding-top:42px;
+  }
+  .hero h1{
+    white-space:normal;
+    font-size:clamp(1.42rem, 7vw, 1.95rem);
+    line-height:1.18;
+  }
+  .eyebrow{
+    font-size:10px;
+    letter-spacing:.14em;
+  }
+  .hero-sub{
+    font-size:14px;
+    gap:7px 10px;
+    line-height:1.55;
+  }
+  .hero-sub-item{
+    gap:3px;
+  }
+  .hero-sub-divider{
+    display:none;
+  }
+  .sticky{
+    overflow:hidden;
+  }
+  .nav{
+    gap:8px;
+    padding-bottom:1px;
+  }
+  .nav-btn{
+    min-width:124px;
+    padding:12px 16px;
+    font-size:14px;
+    border-radius:18px;
+  }
+  .page-head{
+    margin-bottom:20px;
+  }
+  .page-title{
+    font-size:24px;
+    line-height:1.18;
+  }
+  .page-sub{
+    font-size:13px;
+    line-height:1.5;
+  }
+  .card{
+    border-radius:18px;
+  }
+  .card-head{
+    gap:10px;
+  }
+  .card-title{
+    font-size:18px;
+    line-height:1.26;
+  }
+  .metric-card strong{
+    font-size:clamp(1.5rem, 9vw, 2rem);
+  }
 }
 </style>
 </head>
@@ -4607,12 +4830,22 @@ const openResponseData = window.BLIND_TEST_OPEN_RESPONSE_DATA || {"villain":["�
                 const count = item.values[group.key].count || 0;
                 const total = groupTotals[group.key] || 0;
                 return `
-                  <div class="gender-role-donut">
-                    <div class="age-market-label">${group.label}比例</div>
-                    ${buildDonut([
-                      { label: `${count}人`, count: count, color: group.color },
-                      { label: `${Math.max(total - count, 0)}人未選`, count: Math.max(total - count, 0), color: "var(--stone)" }
-                    ], total, group.label, `${count}人`)}
+                  <div class="theme gender-role-card age-nuke-card">
+                    <div class="theme-head">
+                      <div>
+                        <div class="theme-title">${group.label}</div>
+                        <div class="card-note">n=${total}</div>
+                      </div>
+                    </div>
+                    <div class="gender-role-donuts">
+                      <div class="gender-role-donut">
+                        <div class="age-market-label">${group.label}比例</div>
+                        ${buildDonut([
+                          { label: `${count}人`, count: count, color: group.color },
+                          { label: `${Math.max(total - count, 0)}人未選`, count: Math.max(total - count, 0), color: "var(--stone)" }
+                        ], total, group.label, `${count}人`)}
+                      </div>
+                    </div>
                   </div>
                 `;
               }).join("")}
