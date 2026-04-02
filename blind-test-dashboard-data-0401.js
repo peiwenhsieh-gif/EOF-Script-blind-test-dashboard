@@ -1781,44 +1781,59 @@ window.BLIND_TEST_DATA = {
   "audience": {
     "occupation": [
       {
-        "label": "科技業",
-        "count": 8,
+        "label": "科技 / 網路 / 軟體",
+        "count": 5,
         "color": "var(--blue)"
       },
       {
-        "label": "學生",
-        "count": 6,
-        "color": "var(--stone)"
-      },
-      {
-        "label": "金融業",
+        "label": "金融 / 商業 / 顧問 / 貿易",
         "count": 5,
-        "color": "var(--gold)"
+        "color": "var(--bronze)"
       },
       {
-        "label": "行銷／媒體",
-        "count": 5,
-        "color": "var(--gold)"
-      },
-      {
-        "label": "其他（顧問・教師・政府機關）",
+        "label": "教育 / 學術 / 研究",
         "count": 4,
-        "color": "var(--stone)"
+        "color": "var(--gold)"
       },
       {
-        "label": "醫療業",
-        "count": 2,
-        "color": "var(--green)"
+        "label": "學生",
+        "count": 4,
+        "color": "var(--sage)"
       },
       {
-        "label": "自由業（接案/藝文）",
-        "count": 2,
+        "label": "電商 / 數位商業 / 線上課程",
+        "count": 4,
+        "color": "var(--teal)"
+      },
+      {
+        "label": "行銷 / 媒體 / 廣告 / 內容",
+        "count": 3,
         "color": "var(--orange)"
       },
       {
-        "label": "建築／營造",
+        "label": "醫療 / 生技 / 健康",
+        "count": 3,
+        "color": "var(--green)"
+      },
+      {
+        "label": "其他服務業",
         "count": 2,
         "color": "var(--stone)"
+      },
+      {
+        "label": "藝文 / 設計 / 自由接案",
+        "count": 2,
+        "color": "var(--sand)"
+      },
+      {
+        "label": "建築 / 營造 / 工程 / 製造",
+        "count": 2,
+        "color": "var(--steel)"
+      },
+      {
+        "label": "法政 / 公部門",
+        "count": 1,
+        "color": "var(--plum)"
       }
     ],
     "genre": [
