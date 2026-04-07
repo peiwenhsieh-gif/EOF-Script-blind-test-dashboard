@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>《變形者集結：虎姑婆》觀眾盲測數據分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ── VARIABLES ── */
+:root{
+  --bg:#0c0c0e;--surface:#15151a;--surface2:#1e1e26;--border:#2a2a38;
+  --gold:#e8c87a;--orange:#c46e3a;--blue:#6a9fd8;--green:#5fad8e;
+  --danger:#d95f5f;--muted:#b0aa9e;--text:#f0ece0;
+  /* 角色代表色 */
+  --c-tiger:#e8c87a;   /* 虎姑婆 gold */
+  --c-bai:#c46e3a;     /* 白賊七 orange */
+  --c-nose:#6a9fd8;    /* 好鼻師 blue */
+  --c-jie:#5fad8e;     /* 小潔 green */
+  --c-boss:#d95f5f;    /* 局長 danger */
+  --c-deng:#9b7fd4;    /* 鄧小姐 purple */
+  --c-lizard:#8ab4c4;  /* 水蛇/局長手下 淺色系 */
+  --c-snake:#8ab4c4;
+  /* 字體基準 */
+  --fs-base:19px;
+  --fs-sm:17px;
+  --fs-xs:15px;
+  --fs-label:15px;
+  --fs-hero:clamp(1.6rem,3vw,2.8rem);
+  --fs-kpi:2.8rem;
+  --fs-sec:26px;
+}
+
+/* ── RESET ── */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans TC',sans-serif;
+  font-weight:300;line-height:1.75;font-size:var(--fs-base);overflow-x:hidden}
+
+/* ── HERO ── */
+.hero{position:relative;padding:56px 32px 44px;border-bottom:1px solid var(--border);overflow:hidden}
+.hero::before{content:'';position:absolute;top:-100px;right:-60px;width:500px;height:500px;
+  background:radial-gradient(circle,rgba(232,200,122,.05) 0%,transparent 65%);pointer-events:none}
+.eyebrow{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:3px;
+  color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-family:'Noto Serif TC',serif;font-size:var(--fs-hero);font-weight:300;
+  line-height:1.2;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero h1 em{font-style:normal;color:var(--text)}
+.hero-sub{color:var(--muted);font-size:14px;letter-spacing:1px}
+.hero-stats{display:flex;gap:36px;margin-top:28px;flex-wrap:wrap;align-items:flex-end}
+.hs-num{font-family:'Space Mono',monospace;font-size:2rem;color:var(--gold);line-height:1;display:block}
+.hs-label{font-size:12px;color:var(--muted);letter-spacing:1px;margin-top:3px}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:100;background:rgba(12,12,14,.97);
+  border-bottom:1px solid var(--border);padding:0 20px;display:flex;justify-content:center;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nb{padding:14px 14px;background:none;border:none;color:var(--muted);
+  font-family:'Noto Sans TC',sans-serif;font-size:16px;cursor:pointer;
+  white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}
+.nb:hover{color:var(--text)}.nb.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* ── SECTIONS ── */
+.sec{display:none;padding:40px 24px;max-width:1400px;margin:0 auto;animation:fi .25s ease}
+.sec.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.sec-title{font-family:'Noto Serif TC',serif;font-size:var(--fs-sec);font-weight:400;
+  color:var(--gold);margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px}
+.sec-title::before{content:'';width:4px;height:22px;background:var(--gold);border-radius:2px;flex-shrink:0}
+
+/* ── GRID ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.gap{margin-bottom:20px}
+
+/* ── CARD ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:22px;position:relative;overflow:hidden}
+/* Note 3: two-column alignment — push .ins to bottom so both cards align */
+.g2>.card{display:flex;flex-direction:column}
+.g2>.card .ins{margin-top:auto;padding-top:12px}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,200,122,.2),transparent)}
+.card.span2{grid-column:span 2}
+.ct{font-family:'Space Mono',monospace;font-size:15px;letter-spacing:2px;
+  text-transform:uppercase;color:#c8c2b4;margin-bottom:14px}
+.n-tag{font-family:'Space Mono',monospace;font-size:14px;color:var(--muted);
+  background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+  padding:1px 7px;margin-left:6px;vertical-align:middle}
+
+/* ── KPI ── */
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:20px 16px;text-align:center;position:relative;overflow:hidden}
+.kpi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;border-radius:0 0 12px 12px}
+.kpi.g::after{background:var(--gold)}.kpi.o::after{background:var(--orange)}
+.kpi.b::after{background:var(--blue)}.kpi.gr::after{background:var(--green)}.kpi.r::after{background:var(--danger)}
+.kpi-n{font-family:'Space Mono',monospace;font-size:var(--fs-kpi);font-weight:700;line-height:1;margin-bottom:6px}
+.kpi.g .kpi-n{color:var(--gold)}.kpi.o .kpi-n{color:var(--orange)}
+.kpi.b .kpi-n{color:var(--blue)}.kpi.gr .kpi-n{color:var(--green)}.kpi.r .kpi-n{color:var(--danger)}
+.kpi-l{font-size:16px;color:var(--muted)}
+
+/* ── DONUT ── */
+.donut-wrap{position:relative;flex-shrink:0}
+.donut-svg{display:block}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.donut-num{font-family:'Space Mono',monospace;font-weight:700;color:var(--gold);display:block;line-height:1}
+.donut-sub{font-size:14px;color:var(--muted);margin-top:2px}
+.dr{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.leg{display:flex;flex-direction:column;gap:8px;flex:1;min-width:120px}
+.li{display:flex;align-items:center;gap:8px;font-size:var(--fs-sm)}
+.ld{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.lp{font-family:'Space Mono',monospace;font-size:15px;color:var(--muted);margin-left:auto}
+
+/* ── HORIZONTAL BAR ── */
+.hbl{display:flex;flex-direction:column;gap:11px}
+.hbi{display:flex;align-items:center;gap:10px;transition:opacity .3s}
+.hbi.dimmed{opacity:.15}
+.hb-label{font-size:var(--fs-sm);color:var(--text);flex-shrink:0;width:110px;text-align:right;line-height:1.3;white-space:nowrap}
+.hb-label.w{width:150px;white-space:nowrap}
+.hb-track{flex:1;height:26px;background:var(--surface2);border-radius:4px;overflow:hidden}
+.hb-fill{height:100%;border-radius:4px;display:flex;align-items:center;
+  justify-content:flex-end;padding:0 8px;min-width:26px}
+.hb-val{font-family:'Space Mono',monospace;font-size:15px;color:rgba(0,0,0,.8);font-weight:700}
+.hb-pct{font-family:'Space Mono',monospace;font-size:15px;color:var(--text);width:52px;text-align:right;flex-shrink:0}
+
+/* ── DUAL BAR ── */
+.dual-item{margin-bottom:14px}
+.dual-label{font-size:var(--fs-sm);color:var(--text);margin-bottom:6px}
+.dual-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.dual-g{font-size:14px;font-family:'Space Mono',monospace;width:22px;flex-shrink:0}
+
+/* ── PROGRESS ── */
+.prog{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;margin-bottom:5px}
+.prog-fill{height:100%;border-radius:4px}
+
+/* ── SCORE BARS ── */
+.score-wrap{display:flex;align-items:flex-end;gap:6px;height:110px;margin-bottom:8px}
+.sb{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+.sb-col{width:100%;border-radius:3px 3px 0 0;position:relative}
+.sb-cnt{font-family:'Space Mono',monospace;font-size:15px;color:var(--text);
+  position:absolute;top:-24px;left:50%;transform:translateX(-50%);white-space:nowrap;font-weight:700}
+.sb-cnt span{font-size:13px;color:var(--muted);font-weight:300}
+.sb-num{font-family:'Space Mono',monospace;font-size:15px;color:var(--muted)}
+.sb-num span{font-size:13px;color:var(--muted)}
+
+/* ── INSIGHT ── */
+.ins{background:linear-gradient(135deg,rgba(232,200,122,.06),rgba(196,110,58,.04));
+  border:1px solid rgba(232,200,122,.18);border-radius:8px;padding:12px 16px;
+  margin-top:14px;font-size:var(--fs-sm);line-height:1.8;color:var(--text)}
+.ins strong{color:var(--gold);font-weight:500}
+
+/* ── CHAR FILTER ── */
+.char-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;
+  padding:14px 16px;background:var(--surface2);border-radius:10px;border:1px solid var(--border)}
+.cf-label{font-family:'Space Mono',monospace;font-size:14px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--muted);width:100%;margin-bottom:6px}
+.cf-btn{padding:5px 13px;border-radius:16px;font-size:var(--fs-sm);border:1px solid var(--border);
+  background:none;color:var(--muted);cursor:pointer;transition:all .2s;font-family:'Noto Sans TC',sans-serif}
+.cf-btn:hover{border-color:var(--gold);color:var(--gold)}
+.cf-btn.active{color:#fff;font-weight:500;border-color:transparent}
+.cf-btn[data-char="全部"].active{background:var(--gold);color:#000}
+.cf-btn[data-char="虎姑婆"].active{background:var(--c-tiger);color:#000}
+.cf-btn[data-char="白賊七"].active{background:var(--c-bai)}
+.cf-btn[data-char="好鼻師"].active{background:var(--c-nose)}
+.cf-btn[data-char="小潔"].active{background:var(--c-jie);color:#000}
+.cf-btn[data-char="局長"].active{background:var(--c-boss)}
+.cf-btn[data-char="鄧小姐"].active{background:var(--c-deng)}
+.cf-btn[data-char="蜥蜴"].active{background:var(--c-lizard)}
+.cf-btn[data-char="水蛇"].active{background:var(--c-snake)}
+
+/* ── ACCORDION (喜歡/不喜歡原因) ── */
+.accordion{margin-top:4px}
+.acc-item{border-top:1px solid var(--border)}
+.acc-item:first-child{border-top:none}
+.acc-header{display:flex;align-items:center;gap:10px;padding:10px 0;cursor:pointer;user-select:none}
+.acc-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.acc-name{font-size:var(--fs-sm);color:var(--text);flex:1}
+.acc-arrow{font-size:14px;color:var(--muted);transition:transform .25s;flex-shrink:0}
+.acc-header.open .acc-arrow{transform:rotate(180deg)}
+.acc-body{display:none;padding:4px 0 12px 20px;font-size:var(--fs-sm);color:var(--muted);line-height:1.7}
+.acc-body.open{display:block}
+.acc-quote{padding:4px 0;border-bottom:1px solid rgba(42,42,56,.4)}
+.acc-quote:last-child{border-bottom:none}
+.acc-quote::before{content:'「';color:var(--gold);opacity:.6;font-family:'Noto Serif TC',serif}
+.acc-quote::after{content:'」';color:var(--gold);opacity:.6;font-family:'Noto Serif TC',serif}
+
+/* ── EXPAND QUOTES ── */
+.expand-btn{display:flex;align-items:center;gap:6px;margin-top:10px;background:none;
+  border:1px solid var(--border);border-radius:6px;padding:7px 12px;cursor:pointer;
+  font-size:var(--fs-xs);color:var(--muted);font-family:'Noto Sans TC',sans-serif;
+  transition:all .2s;width:100%}
+.expand-btn:hover{border-color:var(--gold);color:var(--gold)}
+.expand-btn .arrow{transition:transform .3s;font-size:14px}
+.expand-btn.open .arrow{transform:rotate(180deg)}
+.raw-quotes{display:none;margin-top:10px;border-top:1px solid var(--border);
+  padding-top:10px;max-height:300px;overflow-y:auto}
+.raw-quotes.open{display:block}
+.raw-quotes::-webkit-scrollbar{width:3px}
+.raw-quotes::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.rq-item{font-size:var(--fs-sm);color:var(--muted);line-height:1.6;
+  padding:7px 0;border-bottom:1px solid rgba(42,42,56,.4)}
+.rq-item::before{content:'「';color:var(--gold);opacity:.5;font-family:'Noto Serif TC',serif}
+.rq-item::after{content:'」';color:var(--gold);opacity:.5;font-family:'Noto Serif TC',serif}
+.rq-item:last-child{border-bottom:none}
+.rq-n{font-family:'Space Mono',monospace;font-size:11px;color:var(--gold);opacity:.7;margin-right:5px}
+
+/* ── THEME BLOCK ── */
+.theme-block{background:var(--surface2);border:1px solid var(--border);border-radius:10px;
+  padding:16px 18px;margin-bottom:12px;transition:opacity .3s}
+.theme-block.dimmed{opacity:.15}
+.theme-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+.theme-count{font-family:'Space Mono',monospace;font-size:14px;padding:3px 10px;
+  border-radius:12px;flex-shrink:0;margin-top:1px}
+.theme-count.r{background:rgba(217,95,95,.15);color:var(--danger);border:1px solid rgba(217,95,95,.25)}
+.theme-count.o{background:rgba(196,110,58,.15);color:var(--orange);border:1px solid rgba(196,110,58,.25)}
+.theme-count.b{background:rgba(106,159,216,.15);color:var(--blue);border:1px solid rgba(106,159,216,.25)}
+.theme-count.g{background:rgba(232,200,122,.12);color:var(--gold);border:1px solid rgba(232,200,122,.25)}
+.theme-count.gr{background:rgba(95,173,142,.15);color:var(--green);border:1px solid rgba(95,173,142,.25)}
+.theme-title{font-size:18px;color:var(--text);font-weight:400;line-height:1.4}
+.theme-quotes{display:flex;flex-direction:column;gap:6px}
+.tq{font-size:var(--fs-sm);color:var(--muted);line-height:1.6;padding-left:14px;padding-right:14px;position:relative}
+.tq::before{content:'「';position:absolute;left:0;color:var(--gold);opacity:.5;font-family:'Noto Serif TC',serif}
+.tq::after{content:'」';color:var(--gold);opacity:.5;font-family:'Noto Serif TC',serif}
+
+/* ── CHAR CARDS ── */
+.char-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.char-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px}
+.char-card-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.char-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.char-name{font-size:18px;color:var(--text);font-weight:400}
+.char-dim{display:flex;flex-direction:column;gap:8px}
+.char-dim-row{display:flex;flex-direction:column;gap:4px}
+.char-dim-label{font-size:14px;color:var(--muted);display:flex;justify-content:space-between}
+.char-dim-bar{height:8px;background:var(--surface);border-radius:3px;overflow:hidden;border:1px solid var(--border)}
+.char-dim-fill{height:100%;border-radius:3px}
+
+/* ── SCENE LIST ── */
+.scene-list{display:flex;flex-direction:column}
+.si{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
+.si:last-child{border-bottom:none}
+.si-pct{font-family:'Space Mono',monospace;font-size:16px;color:var(--gold);width:48px;flex-shrink:0;padding-top:2px}
+.si-bar{flex:1;display:flex;flex-direction:column;gap:5px}
+.si-name{font-size:var(--fs-sm);color:var(--text);line-height:1.4}
+.si-track{height:5px;background:var(--surface2);border-radius:2px;overflow:hidden}
+.si-fill{height:100%;background:var(--gold);border-radius:2px;opacity:.7}
+.si-n{font-family:'Space Mono',monospace;font-size:14px;color:var(--muted);flex-shrink:0;padding-top:2px}
+
+/* ── SEG CTRL ── */
+.seg-ctrl{display:flex;gap:8px;margin-bottom:16px}
+.seg-btn{padding:6px 16px;border-radius:16px;font-size:var(--fs-sm);border:1px solid var(--border);
+  background:none;color:var(--muted);cursor:pointer;transition:all .2s;font-family:'Noto Sans TC',sans-serif}
+.seg-btn.active{background:var(--gold);border-color:var(--gold);color:#000}
+.cross-view{display:none}.cross-view.active{display:block}
+
+/* ── PRIORITY ── */
+.p-item{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}
+.p-item:last-child{border-bottom:none}
+.p-badge{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;
+  padding:3px 8px;border-radius:4px;flex-shrink:0;margin-top:2px}
+.p1{background:var(--danger);color:#fff}.p2{background:var(--orange);color:#fff}.p3{background:var(--blue);color:#000}
+.p-title{font-size:18px;color:var(--text);margin-bottom:3px}
+.p-desc{font-size:var(--fs-sm);color:var(--muted);line-height:1.6}
+
+/* ── TABLE ── */
+.st{width:100%;border-collapse:collapse;font-size:var(--fs-sm)}
+.st th{text-align:left;padding:10px 12px;background:var(--surface2);color:var(--muted);
+  font-family:'Space Mono',monospace;font-size:13px;letter-spacing:1.5px;
+  text-transform:uppercase;border-bottom:1px solid var(--border)}
+.st td{padding:11px 12px;border-bottom:1px solid rgba(42,42,56,.5);vertical-align:top;line-height:1.5}
+.st tr:last-child td{border-bottom:none}
+.st tr:hover td{background:rgba(232,200,122,.025)}
+td.lbl{color:var(--gold);font-size:15px;white-space:nowrap}
+
+/* ── TAGS ── */
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{padding:5px 12px;border-radius:16px;font-size:var(--fs-sm);border:1px solid;cursor:default}
+
+/* ── SVG LINE CHART ── */
+.line-svg{width:100%;overflow:visible}
+
+/* ── RWD ── */
+@media(min-width:900px){
+  :root{--fs-base:20px;--fs-sm:18px;--fs-xs:16px;--fs-label:16px;--fs-kpi:3.2rem;--fs-sec:28px}
+  .hero{padding:72px 64px 56px}
+  .nav{padding:0 64px}
+  .sec{padding:56px 64px}
+  .hb-label{width:130px}.hb-label.w{width:180px}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:600px){
+  .hero h1{font-size:1.4rem;white-space:normal}
+  .g2,.g3{grid-template-columns:1fr}
+  .g4{grid-template-columns:1fr 1fr}
+  .card.span2{grid-column:span 1}
+  .dr{flex-direction:column;align-items:flex-start}
+  .hb-label{width:80px}.hb-label.w{width:100px}
+  .char-cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">彼此影業 · 劇本盲測 · 2026 · Based on Script 20260213</div>
+  <h1>《<em>變形者集結：虎姑婆</em>》觀眾盲測數據分析</h1>
+  <div class="hero-sub">NDA發出 53 份｜問卷發出 45 份｜問卷回覆 35 份（n=35）</div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <button class="nb active" onclick="show('audience',this)">觀眾</button>
+  <button class="nb" onclick="show('characters',this)">角色</button>
+  <button class="nb" onclick="show('powers',this)">超能力</button>
+  <button class="nb" onclick="show('plot',this)">劇情</button>
+  <button class="nb" onclick="show('reception',this)">市場</button>
+  <button class="nb" onclick="show('cross',this)">交叉分析</button>
+  <button class="nb" onclick="show('qualitative',this)">質化</button>
+  <button class="nb" onclick="show('insights',this)">洞察</button>
+</nav>
+
+<!-- ===== OVERVIEW ===== -->
+<!-- ===== AUDIENCE ===== -->
+<section id="audience" class="sec active">
+  <div class="sec-title">觀眾輪廓</div>
+  <div class="g2 gap">
+    <div class="card">
+      <div class="ct">性別 <span class="n-tag">單選 · n=35</span></div>
+      <div class="dr">
+        <svg class="donut-wrap donut-svg" width="140" height="140" viewBox="0 0 140 140">
+          <circle cx="70" cy="70" r="54" fill="none" stroke="var(--surface2)" stroke-width="20"/>
+          <circle cx="70" cy="70" r="54" fill="none" stroke="var(--c-tiger)" stroke-width="20"
+            stroke-dasharray="203.6 339.3" stroke-dashoffset="0" transform="rotate(-90 70 70)"/>
+          <circle cx="70" cy="70" r="54" fill="none" stroke="var(--c-nose)" stroke-width="20"
+            stroke-dasharray="135.7 339.3" stroke-dashoffset="-203.6" transform="rotate(-90 70 70)"/>
+          <text x="70" y="66" text-anchor="middle" font-family="'Space Mono',monospace" font-size="14" font-weight="700" fill="var(--gold)">35</text>
+          <text x="70" y="80" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--muted)">人</text>
+        </svg>
+        <div class="leg">
+          <div class="li"><div class="ld" style="background:var(--c-tiger)"></div>生理男<span class="lp">21人 60.0%</span></div>
+          <div class="li"><div class="ld" style="background:var(--c-nose)"></div>生理女<span class="lp">14人 40.0%</span></div>
+        </div>
+      </div>
+      <div class="ins">樣本以生理男為主（60.0%），後續數據解讀需留意性別代表性不均的影響。</div>
+    </div>
+    <div class="card">
+      <div class="ct">觀影頻率 <span class="n-tag">單選 · n=35</span></div>
+      <div class="hbl">
+        <div class="hbi"><div class="hb-label">三個月一次</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--gold)"><span class="hb-val">13</span></div></div><div class="hb-pct">37.1%</div></div>
+        <div class="hbi"><div class="hb-label">一個月一次</div><div class="hb-track"><div class="hb-fill" style="width:92%;background:var(--gold)"><span class="hb-val">12</span></div></div><div class="hb-pct">34.3%</div></div>
+        <div class="hbi"><div class="hb-label">半年一次</div><div class="hb-track"><div class="hb-fill" style="width:54%;background:var(--orange)"><span class="hb-val">7</span></div></div><div class="hb-pct">20.0%</div></div>
+        <div class="hbi"><div class="hb-label">一週以上</div><div class="hb-track"><div class="hb-fill" style="width:15%;background:var(--muted)"><span class="hb-val">2</span></div></div><div class="hb-pct">5.7%</div></div>
+        <div class="hbi"><div class="hb-label">一年一次</div><div class="hb-track"><div class="hb-fill" style="width:8%;background:var(--muted)"><span class="hb-val">1</span></div></div><div class="hb-pct">2.9%</div></div>
+      </div>
+      <div class="ins">77.1% 每季以上定期進場（每月一次或更頻繁佔 40.0%），低頻觀影族（半年以上才進場）僅 22.9%——整體為高黏著度的習慣型院線觀眾。</div>
+    </div>
+  </div>
+
+  <div class="card gap">
+    <div class="ct">年齡分布 <span class="n-tag">單選 · n=35</span></div>
+    <div class="hbl">
+      <div class="hbi"><div class="hb-label">21–25歲</div><div class="hb-track"><div class="hb-fill" style="width:36%;background:var(--blue)"><span class="hb-val">4</span></div></div><div class="hb-pct">11.4%</div></div>
+      <div class="hbi"><div class="hb-label">26–30歲</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--gold)"><span class="hb-val">11</span></div></div><div class="hb-pct">31.4%</div></div>
+      <div class="hbi"><div class="hb-label">31–35歲</div><div class="hb-track"><div class="hb-fill" style="width:64%;background:var(--gold)"><span class="hb-val">7</span></div></div><div class="hb-pct">20.0%</div></div>
+      <div class="hbi"><div class="hb-label">36–40歲</div><div class="hb-track"><div class="hb-fill" style="width:55%;background:var(--orange)"><span class="hb-val">6</span></div></div><div class="hb-pct">17.1%</div></div>
+      <div class="hbi"><div class="hb-label">41–45歲</div><div class="hb-track"><div class="hb-fill" style="width:45%;background:var(--orange)"><span class="hb-val">5</span></div></div><div class="hb-pct">14.3%</div></div>
+      <div class="hbi"><div class="hb-label">46–50歲</div><div class="hb-track"><div class="hb-fill" style="width:18%;background:var(--muted)"><span class="hb-val">2</span></div></div><div class="hb-pct">5.7%</div></div>
+    </div>
+    <div class="ins">主力受眾集中於 26–35 歲（51.4%），為本片的核心商業族群。</div>
+  </div>
+
+  <!-- 電影類型雷達圖 -->
+  <div class="card gap">
+    <div class="ct">喜愛電影類型 <span class="n-tag">多選 · n=35</span></div>
+    <svg viewBox="0 0 360 340" style="width:100%;max-width:600px;display:block;margin:8px auto">
+      <!-- Grid rings 25/50/75/100% -->
+      <polygon points="180,150.5 199.4,158.6 207.5,178 199.4,197.4 180,205.5 160.6,197.4 152.5,178 160.6,158.6" fill="none" stroke="var(--border)" stroke-width="0.8"/>
+      <polygon points="180,123 218.9,139.1 235,178 218.9,216.9 180,233 141.1,216.9 125,178 141.1,139.1" fill="none" stroke="var(--border)" stroke-width="0.8"/>
+      <polygon points="180,95.5 238.4,119.7 262.5,178 238.4,236.3 180,260.5 121.6,236.3 97.5,178 121.6,119.7" fill="none" stroke="var(--border)" stroke-width="0.8"/>
+      <polygon points="180,68 257.8,100.2 290,178 257.8,255.8 180,288 102.2,255.8 70,178 102.2,100.2" fill="none" stroke="var(--border)" stroke-width="1"/>
+      <!-- Axis lines from center (180,178) -->
+      <line x1="180" y1="178" x2="180" y2="68" stroke="var(--border)" stroke-width="0.8"/>
+      <line x1="180" y1="178" x2="257.8" y2="100.2" stroke="var(--border)" stroke-width="0.8"/>
+      <line x1="180" y1="178" x2="290" y2="178" stroke="var(--border)" stroke-width="0.8"/>
+      <line x1="180" y1="178" x2="257.8" y2="255.8" stroke="var(--border)" stroke-width="0.8"/>
+      <line x1="180" y1="178" x2="180" y2="288" stroke="var(--border)" stroke-width="0.8"/>
+      <line x1="180" y1="178" x2="102.2" y2="255.8" stroke="var(--border)" stroke-width="0.8"/>
+      <line x1="180" y1="178" x2="70" y2="178" stroke="var(--border)" stroke-width="0.8"/>
+      <line x1="180" y1="178" x2="102.2" y2="100.2" stroke="var(--border)" stroke-width="0.8"/>
+      <!-- Data: 超英91.4% 動作85.7% 奇幻88.6% 動漫82.9% 科幻62.9% 喜劇62.9% 刑偵40.0% 文藝34.3% -->
+      <polygon points="180,77.5 246.7,111.3 277.5,178 244.5,242.5 180,247.2 131.1,226.9 136.0,178 153.3,151.3" fill="var(--gold)" fill-opacity="0.18" stroke="var(--gold)" stroke-width="2" stroke-linejoin="round"/>
+      <circle cx="180" cy="77.5" r="4" fill="var(--gold)"/>
+      <circle cx="246.7" cy="111.3" r="4" fill="var(--gold)"/>
+      <circle cx="277.5" cy="178" r="4" fill="var(--gold)"/>
+      <circle cx="244.5" cy="242.5" r="4" fill="var(--gold)"/>
+      <circle cx="180" cy="247.2" r="4" fill="var(--gold)"/>
+      <circle cx="131.1" cy="226.9" r="4" fill="var(--gold)"/>
+      <circle cx="136.0" cy="178" r="4" fill="var(--gold)"/>
+      <circle cx="153.3" cy="151.3" r="4" fill="var(--gold)"/>
+      <!-- Axis labels -->
+      <text x="180" y="52" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="13" fill="var(--text)">超英</text>
+      <text x="180" y="64" text-anchor="middle" font-family="'Space Mono',monospace" font-size="11" fill="var(--gold)">91.4%</text>
+      <text x="264" y="90" text-anchor="start" font-family="'Noto Sans TC',sans-serif" font-size="13" fill="var(--text)">動作</text>
+      <text x="264" y="102" text-anchor="start" font-family="'Space Mono',monospace" font-size="11" fill="var(--gold)">85.7%</text>
+      <text x="298" y="174" text-anchor="start" font-family="'Noto Sans TC',sans-serif" font-size="13" fill="var(--text)">奇幻冒險</text>
+      <text x="298" y="186" text-anchor="start" font-family="'Space Mono',monospace" font-size="11" fill="var(--gold)">88.6%</text>
+      <text x="264" y="264" text-anchor="start" font-family="'Noto Sans TC',sans-serif" font-size="13" fill="var(--text)">動漫</text>
+      <text x="264" y="276" text-anchor="start" font-family="'Space Mono',monospace" font-size="11" fill="var(--gold)">82.9%</text>
+      <text x="180" y="305" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="13" fill="var(--text)">科幻</text>
+      <text x="180" y="317" text-anchor="middle" font-family="'Space Mono',monospace" font-size="11" fill="var(--gold)">62.9%</text>
+      <text x="97" y="264" text-anchor="end" font-family="'Noto Sans TC',sans-serif" font-size="13" fill="var(--text)">喜劇</text>
+      <text x="97" y="276" text-anchor="end" font-family="'Space Mono',monospace" font-size="11" fill="var(--gold)">62.9%</text>
+      <text x="62" y="174" text-anchor="end" font-family="'Noto Sans TC',sans-serif" font-size="13" fill="var(--text)">刑偵</text>
+      <text x="62" y="186" text-anchor="end" font-family="'Space Mono',monospace" font-size="11" fill="var(--gold)">40.0%</text>
+      <text x="97" y="90" text-anchor="end" font-family="'Noto Sans TC',sans-serif" font-size="13" fill="var(--text)">文藝</text>
+      <text x="97" y="102" text-anchor="end" font-family="'Space Mono',monospace" font-size="11" fill="var(--gold)">34.3%</text>
+    </svg>
+    <div class="ins">受眾口味與本片類型高度吻合——超英、動作、奇幻均超過 85%，動漫受眾達 82.9%，類型定位精準且跨次文化覆蓋廣。</div>
+  </div>
+
+  <!-- 近期觀影清單 -->
+  <div class="card gap">
+    <div class="ct">近期觀影清單取樣分析 <span class="n-tag">開放填答 · n=35</span></div>
+    <div style="font-size:var(--fs-xs);color:var(--muted);margin-bottom:10px">各受測者自由填寫，下方為提及次數統計（同片不同寫法已合併計算）</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+      <!-- 台灣國片 -->
+      <div style="background:var(--surface2);border-radius:8px;padding:12px">
+        <div style="font-size:var(--fs-xs);letter-spacing:1px;color:var(--c-tiger);margin-bottom:8px;font-family:'Space Mono',monospace">台灣國片</div>
+        <div class="hbl" style="gap:6px">
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">陽光女子合唱團</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--c-tiger)"><span class="hb-val" style="font-size:13px">9</span></div></div></div>
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">大濛</div><div class="hb-track"><div class="hb-fill" style="width:89%;background:var(--c-tiger)"><span class="hb-val" style="font-size:13px">8</span></div></div></div>
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">雙囍</div><div class="hb-track"><div class="hb-fill" style="width:33%;background:var(--c-tiger)"><span class="hb-val" style="font-size:13px">3</span></div></div></div>
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">冠軍之路</div><div class="hb-track"><div class="hb-fill" style="width:22%;background:#a07040"><span class="hb-val" style="font-size:13px">2</span></div></div></div>
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">女孩</div><div class="hb-track"><div class="hb-fill" style="width:22%;background:#a07040"><span class="hb-val" style="font-size:13px">2</span></div></div></div>
+        </div>
+      </div>
+      <!-- 劇情／其他 -->
+      <div style="background:var(--surface2);border-radius:8px;padding:12px">
+        <div style="font-size:var(--fs-xs);letter-spacing:1px;color:var(--green);margin-bottom:8px;font-family:'Space Mono',monospace">劇情／其他</div>
+        <div class="hbl" style="gap:6px">
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">換乘真愛</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--green)"><span class="hb-val" style="font-size:13px">2</span></div></div></div>
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">國寶</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--green)"><span class="hb-val" style="font-size:13px">2</span></div></div></div>
+        </div>
+      </div>
+      <!-- 好萊塢／視效大片 -->
+      <div style="background:var(--surface2);border-radius:8px;padding:12px">
+        <div style="font-size:var(--fs-xs);letter-spacing:1px;color:var(--orange);margin-bottom:8px;font-family:'Space Mono',monospace">好萊塢／視效大片</div>
+        <div class="hbl" style="gap:6px">
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">阿凡達 3</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--orange)"><span class="hb-val" style="font-size:13px">3</span></div></div></div>
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">Marty Supreme</div><div class="hb-track"><div class="hb-fill" style="width:67%;background:var(--orange)"><span class="hb-val" style="font-size:13px">2</span></div></div></div>
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">不可能的任務</div><div class="hb-track"><div class="hb-fill" style="width:67%;background:var(--orange)"><span class="hb-val" style="font-size:13px">2</span></div></div></div>
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">魔法壞女巫 2</div><div class="hb-track"><div class="hb-fill" style="width:33%;background:#885533"><span class="hb-val" style="font-size:13px">1</span></div></div></div>
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">全知讀者視角</div><div class="hb-track"><div class="hb-fill" style="width:33%;background:#885533"><span class="hb-val" style="font-size:13px">1</span></div></div></div>
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">F1</div><div class="hb-track"><div class="hb-fill" style="width:33%;background:#885533"><span class="hb-val" style="font-size:13px">1</span></div></div></div>
+        </div>
+      </div>
+      <!-- 動畫／日漫 -->
+      <div style="background:var(--surface2);border-radius:8px;padding:12px">
+        <div style="font-size:var(--fs-xs);letter-spacing:1px;color:var(--blue);margin-bottom:8px;font-family:'Space Mono',monospace">動畫／日漫</div>
+        <div class="hbl" style="gap:6px">
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">動物方城市 2</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--blue)"><span class="hb-val" style="font-size:13px">5</span></div></div></div>
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">鬼滅無限城</div><div class="hb-track"><div class="hb-fill" style="width:40%;background:var(--blue)"><span class="hb-val" style="font-size:13px">2</span></div></div></div>
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">荒野機器人</div><div class="hb-track"><div class="hb-fill" style="width:20%;background:#3a6a9a"><span class="hb-val" style="font-size:13px">1</span></div></div></div>
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">Mygo 總集篇</div><div class="hb-track"><div class="hb-fill" style="width:20%;background:#3a6a9a"><span class="hb-val" style="font-size:13px">1</span></div></div></div>
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">排球少年劇場版</div><div class="hb-track"><div class="hb-fill" style="width:20%;background:#3a6a9a"><span class="hb-val" style="font-size:13px">1</span></div></div></div>
+          <div class="hbi"><div class="hb-label" style="width:100px;font-size:13px;white-space:nowrap">藤本樹 17–21</div><div class="hb-track"><div class="hb-fill" style="width:20%;background:#3a6a9a"><span class="hb-val" style="font-size:13px">1</span></div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="ins">受眾近期主動觀看國片（陽光女子合唱團 9 人、大濛 8 人領銜），同步追蹤好萊塢視效大片與日漫；類型覆蓋廣泛，與本片定位高度相符。</div>
+  </div>
+
+  <!-- 職業分佈 -->
+  <div class="card gap">
+    <div class="ct">職業分佈 <span class="n-tag">單選 · n=35</span></div>
+    <div class="hbl">
+      <div class="hbi"><div class="hb-label w">科技業</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--blue)"><span class="hb-val">6</span></div></div><div class="hb-pct">17.1%</div></div>
+      <div class="hbi"><div class="hb-label w">自由業（接案/藝文）</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--orange)"><span class="hb-val">6</span></div></div><div class="hb-pct">17.1%</div></div>
+      <div class="hbi"><div class="hb-label w">行銷／媒體</div><div class="hb-track"><div class="hb-fill" style="width:83%;background:var(--gold)"><span class="hb-val">5</span></div></div><div class="hb-pct">14.3%</div></div>
+      <div class="hbi"><div class="hb-label w">金融業</div><div class="hb-track"><div class="hb-fill" style="width:83%;background:var(--gold)"><span class="hb-val">5</span></div></div><div class="hb-pct">14.3%</div></div>
+      <div class="hbi"><div class="hb-label w">其他（顧問・教師・政府機關等）</div><div class="hb-track"><div class="hb-fill" style="width:83%;background:#555"><span class="hb-val">5</span></div></div><div class="hb-pct">14.3%</div></div>
+      <div class="hbi"><div class="hb-label w">醫療業</div><div class="hb-track"><div class="hb-fill" style="width:50%;background:var(--green)"><span class="hb-val">3</span></div></div><div class="hb-pct">8.6%</div></div>
+      <div class="hbi"><div class="hb-label w">學生</div><div class="hb-track"><div class="hb-fill" style="width:50%;background:#777"><span class="hb-val">3</span></div></div><div class="hb-pct">8.6%</div></div>
+      <div class="hbi"><div class="hb-label w">建築／營造</div><div class="hb-track"><div class="hb-fill" style="width:33%;background:#777"><span class="hb-val">2</span></div></div><div class="hb-pct">5.7%</div></div>
+    </div>
+    <div class="ins">科技、行銷、金融三大族群合計 45.7%；自由業（接案/藝文）為 6 人（17.1%），與科技業並列最多；學生共 3 人（法律系、資訊工程系、哲學系）。</div>
+  </div>
+
+  <!-- 居住地 -->
+  <div class="card">
+    <div class="ct">居住地分佈 <span class="n-tag">單選 · n=35</span></div>
+    <div class="hbl">
+      <div class="hbi"><div class="hb-label w">新北市</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--gold)"><span class="hb-val">15</span></div></div><div class="hb-pct">42.9%</div></div>
+      <div class="hbi"><div class="hb-label w">台北市</div><div class="hb-track"><div class="hb-fill" style="width:80%;background:var(--gold)"><span class="hb-val">12</span></div></div><div class="hb-pct">34.3%</div></div>
+      <div class="hbi"><div class="hb-label w">桃園市</div><div class="hb-track"><div class="hb-fill" style="width:40%;background:var(--orange)"><span class="hb-val">6</span></div></div><div class="hb-pct">17.1%</div></div>
+      <div class="hbi"><div class="hb-label w">台中市</div><div class="hb-track"><div class="hb-fill" style="width:13%;background:#555"><span class="hb-val">2</span></div></div><div class="hb-pct">5.7%</div></div>
+    </div>
+    <div class="ins">受眾集中雙北（77.1%）與桃園（17.1%），台中占 5.7%。</div>
+  </div>
+
+  <div class="card gap">
+    <div class="ct">閱讀劇本前已知的妖怪傳說 <span class="n-tag">多選 · n=35</span></div>
+    <div class="hbl">
+      <div class="hbi"><div class="hb-label w">虎姑婆</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--c-tiger)"><span class="hb-val">33</span></div></div><div class="hb-pct">94.3%</div></div>
+      <div class="hbi"><div class="hb-label w">狐仙</div><div class="hb-track"><div class="hb-fill" style="width:73%;background:var(--gold)"><span class="hb-val">24</span></div></div><div class="hb-pct">68.6%</div></div>
+      <div class="hbi"><div class="hb-label w">白賊七</div><div class="hb-track"><div class="hb-fill" style="width:55%;background:var(--c-bai)"><span class="hb-val">18</span></div></div><div class="hb-pct">51.4%</div></div>
+      <div class="hbi"><div class="hb-label w">好鼻師</div><div class="hb-track"><div class="hb-fill" style="width:45%;background:var(--c-nose)"><span class="hb-val">15</span></div></div><div class="hb-pct">42.9%</div></div>
+      <div class="hbi"><div class="hb-label w">都不知道</div><div class="hb-track"><div class="hb-fill" style="width:6%;background:#444"><span class="hb-val">2</span></div></div><div class="hb-pct">5.7%</div></div>
+    </div>
+    <div class="ins">虎姑婆辨識度最高（94.3%），是最強文化錨點；白賊七、好鼻師認知度不足半數，需在劇本中強化背景說明。</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">閱讀前是否知道台灣曾製作核彈 <span class="n-tag">單選 · n=35</span></div>
+    <div class="dr">
+      <svg class="donut-wrap donut-svg" width="140" height="140" viewBox="0 0 140 140">
+        <circle cx="70" cy="70" r="54" fill="none" stroke="var(--surface2)" stroke-width="20"/>
+        <circle cx="70" cy="70" r="54" fill="none" stroke="var(--gold)" stroke-width="20"
+          stroke-dasharray="193.4 339.3" stroke-dashoffset="0" transform="rotate(-90 70 70)"/>
+        <circle cx="70" cy="70" r="54" fill="none" stroke="#444" stroke-width="20"
+          stroke-dasharray="145.9 339.3" stroke-dashoffset="-193.4" transform="rotate(-90 70 70)"/>
+        <text x="70" y="66" text-anchor="middle" font-family="'Space Mono',monospace" font-size="14" font-weight="700" fill="var(--gold)">57.1%</text>
+        <text x="70" y="80" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--muted)">已知</text>
+      </svg>
+      <div class="leg">
+        <div class="li"><div class="ld" style="background:var(--gold)"></div>是，知道<span class="lp">20人 57.1%</span></div>
+        <div class="li"><div class="ld" style="background:#444"></div>否，不知道<span class="lp">15人 42.9%</span></div>
+      </div>
+    </div>
+    <div class="ins">逾四成受眾對此段史實陌生，尤其女性受眾僅 28.6% 知悉（男性 76.2%），性別差距達 47.6%，劇本需為這批觀眾投入足夠的背景鋪陳。</div>
+  </div>
+</section>
+
+<!-- ===== CHARACTERS ===== -->
+<section id="characters" class="sec">
+  <div class="sec-title">角色分析</div>
+
+  <div class="char-filter">
+    <div class="cf-label">角色篩選 — 點選後相關數據連動</div>
+    <button class="cf-btn active" data-char="全部" onclick="filterChar('全部',this)">全部</button>
+    <button class="cf-btn" data-char="虎姑婆" onclick="filterChar('虎姑婆',this)">虎姑婆</button>
+    <button class="cf-btn" data-char="白賊七" onclick="filterChar('白賊七',this)">白賊七</button>
+    <button class="cf-btn" data-char="好鼻師" onclick="filterChar('好鼻師',this)">好鼻師</button>
+    <button class="cf-btn" data-char="小潔" onclick="filterChar('小潔',this)">小潔</button>
+    <button class="cf-btn" data-char="局長" onclick="filterChar('局長',this)">局長</button>
+    <button class="cf-btn" data-char="鄧小姐" onclick="filterChar('鄧小姐',this)">鄧小姐</button>
+    <button class="cf-btn" data-char="蜥蜴" onclick="filterChar('蜥蜴',this)">蜥蜴</button>
+    <button class="cf-btn" data-char="水蛇" onclick="filterChar('水蛇',this)">水蛇</button>
+  </div>
+
+  <!-- 主角認知 -->
+  <div class="card gap">
+    <div class="ct">主角認知 <span class="n-tag">單選 · n=35</span></div>
+    <div class="dr">
+      <svg class="donut-wrap donut-svg" width="150" height="150" viewBox="0 0 150 150">
+        <circle cx="75" cy="75" r="58" fill="none" stroke="var(--surface2)" stroke-width="22"/>
+        <circle cx="75" cy="75" r="58" fill="none" stroke="var(--c-tiger)" stroke-width="22"
+          stroke-dasharray="333.2 364.4" stroke-dashoffset="0" transform="rotate(-90 75 75)"/>
+        <circle cx="75" cy="75" r="58" fill="none" stroke="var(--c-nose)" stroke-width="22"
+          stroke-dasharray="20.8 364.4" stroke-dashoffset="-333.2" transform="rotate(-90 75 75)"/>
+        <circle cx="75" cy="75" r="58" fill="none" stroke="var(--c-bai)" stroke-width="22"
+          stroke-dasharray="10.4 364.4" stroke-dashoffset="-354.0" transform="rotate(-90 75 75)"/>
+        <text x="75" y="71" text-anchor="middle" font-family="'Space Mono',monospace" font-size="16" font-weight="700" fill="var(--gold)">91.4%</text>
+        <text x="75" y="87" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="11" fill="var(--muted)">虎姑婆</text>
+      </svg>
+      <div style="flex:1">
+        <div class="leg" style="margin-bottom:14px">
+          <div class="li"><div class="ld" style="background:var(--c-tiger)"></div>虎姑婆<span class="lp">32人 91.4%</span></div>
+          <div class="li"><div class="ld" style="background:var(--c-nose)"></div>好鼻師<span class="lp">2人 5.7%</span></div>
+          <div class="li"><div class="ld" style="background:var(--c-bai)"></div>白賊七<span class="lp">1人 2.9%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="ins">主角認知高度一致（91.4%），敘事核心清晰；然而<strong>白賊七喜愛度（60.0%）遠超虎姑婆（37.1%）</strong>，出現「主角與最愛角色分離」現象，需強化主角的情感黏著度。</div>
+  </div>
+
+  <!-- 喜歡的角色 -->
+  <div class="g2 gap">
+    <div class="card">
+      <div class="ct">喜歡的角色 <span class="n-tag">多選 · n=35</span></div>
+      <div class="hbl">
+        <div class="hbi" data-chars="白賊七"><div class="hb-label" style="color:var(--c-bai)">白賊七</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--c-bai)"><span class="hb-val">21</span></div></div><div class="hb-pct">60.0%</div></div>
+        <div class="hbi" data-chars="虎姑婆"><div class="hb-label" style="color:var(--c-tiger)">虎姑婆</div><div class="hb-track"><div class="hb-fill" style="width:62%;background:var(--c-tiger)"><span class="hb-val">13</span></div></div><div class="hb-pct">37.1%</div></div>
+        <div class="hbi" data-chars="好鼻師"><div class="hb-label" style="color:var(--c-nose)">好鼻師</div><div class="hb-track"><div class="hb-fill" style="width:52%;background:var(--c-nose)"><span class="hb-val">11</span></div></div><div class="hb-pct">31.4%</div></div>
+        <div class="hbi" data-chars="小潔"><div class="hb-label" style="color:var(--c-jie)">小潔</div><div class="hb-track"><div class="hb-fill" style="width:52%;background:var(--c-jie)"><span class="hb-val">11</span></div></div><div class="hb-pct">31.4%</div></div>
+        <div class="hbi" data-chars="鄧小姐"><div class="hb-label" style="color:var(--c-deng)">鄧小姐</div><div class="hb-track"><div class="hb-fill" style="width:14%;background:var(--c-deng)"><span class="hb-val">3</span></div></div><div class="hb-pct">8.6%</div></div>
+        <div class="hbi" data-chars="局長"><div class="hb-label" style="color:var(--c-boss)">局長</div><div class="hb-track"><div class="hb-fill" style="width:10%;background:var(--c-boss)"><span class="hb-val">2</span></div></div><div class="hb-pct">5.7%</div></div>
+      </div>
+      <div class="ins">白賊七以60.0%領先，是全片最受歡迎角色；小潔女性喜愛度高於男性，性別差距最大。</div>
+
+      <!-- 喜愛原因 accordion -->
+      <div style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">各角色喜愛原因</div>
+        <div class="accordion">
+          <div class="acc-item" data-chars="白賊七">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <div class="acc-dot" style="background:var(--c-bai)"></div>
+              <span class="acc-name">白賊七</span><span class="acc-arrow">▼</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-quote">詛咒能力很吸引人，有能力可以傷害人，但他沒有，一語成讖的設定很有趣</div>
+              <div class="acc-quote">聰明精明，帶喜感又靠得住；守護妻子40年的浪漫背景令人印象深刻</div>
+              <div class="acc-quote">智力擔當但性格偶爾傻萌，這個反差感很棒；是個存在感很強的角色</div>
+              <div class="acc-quote">能力很有趣，發展性比較大，因為不是無敵的也可以鬧出笑話</div>
+              <div class="acc-quote">有點像咒術迴戰裡面的狗卷，感覺很隨和</div>
+            </div>
+          </div>
+          <div class="acc-item" data-chars="虎姑婆">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <div class="acc-dot" style="background:var(--c-tiger)"></div>
+              <span class="acc-name">虎姑婆</span><span class="acc-arrow">▼</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-quote">正直、勇敢；女力形象鮮明，角色弧線完整</div>
+              <div class="acc-quote">對她的刻畫最多，女性角色但乘載著最大的力量</div>
+              <div class="acc-quote">勇敢堅韌，及放手讓好鼻師家庭、狐仙離開的溫柔，令人敬佩</div>
+              <div class="acc-quote">願意捨棄平靜追求真相；個性正直磊落</div>
+            </div>
+          </div>
+          <div class="acc-item" data-chars="好鼻師">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <div class="acc-dot" style="background:var(--c-nose)"></div>
+              <span class="acc-name">好鼻師</span><span class="acc-arrow">▼</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-quote">劇本中跟人類緊密感與親切感最明顯自然的角色</div>
+              <div class="acc-quote">溫柔的爸爸，也是溫柔的先生；各種能力的展現都很有畫面感蠻帥的</div>
+              <div class="acc-quote">一心想保護家人，但在大局中也是一個關鍵角色</div>
+              <div class="acc-quote">螞蟻盔甲能力很帥，嗅覺靈敏也很重要</div>
+            </div>
+          </div>
+          <div class="acc-item" data-chars="小潔">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <div class="acc-dot" style="background:var(--c-jie)"></div>
+              <span class="acc-name">小潔</span><span class="acc-arrow">▼</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-quote">被訓練洗腦多年，卻依然有著善良的心，像是被社會摧殘後還能保有溫暖</div>
+              <div class="acc-quote">在知道局長惡意後仍心存善意，育幼院背景讓她無法從他處獲取溫暖</div>
+              <div class="acc-quote">聰明、身上有可發展的謎團；貼近童年回憶</div>
+              <div class="acc-quote">出現比較能讓人理解發生什麼事情，是可以讓人得到答案的角色</div>
+            </div>
+          </div>
+          <div class="acc-item" data-chars="局長">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <div class="acc-dot" style="background:var(--c-boss)"></div>
+              <span class="acc-name">局長</span><span class="acc-arrow">▼</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-quote">個人目標清楚一致，曾經有過血祭的過往故事，設定很吸引人</div>
+              <div class="acc-quote">有帶入感</div>
+            </div>
+          </div>
+          <div class="acc-item" data-chars="鄧小姐">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <div class="acc-dot" style="background:var(--c-deng)"></div>
+              <span class="acc-name">鄧小姐</span><span class="acc-arrow">▼</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-quote">出現時都富有喜感</div>
+              <div class="acc-quote">很喜歡老年鄧小姊的再次出場，是讓人安心又可靠的帥氣老太太</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 最不喜歡角色 -->
+    <div class="card">
+      <div class="ct">最不喜歡的角色 <span class="n-tag">單選 · n=35</span></div>
+      <div class="hbl">
+        <div class="hbi" data-chars="蜥蜴"><div class="hb-label" style="color:var(--c-lizard)">蜥蜴</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--c-lizard)"><span class="hb-val">8</span></div></div><div class="hb-pct">22.9%</div></div>
+        <div class="hbi" data-chars="水蛇"><div class="hb-label" style="color:var(--c-snake)">水蛇</div><div class="hb-track"><div class="hb-fill" style="width:63%;background:var(--c-snake)"><span class="hb-val">5</span></div></div><div class="hb-pct">14.3%</div></div>
+        <div class="hbi" data-chars="局長"><div class="hb-label" style="color:var(--c-boss)">局長</div><div class="hb-track"><div class="hb-fill" style="width:63%;background:var(--c-boss)"><span class="hb-val">5</span></div></div><div class="hb-pct">14.3%</div></div>
+        <div class="hbi" data-chars="好鼻師"><div class="hb-label" style="color:var(--c-nose)">好鼻師</div><div class="hb-track"><div class="hb-fill" style="width:50%;background:var(--c-nose)"><span class="hb-val">4</span></div></div><div class="hb-pct">11.4%</div></div>
+        <div class="hbi" data-chars="鄧小姐"><div class="hb-label" style="color:var(--c-deng)">鄧小姐</div><div class="hb-track"><div class="hb-fill" style="width:38%;background:var(--c-deng)"><span class="hb-val">3</span></div></div><div class="hb-pct">8.6%</div></div>
+        <div class="hbi" data-chars="小潔"><div class="hb-label" style="color:var(--c-jie)">小潔</div><div class="hb-track"><div class="hb-fill" style="width:25%;background:var(--c-jie)"><span class="hb-val">2</span></div></div><div class="hb-pct">5.7%</div></div>
+        <div class="hbi" data-chars="虎姑婆"><div class="hb-label" style="color:var(--c-tiger)">虎姑婆</div><div class="hb-track"><div class="hb-fill" style="width:25%;background:var(--c-tiger)"><span class="hb-val">2</span></div></div><div class="hb-pct">5.7%</div></div>
+        <div class="hbi" data-chars="黃茹萱"><div class="hb-label">黃茹萱</div><div class="hb-track"><div class="hb-fill" style="width:25%;background:#555"><span class="hb-val">2</span></div></div><div class="hb-pct">5.7%</div></div>
+        <div class="hbi" data-chars="白賊七"><div class="hb-label" style="color:var(--c-bai)">白賊七</div><div class="hb-track"><div class="hb-fill" style="width:13%;background:var(--c-bai)"><span class="hb-val">1</span></div></div><div class="hb-pct">2.9%</div></div>
+        <div class="hbi" data-chars="水男孩"><div class="hb-label">水男孩</div><div class="hb-track"><div class="hb-fill" style="width:13%;background:#555"><span class="hb-val">1</span></div></div><div class="hb-pct">2.9%</div></div>
+        <div class="hbi" data-chars="虎哥"><div class="hb-label">虎哥</div><div class="hb-track"><div class="hb-fill" style="width:13%;background:#555"><span class="hb-val">1</span></div></div><div class="hb-pct">2.9%</div></div>
+      </div>
+      <div class="ins">蜥蜴以22.9%居首，男性明顯高於女性；局長則在女性中獲較高的不喜歡票，顯示兩性對反派的感知差異。</div>
+
+      <!-- 不喜歡原因 accordion -->
+      <div style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">各角色不喜歡原因</div>
+        <div class="accordion">
+          <div class="acc-item" data-chars="蜥蜴">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <div class="acc-dot" style="background:var(--c-lizard)"></div>
+              <span class="acc-name">蜥蜴</span><span class="acc-arrow">▼</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-quote">相對比較平淡，沒有特別的個性</div>
+              <div class="acc-quote">設定滿單薄的；背骨仔必須死</div>
+              <div class="acc-quote">既然是前期擔當叛徒的重要角色，應該給他能力跟個性多點刻劃</div>
+              <div class="acc-quote">沒有什麼記憶點，戲份感覺又比水蛇少很多</div>
+              <div class="acc-quote">不夠可愛；看起來比較狡詐</div>
+            </div>
+          </div>
+          <div class="acc-item" data-chars="水蛇">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <div class="acc-dot" style="background:var(--c-snake)"></div>
+              <span class="acc-name">水蛇</span><span class="acc-arrow">▼</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-quote">能力有點強，但讓人感到煩躁，戲份有點太多</div>
+              <div class="acc-quote">對於水蛇希望孩子成為局長接班人的動機不明</div>
+              <div class="acc-quote">執念太深，扭曲的母性；形象過於扁平</div>
+              <div class="acc-quote">從文字看起來感覺很恐怖（有點像怪獸電力公司的反派）</div>
+            </div>
+          </div>
+          <div class="acc-item" data-chars="局長">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <div class="acc-dot" style="background:var(--c-boss)"></div>
+              <span class="acc-name">局長</span><span class="acc-arrow">▼</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-quote">最大的反派角色，自私；所作的一切都只是為了自身利益</div>
+              <div class="acc-quote">人設太複雜，有些混亂</div>
+              <div class="acc-quote">多數人說「硬選」，並無強烈厭惡</div>
+            </div>
+          </div>
+          <div class="acc-item" data-chars="好鼻師">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <div class="acc-dot" style="background:var(--c-nose)"></div>
+              <span class="acc-name">好鼻師</span><span class="acc-arrow">▼</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-quote">遇事躊躇，笨笨的爛好人</div>
+              <div class="acc-quote">任務剛有進展，卻回去找太太跟女兒要離開隊伍，覺得有點突兀</div>
+              <div class="acc-quote">雖愛家但太懦弱；小配角</div>
+            </div>
+          </div>
+          <div class="acc-item" data-chars="鄧小姐">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <div class="acc-dot" style="background:var(--c-deng)"></div>
+              <span class="acc-name">鄧小姐</span><span class="acc-arrow">▼</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-quote">角色轉換滿突兀的，感覺是為了劇情轉折硬加進去的</div>
+              <div class="acc-quote">覺得影射鄧麗君小姐的成分太高，不是那麼尊重故人</div>
+              <div class="acc-quote">無知</div>
+            </div>
+          </div>
+          <div class="acc-item" data-chars="小潔">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <div class="acc-dot" style="background:var(--c-jie)"></div>
+              <span class="acc-name">小潔</span><span class="acc-arrow">▼</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-quote">很煩；沒有共鳴，也不了解角色動機</div>
+            </div>
+          </div>
+          <div class="acc-item" data-chars="虎姑婆">
+            <div class="acc-header" onclick="toggleAcc(this)">
+              <div class="acc-dot" style="background:var(--c-tiger)"></div>
+              <span class="acc-name">虎姑婆</span><span class="acc-arrow">▼</span>
+            </div>
+            <div class="acc-body">
+              <div class="acc-quote">不是不喜歡，覺得虎姑婆的角色可以多一些背景故事，目前看下來只覺得他就是生理女的直男</div>
+              <div class="acc-quote">就是不喜歡</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 角色綜合評估 -->
+  <div class="card">
+    <div class="ct">角色綜合評估 — 三維度比較 <span class="n-tag">n=35</span></div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:16px">喜愛度：多選得票數／21（白賊七最高）｜能力清晰度：看不懂比例反向計算｜續集潛力：期待由該角色主演的票數</div>
+    <div class="char-cards">
+      <div class="char-card">
+        <div class="char-card-header"><div class="char-dot" style="background:var(--c-bai)"></div><div class="char-name">白賊七</div></div>
+        <div class="char-dim">
+          <div class="char-dim-row"><div class="char-dim-label"><span>喜愛度</span><span style="color:var(--c-bai)">21票 60.0%</span></div><div class="char-dim-bar"><div class="char-dim-fill" style="width:100%;background:var(--c-bai)"></div></div></div>
+          <div class="char-dim-row"><div class="char-dim-label"><span>能力清晰度</span><span style="color:var(--green)">詛咒清晰／匕首待補</span></div><div class="char-dim-bar"><div class="char-dim-fill" style="width:60%;background:var(--green)"></div></div></div>
+          <div class="char-dim-row"><div class="char-dim-label"><span>續集潛力</span><span style="color:var(--c-bai)">7票 最高</span></div><div class="char-dim-bar"><div class="char-dim-fill" style="width:100%;background:var(--c-bai)"></div></div></div>
+        </div>
+      </div>
+      <div class="char-card">
+        <div class="char-card-header"><div class="char-dot" style="background:var(--c-tiger)"></div><div class="char-name">虎姑婆</div></div>
+        <div class="char-dim">
+          <div class="char-dim-row"><div class="char-dim-label"><span>喜愛度</span><span style="color:var(--c-tiger)">13票 37.1%</span></div><div class="char-dim-bar"><div class="char-dim-fill" style="width:62%;background:var(--c-tiger)"></div></div></div>
+          <div class="char-dim-row"><div class="char-dim-label"><span>能力清晰度</span><span style="color:var(--danger)">40.0%評最無聊</span></div><div class="char-dim-bar"><div class="char-dim-fill" style="width:30%;background:var(--danger)"></div></div></div>
+          <div class="char-dim-row"><div class="char-dim-label"><span>續集潛力</span><span style="color:var(--c-tiger)">4票</span></div><div class="char-dim-bar"><div class="char-dim-fill" style="width:57%;background:var(--c-tiger)"></div></div></div>
+        </div>
+      </div>
+      <div class="char-card">
+        <div class="char-card-header"><div class="char-dot" style="background:var(--c-nose)"></div><div class="char-name">好鼻師</div></div>
+        <div class="char-dim">
+          <div class="char-dim-row"><div class="char-dim-label"><span>喜愛度</span><span style="color:var(--c-nose)">11票 31.4%</span></div><div class="char-dim-bar"><div class="char-dim-fill" style="width:58%;background:var(--c-nose)"></div></div></div>
+          <div class="char-dim-row"><div class="char-dim-label"><span>能力清晰度</span><span style="color:var(--gold)">尚可</span></div><div class="char-dim-bar"><div class="char-dim-fill" style="width:65%;background:var(--gold)"></div></div></div>
+          <div class="char-dim-row"><div class="char-dim-label"><span>續集潛力</span><span style="color:var(--c-nose)">1票</span></div><div class="char-dim-bar"><div class="char-dim-fill" style="width:14%;background:var(--c-nose)"></div></div></div>
+        </div>
+      </div>
+      <div class="char-card">
+        <div class="char-card-header"><div class="char-dot" style="background:var(--c-jie)"></div><div class="char-name">小潔</div></div>
+        <div class="char-dim">
+          <div class="char-dim-row"><div class="char-dim-label"><span>喜愛度</span><span style="color:var(--c-jie)">11票 31.4%</span></div><div class="char-dim-bar"><div class="char-dim-fill" style="width:52%;background:var(--c-jie)"></div></div></div>
+          <div class="char-dim-row"><div class="char-dim-label"><span>能力清晰度</span><span style="color:var(--orange)">14.3%看不懂</span></div><div class="char-dim-bar"><div class="char-dim-fill" style="width:50%;background:var(--orange)"></div></div></div>
+          <div class="char-dim-row"><div class="char-dim-label"><span>續集潛力</span><span style="color:var(--c-jie)">7票</span></div><div class="char-dim-bar"><div class="char-dim-fill" style="width:100%;background:var(--c-jie)"></div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="ins">白賊七在喜愛度與續集潛力雙項並列第一，是最具市場開發潛力的角色；小潔的續集潛力與白賊七並列，但角色厚度待加強；虎姑婆作為主角，能力吸引力是最緊急的待修問題。</div>
+  </div>
+
+  <!-- 四主角綜合雷達圖 -->
+  <div class="card gap">
+    <div class="ct">四主角綜合維度比較 <span class="n-tag">數據來源：問卷各題綜合計算</span></div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;font-size:13px">
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:50%;background:var(--c-bai);display:inline-block"></span>白賊七</span>
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:50%;background:var(--c-tiger);display:inline-block"></span>虎姑婆</span>
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:50%;background:var(--c-nose);display:inline-block"></span>好鼻師</span>
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:12px;height:12px;border-radius:50%;background:var(--c-jie);display:inline-block"></span>小潔</span>
+    </div>
+    <svg viewBox="0 0 340 340" style="width:100%;max-width:360px;display:block;margin:0 auto">
+      <!-- Grid rings diamond 25/50/75/100% — center(170,170) r=110 -->
+      <polygon points="170,142.5 197.5,170 170,197.5 142.5,170" fill="none" stroke="var(--border)" stroke-width="0.7"/>
+      <polygon points="170,115 225,170 170,225 115,170" fill="none" stroke="var(--border)" stroke-width="0.7"/>
+      <polygon points="170,87.5 252.5,170 170,252.5 87.5,170" fill="none" stroke="var(--border)" stroke-width="0.7"/>
+      <polygon points="170,60 280,170 170,280 60,170" fill="none" stroke="var(--border)" stroke-width="1"/>
+      <!-- Axis lines -->
+      <line x1="170" y1="170" x2="170" y2="60" stroke="var(--border)" stroke-width="0.8"/>
+      <line x1="170" y1="170" x2="280" y2="170" stroke="var(--border)" stroke-width="0.8"/>
+      <line x1="170" y1="170" x2="170" y2="280" stroke="var(--border)" stroke-width="0.8"/>
+      <line x1="170" y1="170" x2="60" y2="170" stroke="var(--border)" stroke-width="0.8"/>
+      <!-- 白賊七: 超能力=100% 情感=100% 劇情=68% 續集=100% -->
+      <polygon points="170,60 280,170 170,244.8 60,170" fill="var(--c-bai)" fill-opacity="0.15" stroke="var(--c-bai)" stroke-width="2" stroke-linejoin="round"/>
+      <!-- 虎姑婆: 超能力=10% 情感=58% 劇情=100% 續集=57% -->
+      <polygon points="170,159 233.8,170 170,280 107.3,170" fill="var(--c-tiger)" fill-opacity="0.15" stroke="var(--c-tiger)" stroke-width="2" stroke-linejoin="round"/>
+      <!-- 好鼻師: 超能力=30% 情感=58% 劇情=50% 續集=14% -->
+      <polygon points="170,137 233.8,170 170,225 154.6,170" fill="var(--c-nose)" fill-opacity="0.15" stroke="var(--c-nose)" stroke-width="1.5" stroke-linejoin="round" stroke-dasharray="4,2"/>
+      <!-- 小潔: 超能力=25% 情感=53% 劇情=55% 續集=100% -->
+      <polygon points="170,142.5 228.3,170 170,230.5 60,170" fill="var(--c-jie)" fill-opacity="0.12" stroke="var(--c-jie)" stroke-width="1.5" stroke-linejoin="round" stroke-dasharray="4,2"/>
+      <!-- Axis labels -->
+      <text x="170" y="46" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="13" fill="var(--text)">超能力吸引力</text>
+      <text x="288" y="174" text-anchor="start" font-family="'Noto Sans TC',sans-serif" font-size="13" fill="var(--text)">角色喜愛度</text>
+      <text x="170" y="298" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="13" fill="var(--text)">劇情重要性</text>
+      <text x="52" y="174" text-anchor="end" font-family="'Noto Sans TC',sans-serif" font-size="13" fill="var(--text)">續集期待</text>
+    </svg>
+    <div style="font-size:12px;color:var(--muted);text-align:center;margin-top:6px">超能力吸引力：最酷/最無聊票淨分（問卷直接計算）；角色喜愛度：喜愛角色%（問卷）；續集期待：希望由哪角色主演%（問卷）；<span style="color:var(--orange)">⚠ 劇情重要性：根據主角認知%與場景比重綜合估算，非單一問卷題</span></div>
+    <div class="ins">白賊七在三維度稱霸，是最強商業角色；虎姑婆劇情核心地位無可取代，但超能力吸引力急需補強；小潔的續集期待與白賊七並列，情感潛力尚未完全釋放。</div>
+  </div>
+</section>
+
+<!-- ===== POWERS ===== -->
+<section id="powers" class="sec">
+  <div class="sec-title">超能力評估</div>
+  <!-- 超能力熱點矩陣圖 2×2 bubble chart -->
+  <div class="card gap">
+    <div class="ct">超能力熱點矩陣 — 好感度 vs 理解度 <span class="n-tag">n=35</span></div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:8px">氣泡大小＝獲票數；X軸＝好感淨分（最酷票%－最無聊票%，標準化）；Y軸＝理解度（1－看不懂%）</div>
+    <svg viewBox="0 0 450 320" style="width:100%;display:block">
+      <!-- Quadrant fills -->
+      <rect x="60" y="18" width="175" height="140" fill="var(--gold)" fill-opacity="0.05" rx="3"/>
+      <rect x="235" y="18" width="180" height="140" fill="var(--green)" fill-opacity="0.07" rx="3"/>
+      <rect x="60" y="158" width="175" height="130" fill="var(--muted)" fill-opacity="0.04" rx="3"/>
+      <rect x="235" y="158" width="180" height="130" fill="var(--muted)" fill-opacity="0.04" rx="3"/>
+      <!-- Quadrant corner labels (縮小置角落) -->
+      <text x="63" y="30" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--muted)">理解・不酷</text>
+      <text x="315" y="30" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--gold)" font-weight="700" text-anchor="middle">⭐ 明星能力</text>
+      <text x="63" y="278" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--danger)">⚠ 問題地帶</text>
+      <text x="315" y="278" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--muted)" text-anchor="middle">神秘吸睛</text>
+      <!-- Grid lines / axes -->
+      <line x1="60" y1="158" x2="415" y2="158" stroke="var(--border)" stroke-width="1.5"/>
+      <line x1="235" y1="18" x2="235" y2="290" stroke="var(--border)" stroke-width="1.5"/>
+      <!-- X axis labels (縮小) -->
+      <text x="63" y="308" font-family="'Noto Sans TC',sans-serif" font-size="9.5" fill="var(--muted)">← 好感低</text>
+      <text x="352" y="308" font-family="'Noto Sans TC',sans-serif" font-size="9.5" fill="var(--muted)">好感高 →</text>
+      <!-- Y axis label (直行文字) -->
+      <text x="20" y="88" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--muted)" text-anchor="middle">
+        <tspan x="20" dy="0">易</tspan><tspan x="20" dy="11">理</tspan><tspan x="20" dy="11">解</tspan>
+        <tspan x="20" dy="16">↑</tspan><tspan x="20" dy="16">↓</tspan>
+        <tspan x="20" dy="16">難</tspan><tspan x="20" dy="11">理</tspan><tspan x="20" dy="11">解</tspan>
+      </text>
+
+      <!-- ── BUBBLES (泡泡內文字縮小) ── -->
+      <!-- 白賊七詛咒: 好感=100 理解=94 票=23 -->
+      <circle cx="408" cy="78" r="22" fill="var(--c-bai)" fill-opacity="0.25" stroke="var(--c-bai)" stroke-width="2"/>
+      <text x="408" y="75" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--c-bai)" font-weight="700">詛咒</text>
+      <text x="408" y="86" text-anchor="middle" font-family="'Space Mono',monospace" font-size="9" fill="var(--c-bai)">×23</text>
+
+      <!-- 局長幻術: 好感=51 理解=94 票=4 -->
+      <circle cx="245" cy="78" r="11" fill="var(--c-boss)" fill-opacity="0.25" stroke="var(--c-boss)" stroke-width="1.5"/>
+      <text x="245" y="81" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--c-boss)">幻術×4</text>
+
+      <!-- 好鼻師螞蟻: 好感=46 理解=91 票=2 -->
+      <circle cx="228" cy="95" r="9" fill="var(--c-nose)" fill-opacity="0.25" stroke="var(--c-nose)" stroke-width="1.5"/>
+      <text x="228" y="98" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--c-nose)">螞蟻×2</text>
+
+      <!-- 好鼻師氣味: 好感=43 理解=97 票=1 -->
+      <circle cx="213" cy="55" r="7" fill="var(--c-nose)" fill-opacity="0.2" stroke="var(--c-nose)" stroke-width="1.5"/>
+      <text x="213" y="45" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--c-nose)">氣味×1</text>
+
+      <!-- 水蛇/水男孩: 好感=34 理解=97 票=2 -->
+      <circle cx="185" cy="55" r="9" fill="var(--c-snake)" fill-opacity="0.2" stroke="var(--c-snake)" stroke-width="1.5"/>
+      <text x="185" y="45" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--c-snake)">水蛇×2</text>
+
+      <!-- 蜥蜴: 好感=26 理解=94 票=6 -->
+      <circle cx="160" cy="85" r="12" fill="var(--c-lizard)" fill-opacity="0.2" stroke="var(--c-lizard)" stroke-width="1.5"/>
+      <text x="160" y="89" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--c-lizard)">蜥蜴×6</text>
+
+      <!-- 虎姑婆: 好感=0 理解=100 票=14 -->
+      <circle cx="67" cy="45" r="17" fill="var(--c-tiger)" fill-opacity="0.2" stroke="var(--c-tiger)" stroke-width="2"/>
+      <text x="67" y="42" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--c-tiger)" font-weight="700">虎姑婆</text>
+      <text x="67" y="54" text-anchor="middle" font-family="'Space Mono',monospace" font-size="9" fill="var(--c-tiger)">×14</text>
+
+      <!-- 小潔讀心術: 好感=46 理解=85% -->
+      <circle cx="228" cy="152" r="9" fill="var(--c-jie)" fill-opacity="0.25" stroke="var(--c-jie)" stroke-width="1.5"/>
+      <text x="228" y="148" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="8.5" fill="var(--c-jie)">讀心術</text>
+      <text x="228" y="158" text-anchor="middle" font-family="'Space Mono',monospace" font-size="8" fill="var(--c-jie)">×2</text>
+
+      <!-- 白賊七匕首: 好感=29 理解=76 票=4 -->
+      <circle cx="163" cy="238" r="11" fill="var(--danger)" fill-opacity="0.2" stroke="var(--danger)" stroke-width="2"/>
+      <text x="163" y="235" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--danger)" font-weight="700">匕首</text>
+      <text x="163" y="247" text-anchor="middle" font-family="'Space Mono',monospace" font-size="9" fill="var(--danger)">×4</text>
+    </svg>
+    <div class="ins">白賊七詛咒是唯一的「明星能力」（高好感＋高理解）；虎姑婆雖最易理解但好感墊底，急需能力重設計；白賊七匕首落在「問題地帶」——既難理解又不受歡迎，劇本需增加清楚說明場景。</div>
+  </div>
+  <div class="card gap">
+    <div class="ct">看不懂的超能力 <span class="n-tag">多選 · n=35</span></div>
+    <div class="hbl">
+      <div class="hbi"><div class="hb-label w">我都理解</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--green)"><span class="hb-val">20</span></div></div><div class="hb-pct">57.1%</div></div>
+      <div class="hbi"><div class="hb-label w">白賊七：匕首</div><div class="hb-track"><div class="hb-fill" style="width:45%;background:var(--danger)"><span class="hb-val">9</span></div></div><div class="hb-pct">25.7%</div></div>
+      <div class="hbi"><div class="hb-label w">小潔：讀心術</div><div class="hb-track"><div class="hb-fill" style="width:25%;background:var(--orange)"><span class="hb-val">5</span></div></div><div class="hb-pct">14.3%</div></div>
+      <div class="hbi"><div class="hb-label w">好鼻師：螞蟻</div><div class="hb-track"><div class="hb-fill" style="width:15%;background:var(--blue)"><span class="hb-val">3</span></div></div><div class="hb-pct">8.6%</div></div>
+      <div class="hbi"><div class="hb-label w">局長：幻術</div><div class="hb-track"><div class="hb-fill" style="width:10%;background:var(--muted)"><span class="hb-val">2</span></div></div><div class="hb-pct">5.7%</div></div>
+      <div class="hbi"><div class="hb-label w">白賊七：詛咒</div><div class="hb-track"><div class="hb-fill" style="width:10%;background:var(--muted)"><span class="hb-val">2</span></div></div><div class="hb-pct">5.7%</div></div>
+      <div class="hbi"><div class="hb-label w">蜥蜴</div><div class="hb-track"><div class="hb-fill" style="width:10%;background:var(--muted)"><span class="hb-val">2</span></div></div><div class="hb-pct">5.7%</div></div>
+      <div class="hbi"><div class="hb-label w">水蛇/水男孩</div><div class="hb-track"><div class="hb-fill" style="width:5%;background:var(--muted)"><span class="hb-val">1</span></div></div><div class="hb-pct">2.9%</div></div>
+      <div class="hbi"><div class="hb-label w">好鼻師：氣味</div><div class="hb-track"><div class="hb-fill" style="width:5%;background:var(--muted)"><span class="hb-val">1</span></div></div><div class="hb-pct">2.9%</div></div>
+    </div>
+    <div class="ins">57.1% 的受測者對全部能力均能理解，整體能力系統清晰；唯一需要補強的是白賊七匕首（25.7% 看不懂），補一場說明性場景即可解決。</div>
+  </div>
+</section>
+
+<!-- ===== PLOT ===== -->
+<section id="plot" class="sec">
+  <div class="sec-title">劇情理解</div>
+
+  <div class="card gap">
+    <div class="ct">情感／理解轉折場次分布 <span class="n-tag">n=35</span></div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:12px">三條故事線的觀眾認知場次分布</div>
+    <svg class="line-svg" viewBox="0 0 520 220" style="width:100%;max-width:640px;display:block;margin:8px auto">
+      <!-- Axes -->
+      <line x1="40" y1="15" x2="40" y2="185" stroke="var(--border)" stroke-width="1"/>
+      <line x1="40" y1="185" x2="515" y2="185" stroke="var(--border)" stroke-width="1"/>
+      <!-- Gridlines -->
+      <line x1="40" y1="117" x2="515" y2="117" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="3,3" opacity="0.5"/>
+      <!-- Y-axis labels: 0=y185, 10=y117, 25=y15  (scale: 170px/25 = 6.8px per unit) -->
+      <text x="36" y="18" text-anchor="end" font-family="monospace" font-size="9" fill="var(--muted)">25</text>
+      <text x="36" y="120" text-anchor="end" font-family="monospace" font-size="9" fill="var(--muted)">10</text>
+      <text x="36" y="188" text-anchor="end" font-family="monospace" font-size="9" fill="var(--muted)">0</text>
+      <!-- X-axis scene labels -->
+      <text x="79" y="202" text-anchor="middle" font-family="monospace" font-size="9" fill="var(--muted)">序3</text>
+      <text x="122" y="202" text-anchor="middle" font-family="monospace" font-size="9" fill="var(--muted)">序6</text>
+      <text x="166" y="202" text-anchor="middle" font-family="monospace" font-size="9" fill="var(--muted)">序13</text>
+      <text x="216" y="202" text-anchor="middle" font-family="monospace" font-size="9" fill="var(--muted)">場17</text>
+      <text x="259" y="202" text-anchor="middle" font-family="monospace" font-size="9" fill="var(--muted)">場21</text>
+      <text x="302" y="202" text-anchor="middle" font-family="monospace" font-size="9" fill="var(--muted)">場25</text>
+      <text x="353" y="202" text-anchor="middle" font-family="monospace" font-size="9" fill="var(--muted)">場39</text>
+      <text x="396" y="202" text-anchor="middle" font-family="monospace" font-size="9" fill="var(--muted)">場56</text>
+      <text x="439" y="202" text-anchor="middle" font-family="monospace" font-size="9" fill="var(--muted)">場58</text>
+      <!-- 虎哥虎姑婆 gold: 序3=9→y124, 序6=13→y97, 序13=4→y158 -->
+      <polyline points="79,124 122,97 166,158" fill="none" stroke="var(--c-tiger)" stroke-width="2.5" stroke-linejoin="round"/>
+      <circle cx="79" cy="124" r="4" fill="var(--c-tiger)"/>
+      <circle cx="122" cy="97" r="4" fill="var(--c-tiger)"/>
+      <circle cx="166" cy="158" r="4" fill="var(--c-tiger)"/>
+      <text x="79" y="116" text-anchor="middle" font-family="monospace" font-size="10" fill="var(--c-tiger)">9</text>
+      <text x="122" y="89" text-anchor="middle" font-family="monospace" font-size="10" fill="var(--c-tiger)">13</text>
+      <text x="166" y="150" text-anchor="middle" font-family="monospace" font-size="10" fill="var(--c-tiger)">4</text>
+      <!-- 水蛇母子: 場39=23→y29, 場56=6→y144, 場58=4→y158 -->
+      <polyline points="353,29 396,144 439,158" fill="none" stroke="var(--c-nose)" stroke-width="2.5" stroke-linejoin="round"/>
+      <circle cx="353" cy="29" r="5" fill="var(--c-nose)"/>
+      <circle cx="396" cy="144" r="4" fill="var(--c-nose)"/>
+      <circle cx="439" cy="158" r="4" fill="var(--c-nose)"/>
+      <text x="353" y="22" text-anchor="middle" font-family="monospace" font-size="10" fill="var(--c-nose)">23</text>
+      <text x="396" y="136" text-anchor="middle" font-family="monospace" font-size="10" fill="var(--c-nose)">6</text>
+      <text x="439" y="150" text-anchor="middle" font-family="monospace" font-size="10" fill="var(--c-nose)">4</text>
+      <!-- 小潔虎姑婆情感線: 場17=7→y137, 場21=8→y131, 場25=8→y131 -->
+      <polyline points="216,137 259,131 302,131" fill="none" stroke="var(--c-jie)" stroke-width="2.5" stroke-dasharray="5,3"/>
+      <circle cx="216" cy="137" r="4" fill="var(--c-jie)"/>
+      <circle cx="259" cy="131" r="4" fill="var(--c-jie)"/>
+      <circle cx="302" cy="131" r="4" fill="var(--c-jie)"/>
+      <text x="216" y="128" text-anchor="middle" font-family="monospace" font-size="10" fill="var(--c-jie)">7</text>
+      <text x="259" y="122" text-anchor="middle" font-family="monospace" font-size="10" fill="var(--c-jie)">8</text>
+      <text x="302" y="122" text-anchor="middle" font-family="monospace" font-size="10" fill="var(--c-jie)">8</text>
+    </svg>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:8px">
+      <div class="li"><div class="ld" style="background:var(--c-tiger)"></div><span style="font-size:12px">虎哥虎姑婆（情侶）</span></div>
+      <div class="li"><div class="ld" style="background:var(--c-nose)"></div><span style="font-size:12px">水蛇水男孩（母子）</span></div>
+      <div class="li"><div class="ld" style="background:var(--c-jie)"></div><span style="font-size:12px">小潔虎姑婆（情感）</span></div>
+    </div>
+    <div class="ins">小潔情感線於場17（7人）、場21（8人）、場25（8人）達高峰，三場分布相近；水蛇母子關係集中於場39被認知（23人）。</div>
+  </div>
+
+  <div class="g2 gap">
+    <div class="card">
+      <div class="ct">虎哥虎姑婆情侶——哪場知道？ <span class="n-tag">單選 · n=35</span></div>
+      <div class="scene-list">
+        <div class="si"><div class="si-pct">42.9%</div><div class="si-bar"><div class="si-name">序6：虎哥贈玉佩護身符</div><div class="si-track"><div class="si-fill" style="width:100%;background:var(--c-tiger)"></div></div></div><div class="si-n">15人</div></div>
+        <div class="si"><div class="si-pct">25.7%</div><div class="si-bar"><div class="si-name">序3：「不只兩隻老虎」</div><div class="si-track"><div class="si-fill" style="width:60%;background:var(--c-tiger)"></div></div></div><div class="si-n">9人</div></div>
+        <div class="si"><div class="si-pct">11.4%</div><div class="si-bar"><div class="si-name">序13：虎哥犧牲前告別</div><div class="si-track"><div class="si-fill" style="width:27%;background:var(--c-tiger)"></div></div></div><div class="si-n">4人</div></div>
+        <div class="si"><div class="si-pct">5.7%</div><div class="si-bar"><div class="si-name">場5：幫虎哥慶生</div><div class="si-track"><div class="si-fill" style="width:13%;background:var(--c-tiger)"></div></div></div><div class="si-n">2人</div></div>
+        <div class="si"><div class="si-pct">5.7%</div><div class="si-bar"><div class="si-name">場23：夢境流產</div><div class="si-track"><div class="si-fill" style="width:13%;background:var(--c-tiger)"></div></div></div><div class="si-n">2人</div></div>
+        <div class="si"><div class="si-pct">2.9%</div><div class="si-bar"><div class="si-name">場19：幻術中見虎哥</div><div class="si-track"><div class="si-fill" style="width:7%;background:var(--c-tiger)"></div></div></div><div class="si-n">1人</div></div>
+        <div class="si"><div class="si-pct">2.9%</div><div class="si-bar"><div class="si-name">場129：告白場景</div><div class="si-track"><div class="si-fill" style="width:7%;background:var(--c-tiger)"></div></div></div><div class="si-n">1人</div></div>
+        <div class="si"><div class="si-pct">2.9%</div><div class="si-bar"><div class="si-name">沒有時間看完</div><div class="si-track"><div class="si-fill" style="width:7%;background:#444"></div></div></div><div class="si-n">1人</div></div>
+      </div>
+      <div class="ins">68.6%在序3或序6察覺關係，暗示時機良好；仍有部分人等到序13才確認，序3的暗示可再強化。</div>
+    </div>
+    <div class="card">
+      <div class="ct">水蛇水男孩母子——哪場知道？ <span class="n-tag">單選 · n=35</span></div>
+      <div class="scene-list">
+        <div class="si"><div class="si-pct">65.7%</div><div class="si-bar"><div class="si-name">場39：「我兒子才是最適合的」</div><div class="si-track"><div class="si-fill" style="width:100%;background:var(--c-snake)"></div></div></div><div class="si-n">23人</div></div>
+        <div class="si"><div class="si-pct">17.1%</div><div class="si-bar"><div class="si-name">場56：「你兒子」台詞</div><div class="si-track"><div class="si-fill" style="width:26%;background:var(--c-snake)"></div></div></div><div class="si-n">6人</div></div>
+        <div class="si"><div class="si-pct">11.4%</div><div class="si-bar"><div class="si-name">場58：白賊七分析動機</div><div class="si-track"><div class="si-fill" style="width:17%;background:var(--c-snake)"></div></div></div><div class="si-n">4人</div></div>
+        <div class="si"><div class="si-pct">2.9%</div><div class="si-bar"><div class="si-name">場38：水刃招式相似</div><div class="si-track"><div class="si-fill" style="width:4%;background:var(--c-snake)"></div></div></div><div class="si-n">1人</div></div>
+        <div class="si"><div class="si-pct">3.0%</div><div class="si-bar"><div class="si-name">沒有時間看完</div><div class="si-track"><div class="si-fill" style="width:5%;background:#444"></div></div></div><div class="si-n">1人</div></div>
+      </div>
+      <div class="ins">65.7%（23人）於場39確認母子關係；其餘分散於場56（6人，17.1%）與場58（4人，11.4%）。</div>
+    </div>
+  </div>
+
+  <div class="card gap">
+    <div class="ct">小潔與虎姑婆革命情感——哪場開始？ <span class="n-tag">單選 · n=35</span></div>
+    <div class="scene-list">
+      <div class="si"><div class="si-pct">22.9%</div><div class="si-bar"><div class="si-name">場21：虎姑婆護住小潔先著地</div><div class="si-track"><div class="si-fill" style="width:100%;background:var(--c-jie)"></div></div></div><div class="si-n">8人</div></div>
+      <div class="si"><div class="si-pct">22.9%</div><div class="si-bar"><div class="si-name">場25：小潔幫虎姑婆止血</div><div class="si-track"><div class="si-fill" style="width:100%;background:var(--c-jie)"></div></div></div><div class="si-n">8人</div></div>
+      <div class="si"><div class="si-pct">20.0%</div><div class="si-bar"><div class="si-name">場17：小潔耳邊提醒快逃</div><div class="si-track"><div class="si-fill" style="width:87.5%;background:var(--c-jie)"></div></div></div><div class="si-n">7人</div></div>
+      <div class="si"><div class="si-pct">8.6%</div><div class="si-bar"><div class="si-name">場39：小潔說虎姑婆不是壞人</div><div class="si-track"><div class="si-fill" style="width:37.5%;background:var(--c-jie)"></div></div></div><div class="si-n">3人</div></div>
+      <div class="si"><div class="si-pct">6.1%</div><div class="si-bar"><div class="si-name">場70：小潔將玉佩還給虎姑婆</div><div class="si-track"><div class="si-fill" style="width:29%;background:var(--c-jie)"></div></div></div><div class="si-n">2人</div></div>
+      <div class="si"><div class="si-pct">6.1%</div><div class="si-bar"><div class="si-name">場38：虎姑婆擋在小潔身前</div><div class="si-track"><div class="si-fill" style="width:29%;background:var(--c-jie)"></div></div></div><div class="si-n">2人</div></div>
+      <div class="si"><div class="si-pct">6.1%</div><div class="si-bar"><div class="si-name">場43：小潔揭露被囚禁過往</div><div class="si-track"><div class="si-fill" style="width:29%;background:var(--c-jie)"></div></div></div><div class="si-n">2人</div></div>
+      <div class="si"><div class="si-pct">3.0%</div><div class="si-bar"><div class="si-name">場16：電梯中直視眼神</div><div class="si-track"><div class="si-fill" style="width:14%;background:var(--c-jie)"></div></div></div><div class="si-n">1人</div></div>
+      <div class="si"><div class="si-pct">3.0%</div><div class="si-bar"><div class="si-name">沒有時間看完</div><div class="si-track"><div class="si-fill" style="width:14%;background:#444"></div></div></div><div class="si-n">1人</div></div>
+    </div>
+    <div class="ins">場21與場25並列最高（各22.9%/8人），場17緊隨（20.0%/7人）；男性偏行動導向（場17/21），女性偏肢體照護（場25），三場高峰相近，建議強化其中一場作為決定性轉折。</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">第113場護理師——合理性評估 <span class="n-tag">單選 · n=35</span></div>
+    <div class="dr">
+      <svg class="donut-wrap donut-svg" width="140" height="140" viewBox="0 0 140 140">
+        <circle cx="70" cy="70" r="54" fill="none" stroke="var(--surface2)" stroke-width="20"/>
+        <circle cx="70" cy="70" r="54" fill="none" stroke="var(--danger)" stroke-width="20"
+          stroke-dasharray="203.6 339.3" stroke-dashoffset="0" transform="rotate(-90 70 70)"/>
+        <circle cx="70" cy="70" r="54" fill="none" stroke="#555" stroke-width="20"
+          stroke-dasharray="77.4 339.3" stroke-dashoffset="-203.6" transform="rotate(-90 70 70)"/>
+        <circle cx="70" cy="70" r="54" fill="none" stroke="var(--green)" stroke-width="20"
+          stroke-dasharray="58.3 339.3" stroke-dashoffset="-281.0" transform="rotate(-90 70 70)"/>
+        <text x="70" y="66" text-anchor="middle" font-family="'Space Mono',monospace" font-size="13" font-weight="700" fill="var(--danger)">60.0%</text>
+        <text x="70" y="80" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--muted)">不合理</text>
+      </svg>
+      <div class="leg">
+        <div class="li"><div class="ld" style="background:var(--danger)"></div>不合理<span class="lp">21人 60.0%</span></div>
+        <div class="li"><div class="ld" style="background:#555"></div>未明確表態<span class="lp">8人 22.9%</span></div>
+        <div class="li"><div class="ld" style="background:var(--green)"></div>合理<span class="lp">6人 17.1%</span></div>
+      </div>
+    </div>
+    <div class="ins">逾六成認為護理師出現不合理（60.0%），需補充鄧小姐如何抵達基地的邏輯鋪陳，或重新評估此場設計的必要性。</div>
+  </div>
+</section>
+
+<!-- ===== RECEPTION ===== -->
+<section id="reception" class="sec">
+  <div class="sec-title">市場接受度</div>
+  <!-- 影視聯想 2×2 象限圖 -->
+  <div class="card gap">
+    <div class="ct">影視聯想象限分析 <span class="n-tag">n=35，開放填答</span></div>
+    <svg viewBox="0 0 420 290" style="width:100%;display:block;margin:8px auto 0">
+      <rect x="55" y="20" width="172" height="140" fill="var(--c-bai)" fill-opacity="0.06" rx="4"/>
+      <rect x="227" y="20" width="173" height="140" fill="var(--c-jie)" fill-opacity="0.08" rx="4"/>
+      <rect x="55" y="160" width="172" height="110" fill="var(--muted)" fill-opacity="0.05" rx="4"/>
+      <rect x="227" y="160" width="173" height="110" fill="var(--c-nose)" fill-opacity="0.06" rx="4"/>
+      <line x1="55" y1="160" x2="400" y2="160" stroke="var(--border)" stroke-width="1.5"/>
+      <line x1="227" y1="20" x2="227" y2="270" stroke="var(--border)" stroke-width="1.5"/>
+      <text x="65" y="35" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--c-bai)" font-weight="700">歐美超英宇宙</text>
+      <text x="237" y="35" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--c-jie)" font-weight="700">亞日主流 IP</text>
+      <text x="65" y="175" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--muted)" font-weight="700">西方奇幻科幻</text>
+      <text x="237" y="175" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--c-nose)" font-weight="700">亞洲獨立/小眾</text>
+      <text x="400" y="157" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--muted)" text-anchor="end">亞日台 →</text>
+      <text x="55" y="157" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--muted)">← 歐美</text>
+      <text x="227" y="16" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--muted)" text-anchor="middle">主流</text>
+      <text x="227" y="283" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--muted)" text-anchor="middle">小眾</text>
+      <circle cx="96" cy="53" r="17" fill="var(--gold)" fill-opacity="0.25" stroke="var(--gold)" stroke-width="1.5"/>
+      <text x="96" y="57" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--text)" font-weight="700">X戰警</text>
+      <text x="96" y="70" text-anchor="middle" font-family="'Space Mono',monospace" font-size="9" fill="var(--gold)">×8</text>
+      <circle cx="150" cy="48" r="14" fill="var(--orange)" fill-opacity="0.2" stroke="var(--orange)" stroke-width="1.5"/>
+      <text x="150" y="52" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="var(--text)" font-weight="700">漫威超英</text>
+      <text x="150" y="65" text-anchor="middle" font-family="'Space Mono',monospace" font-size="9" fill="var(--orange)">×7</text>
+      <circle cx="175" cy="95" r="12" fill="var(--c-boss)" fill-opacity="0.2" stroke="var(--c-boss)" stroke-width="1.5"/>
+      <text x="175" y="99" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--text)">復仇者</text>
+      <text x="175" y="111" text-anchor="middle" font-family="'Space Mono',monospace" font-size="9" fill="var(--c-boss)">×5</text>
+      <circle cx="107" cy="90" r="9" fill="var(--blue)" fill-opacity="0.2" stroke="var(--blue)" stroke-width="1.5"/>
+      <text x="107" y="93" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--text)">蟻人×3</text>
+      <circle cx="140" cy="118" r="9" fill="var(--blue)" fill-opacity="0.2" stroke="var(--blue)" stroke-width="1.5"/>
+      <text x="140" y="121" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--text)">美隊×3</text>
+      <circle cx="205" cy="130" r="6" fill="var(--muted)" fill-opacity="0.3" stroke="var(--muted)" stroke-width="1.5"/>
+      <text x="205" y="133" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--text)">功夫熊貓×1</text>
+      <circle cx="331" cy="72" r="9" fill="var(--c-jie)" fill-opacity="0.25" stroke="var(--c-jie)" stroke-width="1.5"/>
+      <text x="331" y="75" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--text)">咒術迴戰</text>
+      <text x="331" y="87" text-anchor="middle" font-family="'Space Mono',monospace" font-size="9" fill="var(--c-jie)">×3</text>
+      <circle cx="305" cy="100" r="6" fill="var(--c-nose)" fill-opacity="0.25" stroke="var(--c-nose)" stroke-width="1.5"/>
+      <text x="305" y="103" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--text)">獵人×1</text>
+      <circle cx="155" cy="200" r="8" fill="var(--muted)" fill-opacity="0.3" stroke="var(--muted)" stroke-width="1.5"/>
+      <text x="155" y="203" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--text)">怪奇物語×2</text>
+      <circle cx="120" cy="228" r="6" fill="var(--muted)" fill-opacity="0.3" stroke="var(--muted)" stroke-width="1.5"/>
+      <text x="120" y="231" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--text)">天降奇兵×1</text>
+      <circle cx="310" cy="215" r="6" fill="var(--c-nose)" fill-opacity="0.25" stroke="var(--c-nose)" stroke-width="1.5"/>
+      <text x="310" y="218" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="var(--text)">JOJO×1</text>
+    </svg>
+    <div class="ins">最強聯想集中於歐美超英宇宙（X戰警×8、漫威×7），顯示受眾對「本土超英宇宙」定位的認知；咒術迴戰等日漫出現，反映亞洲奇幻戰鬥元素的跨媒介吸引力。</div>
+  </div>
+
+  <div class="card gap">
+    <div class="ct">劇本喜愛程度 <span class="n-tag">評分題 1-10 · n=35</span></div>
+    <div class="hbl">
+      <div class="hbi"><div class="hb-label">9分</div><div class="hb-track"><div class="hb-fill" style="width:8.3%;background:var(--green)"><span class="hb-val">1</span></div></div><div class="hb-pct">2.9%</div></div>
+      <div class="hbi"><div class="hb-label">8分</div><div class="hb-track"><div class="hb-fill" style="width:58.3%;background:var(--gold)"><span class="hb-val">7</span></div></div><div class="hb-pct">20.0%</div></div>
+      <div class="hbi"><div class="hb-label">7分</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--gold)"><span class="hb-val">12</span></div></div><div class="hb-pct">34.3%</div></div>
+      <div class="hbi"><div class="hb-label">6分</div><div class="hb-track"><div class="hb-fill" style="width:75%;background:var(--orange)"><span class="hb-val">9</span></div></div><div class="hb-pct">25.7%</div></div>
+      <div class="hbi"><div class="hb-label">5分</div><div class="hb-track"><div class="hb-fill" style="width:25%;background:var(--muted)"><span class="hb-val">3</span></div></div><div class="hb-pct">8.6%</div></div>
+      <div class="hbi"><div class="hb-label">4分</div><div class="hb-track"><div class="hb-fill" style="width:8.3%;background:var(--muted)"><span class="hb-val">1</span></div></div><div class="hb-pct">2.9%</div></div>
+      <div class="hbi"><div class="hb-label">3分</div><div class="hb-track"><div class="hb-fill" style="width:16.7%;background:var(--danger)"><span class="hb-val">2</span></div></div><div class="hb-pct">5.7%</div></div>
+      <div class="hbi"><div class="hb-label">1–2分</div><div class="hb-track"><div class="hb-fill" style="width:0%;background:var(--muted)"><span class="hb-val" style="color:var(--muted)">0</span></div></div><div class="hb-pct">0%</div></div>
+    </div>
+    <div class="ins">平均 6.51 分，中位數 7 分，無人給1–2分，整體正向；36-40歲平均最高（7.17），21-25歲最低（5.75）。</div>
+  </div>
+
+  <div class="card gap">
+    <div class="ct">市場意向 <span class="n-tag">n=35</span></div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:var(--fs-sm);margin-bottom:6px">
+          <span>入場意願</span><span style="font-family:'Space Mono',monospace;color:var(--green)">31/35 &nbsp;88.6%</span>
+        </div>
+        <div class="prog"><div class="prog-fill" style="width:88.6%;background:var(--green)"></div></div>
+        <div style="font-size:var(--fs-xs);color:var(--muted);margin-top:5px">不入場的4人全為生理女、分佈於21–35歲，屬條件性觀望，生理男全數願意入場。</div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:var(--fs-sm);margin-bottom:6px">
+          <span>推薦意願</span><span style="font-family:'Space Mono',monospace;color:var(--blue)">28/35 &nbsp;80.0%</span>
+        </div>
+        <div class="prog"><div class="prog-fill" style="width:80.0%;background:var(--blue)"></div></div>
+        <div style="font-size:var(--fs-xs);color:var(--muted);margin-top:5px">26–30歲推薦率100%，是口碑擴散核心族群；41–45歲僅40.0%，自己願意看但不確定推薦給誰。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card gap">
+    <div class="ct">推薦原因 <span class="n-tag">複選 · 推薦者 n=28</span></div>
+    <div class="hbl">
+      <div class="hbi"><div class="hb-label" style="white-space:nowrap">妖怪傳說</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--c-tiger)"><span class="hb-val">21</span></div></div><div class="hb-pct">75.0%</div></div>
+      <div class="hbi"><div class="hb-label" style="white-space:nowrap">動作場面</div><div class="hb-track"><div class="hb-fill" style="width:61.9%;background:var(--c-nose)"><span class="hb-val">13</span></div></div><div class="hb-pct">46.4%</div></div>
+      <div class="hbi"><div class="hb-label" style="white-space:nowrap">諜報野史</div><div class="hb-track"><div class="hb-fill" style="width:42.9%;background:var(--blue)"><span class="hb-val">9</span></div></div><div class="hb-pct">32.1%</div></div>
+      <div class="hbi"><div class="hb-label" style="white-space:nowrap">情感真摯</div><div class="hb-track"><div class="hb-fill" style="width:38.1%;background:var(--c-jie)"><span class="hb-val">8</span></div></div><div class="hb-pct">28.6%</div></div>
+      <div class="hbi"><div class="hb-label" style="white-space:nowrap">劇情精彩</div><div class="hb-track"><div class="hb-fill" style="width:33.3%;background:var(--orange)"><span class="hb-val">7</span></div></div><div class="hb-pct">25.0%</div></div>
+      <div class="hbi"><div class="hb-label" style="white-space:nowrap">特效程度</div><div class="hb-track"><div class="hb-fill" style="width:33.3%;background:var(--muted)"><span class="hb-val">7</span></div></div><div class="hb-pct">25.0%</div></div>
+    </div>
+    <div class="ins">在28位推薦者中，妖怪傳說元素（75%）與動作場面（46.4%）是主要推薦理由；諜報野史吸引32.1%，顯示台灣歷史題材有一定號召力。</div>
+  </div>
+
+  <div class="card gap">
+    <div class="ct">最期待在大銀幕看到的場景 <span class="n-tag">開放填答 · n=35 · 主題歸類估算</span></div>
+    <div class="hbl">
+      <div class="hbi"><div class="hb-label w" style="color:var(--gold)">大決戰・動作場面</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--gold)"><span class="hb-val">13</span></div></div><div class="hb-pct">37.1%</div></div>
+      <div class="hbi"><div class="hb-label w" style="color:var(--c-tiger)">角色奇幻異能展現</div><div class="hb-track"><div class="hb-fill" style="width:76.9%;background:var(--c-tiger)"><span class="hb-val">10</span></div></div><div class="hb-pct">28.6%</div></div>
+      <div class="hbi"><div class="hb-label w" style="color:var(--c-bai)">角色情感高潮戲</div><div class="hb-track"><div class="hb-fill" style="width:53.8%;background:var(--c-bai)"><span class="hb-val">7</span></div></div><div class="hb-pct">20.0%</div></div>
+      <div class="hbi"><div class="hb-label w" style="color:var(--blue)">台灣史實與虛構結合</div><div class="hb-track"><div class="hb-fill" style="width:30.8%;background:var(--blue)"><span class="hb-val">4</span></div></div><div class="hb-pct">11.4%</div></div>
+    </div>
+    <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+      <button class="expand-btn" onclick="toggleRaw(this)"><span class="arrow">▼</span> 大決戰・動作場面（13人）— 查看原始回覆</button>
+      <div class="raw-quotes">
+        <div class="rq-item"><span class="rq-n">#1</span>白賊七詛咒的大規模展示</div>
+        <div class="rq-item"><span class="rq-n">#2</span>最終BOSS戰，妖怪對決</div>
+        <div class="rq-item"><span class="rq-n">#3</span>超能力訓練場面</div>
+        <div class="rq-item"><span class="rq-n">#4</span>場114到場136的大混戰，看起來會蠻熱血的</div>
+        <div class="rq-item"><span class="rq-n">#5</span>水蛇和水男孩的打鬥特效場面</div>
+        <div class="rq-item"><span class="rq-n">#6</span>好鼻師將螞蟻化為盔甲，硬化可擋下攻擊，他的戰鬥場面都會想看</div>
+        <div class="rq-item"><span class="rq-n">#7</span>虎姑婆對決局長的正面交鋒，最終決戰的全力爆發</div>
+      </div>
+      <button class="expand-btn" onclick="toggleRaw(this)"><span class="arrow">▼</span> 角色奇幻異能展現（10人）— 查看原始回覆</button>
+      <div class="raw-quotes">
+        <div class="rq-item"><span class="rq-n">#1</span>狐仙現身的震撼場面</div>
+        <div class="rq-item"><span class="rq-n">#2</span>妖怪村落的奇幻視覺</div>
+        <div class="rq-item"><span class="rq-n">#3</span>虎姑婆覺醒隱藏能力</div>
+        <div class="rq-item"><span class="rq-n">#4</span>場137 妖狐出世</div>
+        <div class="rq-item"><span class="rq-n">#5</span>虎姑婆幻化轉變的過程、最後狐仙出場，都非常期待</div>
+      </div>
+      <button class="expand-btn" onclick="toggleRaw(this)"><span class="arrow">▼</span> 角色情感高潮戲（7人）— 查看原始回覆</button>
+      <div class="raw-quotes">
+        <div class="rq-item"><span class="rq-n">#1</span>虎姑婆與小潔的情感升溫場景</div>
+        <div class="rq-item"><span class="rq-n">#2</span>小潔得知育幼院身世的心境轉折</div>
+        <div class="rq-item"><span class="rq-n">#3</span>好鼻師與兒子的和解場景</div>
+        <div class="rq-item"><span class="rq-n">#4</span>白賊七面對詛咒命運的內心獨白</div>
+      </div>
+      <button class="expand-btn" onclick="toggleRaw(this)"><span class="arrow">▼</span> 台灣史實與虛構結合（4人）— 查看原始回覆</button>
+      <div class="raw-quotes">
+        <div class="rq-item"><span class="rq-n">#1</span>1970年代核彈計劃的歷史場景還原</div>
+        <div class="rq-item"><span class="rq-n">#2</span>台灣戒嚴時期的時代氛圍重現</div>
+        <div class="rq-item"><span class="rq-n">#3</span>歷史真實事件與超能力宇宙的交會感</div>
+        <div class="rq-item"><span class="rq-n">#4</span>場41–42與場74–75（故宮）的歷史場景畫面呈現</div>
+      </div>
+    </div>
+    <div class="ins">動作場面期待最高（37.1%），角色奇幻異能展現（28.6%）緊追；台灣史實與虛構結合（11.4%）雖居末，但故宮等歷史場景具有差異化潛力。</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">期待續集並希望由哪個角色主演</div>
+    <div class="hbl">
+      <div class="hbi"><div class="hb-label w">小潔</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--c-jie)"><span class="hb-val">8</span></div></div><div class="hb-pct">22.9%</div></div>
+      <div class="hbi"><div class="hb-label w">白賊七</div><div class="hb-track"><div class="hb-fill" style="width:87.5%;background:var(--c-bai)"><span class="hb-val">7</span></div></div><div class="hb-pct">20.0%</div></div>
+      <div class="hbi"><div class="hb-label w">虎姑婆</div><div class="hb-track"><div class="hb-fill" style="width:50%;background:var(--c-tiger)"><span class="hb-val">4</span></div></div><div class="hb-pct">11.4%</div></div>
+      <div class="hbi"><div class="hb-label w">局長</div><div class="hb-track"><div class="hb-fill" style="width:25%;background:var(--c-boss)"><span class="hb-val">2</span></div></div><div class="hb-pct">5.7%</div></div>
+      <div class="hbi"><div class="hb-label w">狐仙</div><div class="hb-track"><div class="hb-fill" style="width:25%;background:var(--gold)"><span class="hb-val">2</span></div></div><div class="hb-pct">5.7%</div></div>
+      <div class="hbi"><div class="hb-label w">蜥蜴</div><div class="hb-track"><div class="hb-fill" style="width:12.5%;background:var(--c-lizard)"><span class="hb-val">1</span></div></div><div class="hb-pct">2.9%</div></div>
+      <div class="hbi"><div class="hb-label w">好鼻師</div><div class="hb-track"><div class="hb-fill" style="width:12.5%;background:var(--c-nose)"><span class="hb-val">1</span></div></div><div class="hb-pct">2.9%</div></div>
+    </div>
+    <div class="ins">小潔以8票居冠（22.9%），白賊七7票緊隨（20.0%）；白賊七以詛咒能力的發展性見長，小潔則以情感潛力勝出。</div>
+  </div>
+</section>
+
+<!-- ===== QUALITATIVE ===== -->
+<section id="qualitative" class="sec">
+  <div class="sec-title">質化回饋歸納</div>
+  <div class="card gap">
+    <div class="ct">待修正問題</div>
+    <div class="theme-block" data-chars="狐仙">
+      <div class="theme-header"><span class="theme-count r">8人</span><div class="theme-title">狐仙結局收束過輕，虎頭蛇尾感強烈</div></div>
+      <div class="theme-quotes">
+        <div class="tq">以妖怪之王設定，跟虎姑婆對看一眼就走了，太輕而易舉</div>
+        <div class="tq">活了一千年被封印，一個瞬間就原諒一切，個人覺得太簡單了</div>
+        <div class="tq">開頭說狐仙能毀滅世界，整體看起來像小打小鬧，格局落差大</div>
+      </div>
+      <div class="raw-quotes" style="display:block;max-height:none;overflow:visible">
+        <div class="rq-item"><span class="rq-n">#1</span>以妖怪之王的設定，跟虎姑婆對看一眼就走了，太輕而易舉</div>
+        <div class="rq-item"><span class="rq-n">#2</span>活了一千年被封印，一個瞬間就原諒一切，個人覺得太簡單了：故事一開始的說明煞有其事，有種重重拿起、最終輕輕放下的不合理感。</div>
+        <div class="rq-item"><span class="rq-n">#3</span>開頭說狐仙能帶領妖怪毀滅世界，整體看起來像小打小鬧，沒有開頭那種大格局的感覺</div>
+        <div class="rq-item"><span class="rq-n">#4</span>最後狐妖收得太簡單了，讓人覺得虎頭蛇尾，還不如讓他看到虎姑婆救動物而受傷，進而透過狐妖殺死局長再離開</div>
+        <div class="rq-item"><span class="rq-n">#5</span>場137何朵用獸妖互相理解就感化狐仙有點太輕而易舉了</div>
+        <div class="rq-item"><span class="rq-n">#6</span>既然可以封印祂的族人已經滅亡，照理說祂可以想做什麼就做什麼，而且活了一千年被關這麼久，一個瞬間就原諒一切</div>
+        <div class="rq-item"><span class="rq-n">#7</span>虎姑婆應該要有隱藏的能力，最終BOSS戰時覺醒發動，可能更熱血</div>
+        <div class="rq-item"><span class="rq-n">#8</span>以一個眼神收束千年妖怪之王，虎頭蛇尾的典型風險點</div>
+      </div>
+    </div>
+
+    <div class="theme-block" data-chars="鄧小姐">
+      <div class="theme-header"><span class="theme-count r">7人</span><div class="theme-title">鄧小姐角色必要性存疑，多次出場突兀</div></div>
+      <div class="theme-quotes">
+        <div class="tq">感覺是為了劇情轉折硬加進去的，刪去對劇情不太影響</div>
+        <div class="tq">在大戰中出現的劇情太過出戲，前面合理但最後太突兀</div>
+      </div>
+      <div class="raw-quotes" style="display:block;max-height:none;overflow:visible">
+        <div class="rq-item"><span class="rq-n">#1</span>感覺是為了劇情轉折硬加進去的，刪去對劇情不太影響</div>
+        <div class="rq-item"><span class="rq-n">#2</span>鄧小姐指出有還有一枚核彈，又帶錯鑰匙回家，在最後決戰時又打電話來，整段覺得有點冗長</div>
+        <div class="rq-item"><span class="rq-n">#3</span>鄧小姐在大戰中出現的劇情太過出戲，前面還算合理但最後那邊太突兀</div>
+        <div class="rq-item"><span class="rq-n">#4</span>鄧小姐的角色轉折太硬了</div>
+        <div class="rq-item"><span class="rq-n">#5</span>鄧小姐的部分覺得刪去對劇情不太影響</div>
+        <div class="rq-item"><span class="rq-n">#6</span>覺得影射鄧麗君小姐的成分太高，不是那麼尊重故人</div>
+        <div class="rq-item"><span class="rq-n">#7</span>鄧小姐的場景似乎有點多餘</div>
+      </div>
+    </div>
+
+    <div class="theme-block" data-chars="虎姑婆">
+      <div class="theme-header"><span class="theme-count r">5人</span><div class="theme-title">虎姑婆能力是全場最無聊，缺乏驚喜</div></div>
+      <div class="theme-quotes">
+        <div class="tq">虎姑婆的最普通，就是力量型角色而已，沒吸引人</div>
+        <div class="tq">應該要有隱藏能力，最終BOSS戰時覺醒，才會更熱血</div>
+      </div>
+      <div class="raw-quotes" style="display:block;max-height:none;overflow:visible">
+        <div class="rq-item"><span class="rq-n">#1</span>虎姑婆的最普通，就是力量型角色而已，沒吸引人</div>
+        <div class="rq-item"><span class="rq-n">#2</span>虎姑婆應該要有隱藏的能力，最終BOSS戰時覺醒發動，可能更熱血</div>
+        <div class="rq-item"><span class="rq-n">#3</span>虎姑婆莫名其妙突然對小潔有母愛心態</div>
+        <div class="rq-item"><span class="rq-n">#4</span>情感訴求不明，虎姑婆在意的事情好像沒辦法引起我的共鳴</div>
+        <div class="rq-item"><span class="rq-n">#5</span>覺得虎姑婆的角色可以多一些背景故事，目前看下來只覺得是生理女的直男</div>
+      </div>
+    </div>
+
+    <div class="theme-block" data-chars="小潔">
+      <div class="theme-header"><span class="theme-count o">5人</span><div class="theme-title">小潔角色功能性過強，缺乏獨立性格</div></div>
+      <div class="theme-quotes">
+        <div class="tq">她好像純粹為了推進劇情，沒有記憶點</div>
+        <div class="tq">跟虎姑婆之間太快有革命情感，轉變過於倉促</div>
+      </div>
+      <div class="raw-quotes" style="display:block;max-height:none;overflow:visible">
+        <div class="rq-item"><span class="rq-n">#1</span>小潔的角色也覺得有點單薄、讀心能力不是關鍵，好像有跟沒有差不多</div>
+        <div class="rq-item"><span class="rq-n">#2</span>小潔這個角色單薄，她好像純粹為了推進劇情用，沒有記憶點也沒有喜歡上這角色</div>
+        <div class="rq-item"><span class="rq-n">#3</span>跟虎姑婆之間太快有革命情感了，而且小潔這個角色單薄</div>
+        <div class="rq-item"><span class="rq-n">#4</span>沒有共鳴，也不了解角色動機</div>
+        <div class="rq-item"><span class="rq-n">#5</span>為什麼小潔特別厲害（天生神力 chosen one?）</div>
+      </div>
+    </div>
+
+    <div class="theme-block" data-chars="局長">
+      <div class="theme-header"><span class="theme-count o">5人</span><div class="theme-title">局長反派威脅感不足，陰謀薄弱</div></div>
+      <div class="theme-quotes">
+        <div class="tq">大反派有點薄弱，希望改成有更強的復仇動機</div>
+        <div class="tq">局長跟狐仙的關係線不夠清晰，合作過程太順利</div>
+      </div>
+      <div class="raw-quotes" style="display:block;max-height:none;overflow:visible">
+        <div class="rq-item"><span class="rq-n">#1</span>做為大反派有點薄弱，我希望能改成他有更強的復仇動機</div>
+        <div class="rq-item"><span class="rq-n">#2</span>局長幻術解除的設定前後不一致，最後解除條件不明確</div>
+        <div class="rq-item"><span class="rq-n">#3</span>局長跟狐仙的關係線不夠清晰，感覺狐仙跟局長合作的有點太順利了</div>
+        <div class="rq-item"><span class="rq-n">#4</span>人設太複雜，有些混亂</div>
+        <div class="rq-item"><span class="rq-n">#5</span>反派的名氣顯得比較小，跟主角群名氣有點不匹配</div>
+      </div>
+    </div>
+
+    <div class="theme-block" data-chars="好鼻師">
+      <div class="theme-header"><span class="theme-count o">5人</span><div class="theme-title">好鼻師家庭和解段落多餘，肥皂劇感強</div></div>
+      <div class="theme-quotes">
+        <div class="tq">任務剛有進展，好鼻師突然退出去找家人，有點突兀</div>
+        <div class="tq">太輕鬆地就互相理解，現實上家庭問題不可能這麼簡單</div>
+      </div>
+      <div class="raw-quotes" style="display:block;max-height:none;overflow:visible">
+        <div class="rq-item"><span class="rq-n">#1</span>任務剛有進展，卻回去找太太跟女兒要離開隊伍，覺得有點突兀</div>
+        <div class="rq-item"><span class="rq-n">#2</span>好鼻師跟太太與女兒一起和解的段落有點太肥皂劇了，感覺有點多餘且太輕鬆了</div>
+        <div class="rq-item"><span class="rq-n">#3</span>場77-80，好鼻師帶著妻小離開，很明顯會再被抓走</div>
+        <div class="rq-item"><span class="rq-n">#4</span>場80 好鼻師要帶家人離開那段覺得多餘</div>
+        <div class="rq-item"><span class="rq-n">#5</span>遇事躊躇，笨笨的爛好人</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">正向回饋</div>
+    <div class="theme-block">
+      <div class="theme-header"><span class="theme-count gr">12人</span><div class="theme-title">台灣在地文化元素是最大差異化優勢</div></div>
+      <div class="theme-quotes">
+        <div class="tq">很久沒看到台灣民俗妖怪為主角的電影，期待！</div>
+        <div class="tq">這是本片區隔於西方超英IP的最大特色</div>
+      </div>
+      <div class="raw-quotes" style="display:block;max-height:none;overflow:visible">
+        <div class="rq-item"><span class="rq-n">#1</span>題材滿有趣，很久沒看到台灣民俗妖怪為主角的電影，期待！</div>
+        <div class="rq-item"><span class="rq-n">#2</span>這是本片區隔於西方超英IP的最大特色，需持續深化</div>
+        <div class="rq-item"><span class="rq-n">#3</span>構想有趣，對話淺白，設計偶見新意，作為商業片應該很不錯</div>
+      </div>
+    </div>
+    <div class="theme-block">
+      <div class="theme-header"><span class="theme-count gr">7人</span><div class="theme-title">白賊七能力設計是全片最大亮點</div></div>
+      <div class="theme-quotes">
+        <div class="tq">詛咒能力一語成讖，設定有趣且有發展性</div>
+        <div class="tq">感覺白賊七可以拍個類似 Deadpool 的路線</div>
+      </div>
+      <div class="raw-quotes" style="display:block;max-height:none;overflow:visible">
+        <div class="rq-item"><span class="rq-n">#1</span>詛咒能力一語成讖，設定有趣且有發展性，不是無敵的也可以鬧出笑話</div>
+        <div class="rq-item"><span class="rq-n">#2</span>感覺白賊七可以拍個類似 Deadpool 的路線</div>
+        <div class="rq-item"><span class="rq-n">#3</span>白賊七的能力蠻帥，在關鍵劇情也有起到作用</div>
+        <div class="rq-item"><span class="rq-n">#4</span>很帥氣、烏鴉嘴設定有趣</div>
+        <div class="rq-item"><span class="rq-n">#5</span>雖然是智力擔當但性格偶爾有點傻萌，這個反差感很棒</div>
+      </div>
+    </div>
+    <div class="theme-block">
+      <div class="theme-header"><span class="theme-count gr">9人</span><div class="theme-title">劇本流暢、畫面感強，期待動作場面</div></div>
+      <div class="theme-quotes">
+        <div class="tq">劇本整體讀起來很流暢，也很有畫面感</div>
+        <div class="tq">場114到場136的大混戰看起來會蠻熱血的</div>
+      </div>
+      <div class="raw-quotes" style="display:block;max-height:none;overflow:visible">
+        <div class="rq-item"><span class="rq-n">#1</span>劇本整體讀起來很流暢，也很有畫面感</div>
+        <div class="rq-item"><span class="rq-n">#2</span>場114開始到場136，大混戰看起來會蠻熱血的</div>
+        <div class="rq-item"><span class="rq-n">#3</span>水蛇和水男孩的打鬥特效場面、虎姑婆幻化轉變的過程、最後狐仙出場，都非常期待</div>
+        <div class="rq-item"><span class="rq-n">#4</span>好鼻師將螞蟻化為盔甲，硬化可擋下攻擊，他的戰鬥場面都會想看</div>
+        <div class="rq-item"><span class="rq-n">#5</span>動作場景都蠻期待的，場41-42與場74-75（故宮）這兩段感覺畫面呈現會很有趣</div>
+        <div class="rq-item"><span class="rq-n">#6</span>場137 妖狐出世</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CROSS ANALYSIS ===== -->
+<section id="cross" class="sec">
+  <div class="sec-title">受測者交叉分析</div>
+
+  <div class="card gap">
+    <div class="ct">閱讀前是否知道台灣製作核彈的歷史 <span class="n-tag">單選 · n=35</span></div>
+    <div style="display:flex;gap:32px;justify-content:center;flex-wrap:wrap;padding:12px 0">
+      <div style="text-align:center">
+        <svg viewBox="0 0 100 100" style="width:110px;height:110px">
+          <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="14"/>
+          <circle cx="50" cy="50" r="38" fill="none" stroke="var(--blue)" stroke-width="14"
+                  stroke-dasharray="182 57" transform="rotate(-90 50 50)" stroke-linecap="round"/>
+          <text x="50" y="45" text-anchor="middle" font-size="15" fill="var(--blue)" font-family="'Space Mono',monospace" font-weight="700">76.2%</text>
+          <text x="50" y="60" text-anchor="middle" font-size="8" fill="var(--text)" font-family="'Noto Sans TC',sans-serif" opacity=".6">知道</text>
+        </svg>
+        <div style="font-size:var(--fs-sm);color:var(--blue);margin-top:4px">生理男</div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted)">16 / 21 人</div>
+      </div>
+      <div style="text-align:center">
+        <svg viewBox="0 0 100 100" style="width:110px;height:110px">
+          <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="14"/>
+          <circle cx="50" cy="50" r="38" fill="none" stroke="var(--gold)" stroke-width="14"
+                  stroke-dasharray="68 171" transform="rotate(-90 50 50)" stroke-linecap="round"/>
+          <text x="50" y="45" text-anchor="middle" font-size="15" fill="var(--gold)" font-family="'Space Mono',monospace" font-weight="700">28.6%</text>
+          <text x="50" y="60" text-anchor="middle" font-size="8" fill="var(--text)" font-family="'Noto Sans TC',sans-serif" opacity=".6">知道</text>
+        </svg>
+        <div style="font-size:var(--fs-sm);color:var(--gold);margin-top:4px">生理女</div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted)">4 / 14 人</div>
+      </div>
+    </div>
+    <div class="ins"><strong>性別差距 47.6% 是全問卷最大差距</strong>——男性知曉率（76.2%）遠高於女性（28.6%）；核彈史對女性受眾幾乎是全新資訊。</div>
+  </div>
+  <div class="seg-ctrl">
+    <button class="seg-btn active" onclick="showCrossTab('gender',this)">性別分組</button>
+    <button class="seg-btn" onclick="showCrossTab('age',this)">年齡分組</button>
+  </div>
+
+  <!-- GENDER -->
+  <div class="cross-view active" id="ctab-gender">
+    <div style="font-size:var(--fs-sm);color:var(--muted);margin-bottom:4px">生理男（n=21）vs 生理女（n=14）</div>
+    <div style="font-size:var(--fs-xs);color:var(--muted);margin-bottom:16px;line-height:1.5;border-left:2px solid var(--gold);padding-left:10px;opacity:.8">
+      ※ 兩組人數不同，<strong>請以百分比（%）比較</strong>，不宜直接以人數比較。右側 % 為各組內比例。</div>
+
+    <div class="card gap">
+      <div class="ct">四位主角喜愛度 × 性別</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="dual-item">
+          <div class="dual-label">小潔 <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--danger)">差距 +31%（最大）</span></div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--blue)">男</span><div class="hb-track"><div class="hb-fill" style="width:19%;background:var(--blue)"><span class="hb-val">4</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--blue);width:40px;text-align:right">19%</span></div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--gold)">女</span><div class="hb-track"><div class="hb-fill" style="width:50%;background:var(--gold)"><span class="hb-val">7</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--gold);width:40px;text-align:right">50%</span></div>
+        </div>
+        <div class="dual-item">
+          <div class="dual-label">虎姑婆 <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)">差距 +21%</span></div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--blue)">男</span><div class="hb-track"><div class="hb-fill" style="width:29%;background:var(--blue)"><span class="hb-val">6</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--blue);width:40px;text-align:right">29%</span></div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--gold)">女</span><div class="hb-track"><div class="hb-fill" style="width:50%;background:var(--gold)"><span class="hb-val">7</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--gold);width:40px;text-align:right">50%</span></div>
+        </div>
+        <div class="dual-item">
+          <div class="dual-label">白賊七 <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)">差距 +7%</span></div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--blue)">男</span><div class="hb-track"><div class="hb-fill" style="width:57%;background:var(--blue)"><span class="hb-val">12</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--blue);width:40px;text-align:right">57%</span></div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--gold)">女</span><div class="hb-track"><div class="hb-fill" style="width:64%;background:var(--gold)"><span class="hb-val">9</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--gold);width:40px;text-align:right">64%</span></div>
+        </div>
+        <div class="dual-item">
+          <div class="dual-label">好鼻師 <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)">差距 -4%（無差異）</span></div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--blue)">男</span><div class="hb-track"><div class="hb-fill" style="width:33%;background:var(--blue)"><span class="hb-val">7</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--blue);width:40px;text-align:right">33%</span></div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--gold)">女</span><div class="hb-track"><div class="hb-fill" style="width:29%;background:var(--gold)"><span class="hb-val">4</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--gold);width:40px;text-align:right">29%</span></div>
+        </div>
+      </div>
+      <div class="ins"><strong>小潔差距+31%與虎姑婆+21%是最顯著性別差距</strong>——女性對情感型角色共鳴明顯更強；白賊七女性喜愛度（64%）高於男性（57%），是全票段最受歡迎的角色。</div>
+    </div>
+
+    <div class="card gap">
+      <div class="ct">虎姑婆、白賊七超能力感受 × 性別</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="dual-item">
+          <div class="dual-label" style="color:var(--danger)">虎姑婆——認為能力最無聊</div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--blue)">男</span><div class="hb-track"><div class="hb-fill" style="width:43%;background:var(--blue)"><span class="hb-val">9</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--blue);width:40px;text-align:right">42.9%</span></div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--gold)">女</span><div class="hb-track"><div class="hb-fill" style="width:36%;background:var(--gold)"><span class="hb-val">5</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--gold);width:40px;text-align:right">35.7%</span></div>
+        </div>
+        <div class="dual-item">
+          <div class="dual-label" style="color:var(--gold)">白賊七詛咒——認為最酷</div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--blue)">男</span><div class="hb-track"><div class="hb-fill" style="width:57%;background:var(--blue)"><span class="hb-val">12</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--blue);width:40px;text-align:right">57%</span></div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--gold)">女</span><div class="hb-track"><div class="hb-fill" style="width:79%;background:var(--gold)"><span class="hb-val">11</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--gold);width:40px;text-align:right">78.6%</span></div>
+        </div>
+        <div class="dual-item">
+          <div class="dual-label">白賊七匕首——看不懂</div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--blue)">男</span><div class="hb-track"><div class="hb-fill" style="width:19%;background:var(--blue)"><span class="hb-val">4</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--blue);width:40px;text-align:right">19%</span></div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--gold)">女</span><div class="hb-track"><div class="hb-fill" style="width:36%;background:var(--gold)"><span class="hb-val">5</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--gold);width:40px;text-align:right">35.7%</span></div>
+        </div>
+      </div>
+      <div class="ins">虎姑婆能力問題女性（35.7%）略低於男性（42.9%），仍是跨性別結構性問題；白賊七詛咒女性喜愛度（78.6%）顯著高於男性（57%）；匕首能力女性困惑度更高（35.7% vs 19%）。</div>
+    </div>
+
+    <div class="card gap">
+      <div class="ct">小潔虎姑婆情感建立——場次認知 × 性別</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="dual-item">
+          <div class="dual-label">場17：小潔耳邊提醒快逃（行動導向）</div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--blue)">男</span><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--blue)"><span class="hb-val">6</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--blue);width:40px;text-align:right">29%</span></div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--gold)">女</span><div class="hb-track"><div class="hb-fill" style="width:17%;background:var(--gold)"><span class="hb-val">1</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--gold);width:40px;text-align:right">7%</span></div>
+        </div>
+        <div class="dual-item">
+          <div class="dual-label">場25：小潔幫虎姑婆止血（肢體照護）</div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--blue)">男</span><div class="hb-track"><div class="hb-fill" style="width:50%;background:var(--blue)"><span class="hb-val">3</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--blue);width:40px;text-align:right">14%</span></div>
+          <div class="dual-row"><span class="dual-g" style="color:var(--gold)">女</span><div class="hb-track"><div class="hb-fill" style="width:71%;background:var(--gold)"><span class="hb-val">5</span></div></div><span style="font-family:'Space Mono','Space Mono',monospace;font-size:13px;color:var(--gold);width:40px;text-align:right">36%</span></div>
+        </div>
+      </div>
+      <div class="ins"><strong>男性偏行動導向場景（場17，29%）；女性偏肢體照護場景（場25，36%）</strong>——設計情感弧線時，需同時照顧兩種感知路徑。</div>
+    </div>
+
+    <div class="card gap">
+      <div class="ct">入場意願 × 性別</div>
+      <div class="hbl">
+        <div class="hbi"><div class="hb-label">生理男</div><div class="hb-track"><div class="hb-fill" style="width:100%;background:var(--blue)"><span class="hb-val">21/21</span></div></div><div class="hb-pct">100%</div></div>
+        <div class="hbi"><div class="hb-label">生理女</div><div class="hb-track"><div class="hb-fill" style="width:71%;background:var(--gold)"><span class="hb-val">10/14</span></div></div><div class="hb-pct">71.4%</div></div>
+      </div>
+      <div class="ins">男性100%願意入場；不入場的4人全為生理女，屬條件性觀望。</div>
+    </div>
+
+
+    <div class="card gap">
+      <div class="ct">跨題目問題主題 × 性別集中度</div>
+      <table class="st">
+        <tr><th>主題</th><th>男</th><th>女</th><th>觀察</th></tr>
+        <tr><td class="lbl">虎姑婆能力問題</td><td>11人</td><td>6人</td><td>男女均有，比例相近——結構性問題</td></tr>
+        <tr><td class="lbl">局長反派不足</td><td>11人</td><td>5人</td><td>偏男性，對反派強度要求更敏感</td></tr>
+        <tr><td class="lbl">好鼻師家庭線</td><td>10人</td><td>4人</td><td>明顯偏男性，對家庭情感戲容忍度低</td></tr>
+        <tr><td class="lbl">小潔角色薄弱</td><td>10人</td><td>6人</td><td>比例相近，但女性既喜歡又批評——期待更高</td></tr>
+        <tr><td class="lbl">狐仙結局太輕</td><td>8人</td><td>4人</td><td>比例相近，普遍感受</td></tr>
+        <tr><td class="lbl">鄧小姐多餘</td><td>7人</td><td>4人</td><td>比例相近，普遍感受</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- AGE -->
+  <div class="cross-view" id="ctab-age">
+    <div style="font-size:var(--fs-sm);color:var(--muted);margin-bottom:16px">21-30歲（n=15）· 31-40歲（n=13）· 41-50歲（n=7）</div>
+
+    <div class="card gap">
+      <div class="ct">四位主角喜愛度 × 年齡組</div>
+      <table class="st">
+        <tr><th>角色</th><th>21-30歲<br><span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:400;opacity:.7">n=15</span></th><th>31-40歲<br><span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:400;opacity:.7">n=13</span></th><th>41-50歲<br><span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:400;opacity:.7">n=7</span></th><th>洞察</th></tr>
+        <tr><td class="lbl" style="color:var(--c-tiger)">虎姑婆</td><td>33%</td><td>23%</td><td style="color:var(--c-tiger)">71%</td><td>41-50歲顯著偏高，21-30歲認同感亦有提升</td></tr>
+        <tr><td class="lbl" style="color:var(--c-bai)">白賊七</td><td>60%</td><td style="color:var(--c-bai)">69%</td><td>43%</td><td>31-40歲最愛，年輕族群喜愛度同樣高</td></tr>
+        <tr><td class="lbl" style="color:var(--c-nose)">好鼻師</td><td>27%</td><td>15%</td><td style="color:var(--c-nose)">71%</td><td>41-50歲大幅領先，家庭形象共鳴更強</td></tr>
+        <tr><td class="lbl" style="color:var(--c-jie)">小潔</td><td>33%</td><td>15%</td><td style="color:var(--c-jie)">57%</td><td>41-50歲最高；21-30歲也達33%，兩端高中間低</td></tr>
+      </table>
+      <div class="ins"><strong>41–50歲對情感型角色喜愛度均最高</strong>（虎姑婆71%、好鼻師71%、小潔57%），家庭與伴侶角色喜愛度強；21–30歲對白賊七與小潔喜愛度均達60%/33%，已不再是喜愛度偏低的族群——但推薦率仍以他們為核心（93%），具口碑擴散潛力。</div>
+    </div>
+
+    <div class="card">
+      <div class="ct">最酷超能力 Top Pick × 年齡組</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 13px;background:var(--surface2);border-radius:7px">
+          <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);width:52px">21–30歲</span>
+          <span style="font-size:var(--fs-sm);color:var(--c-bai)">白賊七：詛咒</span>
+          <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-left:auto">n=15</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 13px;background:var(--surface2);border-radius:7px">
+          <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);width:52px">31–40歲</span>
+          <span style="font-size:var(--fs-sm);color:var(--c-bai)">白賊七：詛咒</span>
+          <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-left:auto">n=13</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 13px;background:rgba(232,200,122,.08);border:1px solid rgba(232,200,122,.2);border-radius:7px">
+          <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);width:52px">41–50歲</span>
+          <span style="font-size:var(--fs-sm);color:var(--gold)">局長：幻術 ← 不同</span>
+          <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-left:auto">n=7</span>
+        </div>
+      </div>
+      <div class="ins"><strong>40歲以下全選白賊七詛咒；41-50歲偏好局長幻術</strong>——反映世代審美差異，40歲以上對「諜報神秘感」更有共鳴。</div>
+    </div>
+
+    <div class="card gap">
+      <div class="ct">劇本喜愛平均分 × 年齡組</div>
+      <div class="hbl">
+        <div class="hbi"><div class="hb-label">21–30歲</div><div class="hb-track"><div class="hb-fill" style="width:65%;background:var(--gold)"><span class="hb-val">6.53</span></div></div><div class="hb-pct">/10</div></div>
+        <div class="hbi"><div class="hb-label">31–40歲</div><div class="hb-track"><div class="hb-fill" style="width:65%;background:var(--gold)"><span class="hb-val">6.54</span></div></div><div class="hb-pct">/10</div></div>
+        <div class="hbi"><div class="hb-label">41–50歲</div><div class="hb-track"><div class="hb-fill" style="width:64%;background:var(--gold)"><span class="hb-val">6.43</span></div></div><div class="hb-pct">/10</div></div>
+      </div>
+      <div class="ins">三個年齡組分數高度接近（6.43–6.54）；36-40歲細分最高（7.17），21-25歲最低（5.75）。</div>
+    </div>
+
+    <div class="card gap">
+      <div class="ct">推薦意願 × 年齡組</div>
+      <div class="hbl">
+        <div class="hbi"><div class="hb-label">21–30歲</div><div class="hb-track"><div class="hb-fill" style="width:93%;background:var(--green)"><span class="hb-val">14/15</span></div></div><div class="hb-pct">93.3%</div></div>
+        <div class="hbi"><div class="hb-label">31–40歲</div><div class="hb-track"><div class="hb-fill" style="width:85%;background:var(--green)"><span class="hb-val">11/13</span></div></div><div class="hb-pct">84.6%</div></div>
+        <div class="hbi"><div class="hb-label">41–50歲</div><div class="hb-track"><div class="hb-fill" style="width:43%;background:var(--danger)"><span class="hb-val">3/7</span></div></div><div class="hb-pct" style="color:var(--danger)">42.9%</div></div>
+      </div>
+      <div class="ins"><strong>41-50歲推薦意願異常低（42.9%）</strong>，但喜愛分數正常，表示自己願意看但不確定推薦給誰——可能社交圈對此類型接受度有疑慮。26-30歲是推薦率100%的核心口碑族群。</div>
+    </div>
+
+    <div class="card gap">
+      <div class="ct">各主題年齡集中度洞察</div>
+      <table class="st">
+        <tr><th>主題</th><th>21-30歲<br><span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:400;opacity:.7">n=15</span></th><th>31-40歲<br><span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:400;opacity:.7">n=13</span></th><th>41-50歲<br><span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:400;opacity:.7">n=7</span></th><th>洞察</th></tr>
+        <tr><td class="lbl">狐仙結局太輕</td><td>2人</td><td style="color:var(--gold)">6人</td><td>4人</td><td>31-40歲最集中，對敘事完整性最敏感</td></tr>
+        <tr><td class="lbl">鄧小姐多餘</td><td>3人</td><td>3人</td><td style="color:var(--gold)">5人</td><td>41-50歲最集中，對角色必要性邏輯最嚴格</td></tr>
+        <tr><td class="lbl">本土文化賣點</td><td>3人</td><td>1人</td><td style="color:var(--gold)">4人</td><td>41-50歲對台灣妖怪民俗元素最有感；21-30歲熟悉此文化，較不視為差異化賣點</td></tr>
+        <tr><td class="lbl">虎姑婆能力問題</td><td>6人</td><td>6人</td><td>5人</td><td>均衡分布——全年齡結構性問題</td></tr>
+        <tr><td class="lbl">局長反派不足</td><td>6人</td><td>6人</td><td>4人</td><td>均衡分布——全年齡結構性問題</td></tr>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== INSIGHTS ===== -->
+<section id="insights" class="sec">
+  <div class="sec-title">重點洞察</div>
+
+  <div class="card gap">
+    <div class="ct">優先改善項目</div>
+    <div class="p-item"><div class="p-badge p1">P1</div><div><div class="p-title">重新設計虎姑婆超能力呈現</div><div class="p-desc">40.0%（14人）認為能力最無聊，0票認為最酷；21-30歲族群中53%（8/15人）認為如此，為三組中比例最高。觀眾建議：增加隱藏能力或BOSS戰覺醒設計。</div></div></div>
+    <div class="p-item"><div class="p-badge p1">P1</div><div><div class="p-title">場113護理師出現的合理性補強</div><div class="p-desc">60.0%（21人）認為不合理，21-30歲最敏感（73%，11/15人）。主要疑慮：鄧小姐如何得知基地位置的邏輯未有交代。</div></div></div>
+    <div class="p-item"><div class="p-badge p1">P1</div><div><div class="p-title">狐仙結局需更具戲劇性</div><div class="p-desc">8人明確指出「虎頭蛇尾」感，集中在31-40歲口碑關鍵族群（6/8人）。妖怪之王以一個眼神收束千年封印，觀眾普遍認為格局落差過大。</div></div></div>
+    <div class="p-item"><div class="p-badge p2">P2</div><div><div class="p-title">白賊七匕首能力補強說明</div><div class="p-desc">25.7%（9人）看不懂匕首能力設定，女性（35.7%，5/14人）高於男性（19%，4/21人），是所有能力中理解度最低的。</div></div></div>
+    <div class="p-item"><div class="p-badge p2">P2</div><div><div class="p-title">小潔角色厚度提升</div><div class="p-desc">5人批評角色單薄、功能性過強；女性喜愛度達50%（7/14人），顯示女性對此角色期待高、落差感強。</div></div></div>
+    <div class="p-item"><div class="p-badge p2">P2</div><div><div class="p-title">好鼻師家庭段落精簡</div><div class="p-desc">5人認為段落多餘且肥皂劇感強；跨題目統計中，偏男性受眾（男10人 vs 女4人）。</div></div></div>
+    <div class="p-item"><div class="p-badge p2">P2</div><div><div class="p-title">局長反派強度強化</div><div class="p-desc">16人提及反派力度不足（男11人、女5人），是全問卷第二大批評主題，僅次於虎姑婆能力問題。局長幻術獲部分認可（12.1%最酷，41–50歲首選），但多數觀眾認為目前對戲張力不足。</div></div></div>
+    <div class="p-item"><div class="p-badge p3">P3</div><div><div class="p-title">核彈歷史背景補充設計</div><div class="p-desc">女性核彈史知曉率僅28.6%（4/14人），男性76.2%（16/21人），差距47.6%是全問卷最大性別差距。劇本世界觀建立在此歷史基礎上，女性受眾普遍缺乏背景認知。</div></div></div>
+    <div class="p-item"><div class="p-badge p3">P3</div><div><div class="p-title">鄧小姐角色必要性重評</div><div class="p-desc">7人認為角色可刪除、劇情不受影響，41-50歲最集中（5/7人）；多數批評集中在最後出場邏輯突兀。</div></div></div>
+    <div class="p-item"><div class="p-badge p3">P3</div><div><div class="p-title">宇宙觀伏筆與謎團埋設</div><div class="p-desc">5人認為宇宙觀基底薄弱，缺乏讓人想深究的神秘感；部分觀眾建議可借助道教/佛教神話體系擴展深度。</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">關鍵數據摘要</div>
+    <table class="st">
+      <tr><th>面向</th><th>關鍵數據</th><th>觀察</th></tr>
+      <tr><td class="lbl">入場意願</td><td>91.4%（32/35人）</td><td>整體正向，不入場4人均為生理女</td></tr>
+      <tr><td class="lbl">推薦意願</td><td>80.0%（28/35人）</td><td>7人不推薦，口碑傳播仍有缺口</td></tr>
+      <tr><td class="lbl">類型定位</td><td>超英/動作/奇幻均≥85%</td><td>目標族群高度契合</td></tr>
+      <tr><td class="lbl">文化賣點</td><td>妖怪傳說推薦原因 75%（21/28人）</td><td>台灣在地文化是最強差異化賣點</td></tr>
+      <tr><td class="lbl">人氣角色</td><td>白賊七喜愛度最高（60%）</td><td>白賊七最受喜愛；小潔女性共鳴強（50%）</td></tr>
+      <tr><td class="lbl">性別差異</td><td>小潔女男差距 +31%</td><td>女性對情感型角色共鳴明顯更強</td></tr>
+      <tr><td class="lbl">年齡差異</td><td>41-50歲推薦率42.9%（3/7人）</td><td>年長族群喜愛分數正常，但推薦意願明顯偏低</td></tr>
+      <tr><td class="lbl">口碑族群</td><td>26–30歲推薦率100%</td><td>核心口碑傳播族群</td></tr>
+    </table>
+  </div>
+</section>
+
+<script>
+// NAV
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// CROSS TAB
+function showCrossTab(id,btn){
+  document.querySelectorAll('#cross .cross-view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('#cross .seg-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ctab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ACCORDION
+function toggleAcc(header){
+  const body=header.nextElementSibling;
+  const isOpen=body.classList.contains('open');
+  body.classList.toggle('open');
+  header.classList.toggle('open');
+}
+
+// EXPAND RAW QUOTES
+function toggleRaw(btn){
+  const raw=btn.nextElementSibling;
+  const isOpen=raw.classList.contains('open');
+  raw.classList.toggle('open');
+  btn.classList.toggle('open');
+  const n=raw.querySelectorAll('.rq-item').length;
+  btn.innerHTML=`<span class="arrow">${isOpen?'▼':'▲'}</span> ${isOpen?'查看全部原始回覆（'+n+'則）':'收合'}`;
+}
+
+// CHARACTER FILTER
+function filterChar(char,btnEl){
+  document.querySelectorAll('.cf-btn').forEach(b=>b.classList.remove('active'));
+  if(btnEl) btnEl.classList.add('active');
+  else document.querySelector(`.cf-btn[data-char="${char}"]`)?.classList.add('active');
+  document.querySelectorAll('.hbi[data-chars]').forEach(el=>{
+    el.classList.toggle('dimmed',char!=='全部'&&!el.dataset.chars.split(',').includes(char));
+  });
+  document.querySelectorAll('.acc-item[data-chars]').forEach(el=>{
+    el.style.opacity=char==='全部'||el.dataset.chars.includes(char)?'1':'0.15';
+  });
+  document.querySelectorAll('.theme-block[data-chars]').forEach(el=>{
+    el.classList.toggle('dimmed',char!=='全部'&&!el.dataset.chars.includes(char));
+  });
+}
+
+// MOVIE TAGS
+const mv=[{n:'X戰警',c:8,col:'#e8c87a'},{n:'漫威超英',c:7,col:'#e8c87a'},{n:'復仇者聯盟',c:5,col:'#c46e3a'},{n:'蟻人',c:3,col:'#c46e3a'},{n:'美國隊長',c:3,col:'#6a9fd8'},{n:'咒術迴戰',c:3,col:'#6a9fd8'},{n:'怪奇物語',c:2,col:'#5fad8e'},{n:'功夫熊貓',c:1,col:'#8a8578'},{n:'JOJO',c:1,col:'#8a8578'},{n:'獵人',c:1,col:'#8a8578'},{n:'天降奇兵',c:1,col:'#8a8578'}];
+const tc=document.getElementById('movieTags');
+mv.forEach(t=>{const sz=Math.max(12,Math.min(17,11+t.c*1.2));tc.innerHTML+=`<span class="tag" style="font-size:${sz}px;background:${t.col}22;color:${t.col};border-color:${t.col}44">${t.n}×${t.c}</span>`;});
+</script>
+</body>
+</html>
