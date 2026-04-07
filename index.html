@@ -1111,7 +1111,7 @@ button{font:inherit}
 }
 .age-nuke-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));
+  grid-template-columns:repeat(3,minmax(0,1fr));
   gap:20px;
   align-items:stretch;
 }
@@ -1186,10 +1186,8 @@ button{font:inherit}
   justify-content:center;
   position:relative;
   align-items:center;
-  width:100%;
 }
 .age-nuke-card .gender-role-donuts{
-  grid-template-columns:minmax(0,1fr);
   justify-items:center;
 }
 .gender-role-donut .gender-ratio-label{
@@ -1295,16 +1293,11 @@ button{font:inherit}
 .age-market-card .age-nuke-grid{
   justify-items:center;
 }
-.age-market-card .age-nuke-card .gender-role-donuts{
-  grid-template-columns:minmax(0,1fr);
-  justify-items:center;
-}
 .age-market-card .gender-role-donut{
   position:relative;
   display:flex;
   justify-content:center;
   overflow:visible;
-  width:100%;
 }
 .age-market-card .age-market-label{
   position:absolute;
@@ -1424,9 +1417,6 @@ button{font:inherit}
   font:500 12px/1.3 "Noto Sans TC",sans-serif;
   letter-spacing:.16em;
   text-transform:uppercase;
-}
-.quad-scroll{
-  width:100%;
 }
 .quad{
   position:relative;
@@ -1822,7 +1812,7 @@ button{font:inherit}
 .age-matrix-head,
 .age-matrix-row{
   display:grid;
-  grid-template-columns:minmax(120px,1.05fr) repeat(var(--age-matrix-cols, 4),minmax(0,1fr));
+  grid-template-columns:minmax(120px,1.05fr) repeat(3,minmax(0,1fr));
   gap:0;
   align-items:stretch;
 }
@@ -2011,23 +2001,6 @@ button{font:inherit}
   .qualitative-topic{padding:16px}
   .qualitative-topic .theme-head{align-items:flex-start;flex-direction:column}
   .age-matrix-head,.age-matrix-row{grid-template-columns:1fr}
-  .quad-scroll{
-    overflow-x:auto;
-    overflow-y:hidden;
-    padding-bottom:4px;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-  }
-  .quad-scroll::-webkit-scrollbar{display:none}
-  .quad{
-    width:920px;
-    min-width:920px;
-    max-width:none;
-    margin-inline:auto;
-  }
-  .axis-top,.axis-bottom,.axis-left,.axis-right{font-size:15px}
-  .quad-label{font-size:16px}
-  .bubble-label{font-size:13px}
 }
 @media (max-width:560px){
   .hero{padding-left:16px;padding-right:16px}
@@ -2218,9 +2191,9 @@ button{font:inherit}
         <span class="hero-sub-divider">｜</span>
         <span class="hero-sub-item">問卷發出 <strong>45</strong> 份</span>
         <span class="hero-sub-divider">｜</span>
-        <span class="hero-sub-item">問卷回收 <strong>38</strong> 份</span>
+        <span class="hero-sub-item">問卷回收 <strong>37</strong> 份</span>
         <span class="hero-sub-sep">｜</span>
-        <span class="hero-sub-item hero-sub-final">有效回覆 <strong id="hero-response-count">36</strong> 份 <span class="hero-sub-note">（n=<span id="hero-response-n">36</span>）</span></span>
+        <span class="hero-sub-item hero-sub-final">有效回覆 <strong id="hero-response-count">35</strong> 份 <span class="hero-sub-note">（n=<span id="hero-response-n">35</span>）</span></span>
       </div>
     </div>
   </header>
@@ -2646,7 +2619,7 @@ button{font:inherit}
   const data = window.BLIND_TEST_DATA || JSON.parse(document.getElementById("dashboard-data").textContent);
   const app = document.getElementById("app");
   const nav = document.getElementById("nav");
-  const ageBuckets = ["15–20", "21–30", "31–40", "41–50"];
+  const ageBuckets = ["21–30", "31–40", "41–50"];
   const majorRoles = ["白賊七", "虎姑婆", "好鼻師", "小潔"];
   const sections = [
     { id: "audience", label: "觀眾輪廓", title: "觀眾輪廓", subtitle: "背景輪廓、類型偏好與近期觀影" },
@@ -2686,50 +2659,179 @@ button{font:inherit}
     openResponseSelection: {}
   };
 
-  const reasonData = window.BLIND_TEST_REASON_DATA || { like: {}, dislike: {} };
-
-  const openResponseData = window.BLIND_TEST_OPEN_RESPONSE_DATA || {};
+  const reasonData = window.BLIND_TEST_REASON_DATA || {
+    like: {
+      "白賊七": [
+        "滿寫實的",
+        "滿幽默的...",
+        "白賊七的設定聰明 而且是劇中相對搞笑輕鬆的人物 好鼻師一心想保護家人 但在大局中也是一個關鍵腳色",
+        "虎姑婆在劇本裡給人感覺正直、勇敢；白賊七聰明、詛咒常失敗（或總是只有奇怪的咒語會成功）讓整部劇變得搞笑",
+        "三人都有明顯的個人魅力與能力 雖然是妖怪卻有人情味",
+        "很帥氣、烏鴉嘴設定有趣",
+        "雖然不知道白賊七的故事，但詛咒能力很吸引人，他有能力可以傷害人，但他沒有，抽筋10分鐘滿有畫面的。小潔雖然被訓練洗腦很多年，但卻依然有著善良的心，像是被社會摧殘後，還能保有一顆溫暖的心，在現實生活中我們也期許自己是這樣的人吧～",
+        "比較精明",
+        "兩位角色刻畫立體，虎姑婆的女力與白賊七的智囊人設符合喜好",
+        "虎姑婆 : 對他的刻畫最多, 女性角色但乘載著最大的力量 ; 白賊七 : 聰明, 且默默守護著太太40年 ; 好鼻師 : 溫柔的爸爸, 也是溫柔的先生, 各種能力的展現都很有畫面感蠻帥的 ; 小潔 : 有點像怪奇物語裡的 Eleven, 擁有強大的力量但是內心是最善良的",
+        "聰明",
+        "白賊七，即使為了找出真相，身處暗處多年，仍掛心妻子，是個浪漫的人呢。\n\n好鼻師，即使身為妖怪，試著融入人類世界後為了安定生活不願重蹈覆轍，但當生活重心的妻子女兒可能遭遇不測，還是願意挺身而出與大家並肩作戰。\n\n小潔，在知道局長的惡意後，仍心存善意提醒眾人與其並肩作戰，育幼院的成長背景，也許讓她無法從其他地方獲取溫暖，手邊唯一的玉珮是對她有過善意的育幼院院長給的，但在事發後，仍將玉珮物歸原主，即使物品已不握在手中，也許是得到比失去的更多的意義，讓她知道，這個世界仍溫暖的讓她想好好活著。\n\n虎姑婆，當再次看見虎哥贈與的玉珮以及查出真相的過程中，在每次的抉擇，她的勇敢堅韌，及放手讓好鼻師家庭、狐仙離開的溫柔，無一不是最令人敬佩的心理。",
+        "我覺得他這個人感覺很隨和，而且他的能力（詛咒，讓講出來的事成真）感覺很有趣，有點像咒術迴戰裡面的狗卷",
+        "設定有趣",
+        "能力很有趣，在電影中可以發展性比較大，因為不是無敵的也可以鬧出笑話，像是最後救好鼻師女兒那邊，可以把抽筋十分鐘改成走路就扭到腳，畫面會更好笑",
+        "超能力比較特別、讀起劇本比較有畫面感",
+        "白賊七的詛咒能力很酷，雖然是智力擔當但性格偶爾有點傻萌，這個反差感很棒；是個存在感很強的角色。\n\n很喜歡老年鄧小姊的再次出場，是讓人安心又可靠的帥氣老太太。",
+        "白賊七的能力蠻帥，在關鍵劇情也有起到作用",
+        "白賊七的腳色前面會以為是很兩光幽默的感覺，後續出現的反差感，詞裡留的伏筆、計畫邏輯帶領其他妖怪的過程",
+        "白賊七的咒術不適每次都成功有笑點、虎姑婆很灑脫很正義、小潔很聰明靈動",
+        "嗯…個性立體"
+      ],
+      "虎姑婆": [
+        "很強",
+        "滿寫實的",
+        "虎姑婆在劇本裡給人感覺正直、勇敢；白賊七聰明、詛咒常失敗（或總是只有奇怪的咒語會成功）讓整部劇變得搞笑",
+        "個性正直磊落",
+        "三人都有明顯的個人魅力與能力 雖然是妖怪卻有人情味",
+        "勇敢",
+        "兩位角色刻畫立體，虎姑婆的女力與白賊七的智囊人設符合喜好",
+        "虎姑婆 : 對他的刻畫最多, 女性角色但乘載著最大的力量 ; 白賊七 : 聰明, 且默默守護著太太40年 ; 好鼻師 : 溫柔的爸爸, 也是溫柔的先生, 各種能力的展現都很有畫面感蠻帥的 ; 小潔 : 有點像怪奇物語裡的 Eleven, 擁有強大的力量但是內心是最善良的",
+        "能力感覺很有用",
+        "白賊七，即使為了找出真相，身處暗處多年，仍掛心妻子，是個浪漫的人呢。\n\n好鼻師，即使身為妖怪，試著融入人類世界後為了安定生活不願重蹈覆轍，但當生活重心的妻子女兒可能遭遇不測，還是願意挺身而出與大家並肩作戰。\n\n小潔，在知道局長的惡意後，仍心存善意提醒眾人與其並肩作戰，育幼院的成長背景，也許讓她無法從其他地方獲取溫暖，手邊唯一的玉珮是對她有過善意的育幼院院長給的，但在事發後，仍將玉珮物歸原主，即使物品已不握在手中，也許是得到比失去的更多的意義，讓她知道，這個世界仍溫暖的讓她想好好活著。\n\n虎姑婆，當再次看見虎哥贈與的玉珮以及查出真相的過程中，在每次的抉擇，她的勇敢堅韌，及放手讓好鼻師家庭、狐仙離開的溫柔，無一不是最令人敬佩的心理。",
+        "願意捨棄平靜追求真相",
+        "白賊七的腳色前面會以為是很兩光幽默的感覺，後續出現的反差感，詞裡留的伏筆、計畫邏輯帶領其他妖怪的過程",
+        "白賊七的咒術不適每次都成功有笑點、虎姑婆很灑脫很正義、小潔很聰明靈動"
+      ],
+      "好鼻師": [
+        "滿寫實的",
+        "白賊七的設定聰明 而且是劇中相對搞笑輕鬆的人物 好鼻師一心想保護家人 但在大局中也是一個關鍵腳色",
+        "三人都有明顯的個人魅力與能力 雖然是妖怪卻有人情味",
+        "劇本中跟人類緊密感與親切感最明顯自然的角色",
+        "虎姑婆 : 對他的刻畫最多, 女性角色但乘載著最大的力量 ; 白賊七 : 聰明, 且默默守護著太太40年 ; 好鼻師 : 溫柔的爸爸, 也是溫柔的先生, 各種能力的展現都很有畫面感蠻帥的 ; 小潔 : 有點像怪奇物語裡的 Eleven, 擁有強大的力量但是內心是最善良的",
+        "能力感覺很有用",
+        "單純善良，鮮明的細膩人心",
+        "白賊七，即使為了找出真相，身處暗處多年，仍掛心妻子，是個浪漫的人呢。\n\n好鼻師，即使身為妖怪，試著融入人類世界後為了安定生活不願重蹈覆轍，但當生活重心的妻子女兒可能遭遇不測，還是願意挺身而出與大家並肩作戰。\n\n小潔，在知道局長的惡意後，仍心存善意提醒眾人與其並肩作戰，育幼院的成長背景，也許讓她無法從其他地方獲取溫暖，手邊唯一的玉珮是對她有過善意的育幼院院長給的，但在事發後，仍將玉珮物歸原主，即使物品已不握在手中，也許是得到比失去的更多的意義，讓她知道，這個世界仍溫暖的讓她想好好活著。\n\n虎姑婆，當再次看見虎哥贈與的玉珮以及查出真相的過程中，在每次的抉擇，她的勇敢堅韌，及放手讓好鼻師家庭、狐仙離開的溫柔，無一不是最令人敬佩的心理。",
+        "超能力比較特別、讀起劇本比較有畫面感",
+        "嗯…個性立體",
+        "嗅覺靈敏很重要"
+      ],
+      "小潔": [
+        "個性正直磊落",
+        "雖然不知道白賊七的故事，但詛咒能力很吸引人，他有能力可以傷害人，但他沒有，抽筋10分鐘滿有畫面的。小潔雖然被訓練洗腦很多年，但卻依然有著善良的心，像是被社會摧殘後，還能保有一顆溫暖的心，在現實生活中我們也期許自己是這樣的人吧～",
+        "勇敢",
+        "聰明、身上有可發展的謎團",
+        "虎姑婆 : 對他的刻畫最多, 女性角色但乘載著最大的力量 ; 白賊七 : 聰明, 且默默守護著太太40年 ; 好鼻師 : 溫柔的爸爸, 也是溫柔的先生, 各種能力的展現都很有畫面感蠻帥的 ; 小潔 : 有點像怪奇物語裡的 Eleven, 擁有強大的力量但是內心是最善良的",
+        "單純善良，鮮明的細膩人心",
+        "白賊七，即使為了找出真相，身處暗處多年，仍掛心妻子，是個浪漫的人呢。\n\n好鼻師，即使身為妖怪，試著融入人類世界後為了安定生活不願重蹈覆轍，但當生活重心的妻子女兒可能遭遇不測，還是願意挺身而出與大家並肩作戰。\n\n小潔，在知道局長的惡意後，仍心存善意提醒眾人與其並肩作戰，育幼院的成長背景，也許讓她無法從其他地方獲取溫暖，手邊唯一的玉珮是對她有過善意的育幼院院長給的，但在事發後，仍將玉珮物歸原主，即使物品已不握在手中，也許是得到比失去的更多的意義，讓她知道，這個世界仍溫暖的讓她想好好活著。\n\n虎姑婆，當再次看見虎哥贈與的玉珮以及查出真相的過程中，在每次的抉擇，她的勇敢堅韌，及放手讓好鼻師家庭、狐仙離開的溫柔，無一不是最令人敬佩的心理。",
+        "覺得她的出現比較能讓人理解發生什麼事情，，當然他也是唯一知道事情來龍去脈的人，但這個角色就是可以讓人得到答案的人。",
+        "很貼近童年回憶",
+        "願意捨棄平靜追求真相",
+        "白賊七的咒術不適每次都成功有笑點、虎姑婆很灑脫很正義、小潔很聰明靈動"
+      ],
+      "鄧小姐": [
+        "滿幽默的...",
+        "出現時都富有喜感",
+        "白賊七的詛咒能力很酷，雖然是智力擔當但性格偶爾有點傻萌，這個反差感很棒；是個存在感很強的角色。\n\n很喜歡老年鄧小姊的再次出場，是讓人安心又可靠的帥氣老太太。"
+      ],
+      "局長": [
+        "個人目標清楚一致，曾經有過血祭的過往故事覺得設定很吸引人",
+        "有帶入感"
+      ]
+    },
+    dislike: {
+      "小潔": [
+        "很煩",
+        "沒有共鳴，也不了解角色動機"
+      ],
+      "鄧小姐": [
+        "角色轉換滿突兀的，感覺是為了劇情轉折硬加進去的。",
+        "覺得影射鄧麗君小姐的成分太高，不是那麼尊重故人",
+        "無知"
+      ],
+      "蜥蜴": [
+        "相對比較平淡 沒有特別的個性",
+        "設定滿單薄的",
+        "看起來比較狡詐",
+        "背骨仔必須死",
+        "其實我沒有特別不喜歡的角色，我選那是因為我覺得這個角色感覺沒有甚麼記憶點，我現在記得的可能就是他是局長蠻強的一個手下，但戲份感覺又比水蛇少很多",
+        "不夠可愛（最近被迷音蜥蜴燒到",
+        "既然是前期擔當叛徒的重要腳色，應該給他能力跟個性多點刻劃",
+        "壞人身邊的走狗 還虛偽的叫學長姊"
+      ],
+      "水蛇": [
+        "能力有點強，但讓人很感到煩躁，感覺戲份有點太多",
+        "從文字看起來感覺很恐怖（有點像怪獸電力公司的反派",
+        "對於水蛇希望孩子成為局長接班人的動機不明",
+        "執念太深，扭曲的母性",
+        "形象過於扁平"
+      ],
+      "局長": [
+        "我沒有特別不喜歡哪個角色，如果根據劇情硬選出一位的話，我會選局長。局長在這部劇中是反派，為了不想被犧牲所以和狐仙締約，為了自己的私心害了很多人卻包裝成是為了世界和平",
+        "最大的反派角色 自私",
+        "自私",
+        "人設太複雜, 有些混亂",
+        "所作的一切都只是為了自身利益，自私的思想導致過程中乘載了許多人的痛苦。"
+      ],
+      "虎姑婆": [
+        "不是不喜歡，覺得虎姑婆的角色可以多一些背景故事，去闡述他的情感世界，目前看下來只覺得他就是生理女的直男。",
+        "就是不喜歡"
+      ],
+      "好鼻師": [
+        "遇事躊躇，笨笨的爛好人",
+        "任務剛有進展，卻回去找太太跟女兒要離開隊伍，覺得有點突兀",
+        "小配角 😅",
+        "雖愛家但太懦弱"
+      ],
+      "白賊七": [
+        "角色能力不強+嚴格來說不是神話人物"
+      ],
+      "黃茹萱": [
+        "一直鬧脾氣",
+        "連結到現實有點出戲"
+      ],
+      "虎哥": [
+        "無"
+      ],
+      "水男孩": [
+        "就是個討厭的小屁孩",
+  const openResponseData = window.BLIND_TEST_OPEN_RESPONSE_DATA || {};的真相並徹底徹底解決禍源的冒險故事","妖怪在找活下去的信念","忘記了","無法列舉","妖怪擬人的感情故事"]};
 
   const workbookOpenResponseRows = window.WORKBOOK_OPEN_RESPONSE_ROWS || {};
 
   const openResponseDefinitions = {
     villain: [
-      { id: "villain-life", title: "＃長生不老 / 轉生續命", kicker: "Open", color: "var(--gold)", priority: 2, keywords: ["永生", "長生", "長生不老", "延壽", "延長壽命", "延續自己的生命", "壽命", "活下去", "活命", "永遠活著", "不死", "青春健康", "續命"] },
+      { id: "villain-life", title: "長生不老 / 轉生續命", kicker: "Open", color: "var(--gold)", priority: 2, keywords: ["永生", "長生", "長生不老", "延壽", "延長壽命", "延續自己的生命", "壽命", "活下去", "活命", "永遠活著", "不死", "青春健康", "續命"] },
       { id: "villain-life-power", title: "長生不老 / 轉生續命，控制狐仙", kicker: "Open", color: "var(--orange)", priority: 4, keywords: ["控制狐仙", "掌控狐仙", "掌控狐妖力量", "一開始用國外醫術延壽", "找一個新的容器", "容器壓制住狐仙", "長生不老的效果", "獲得狐仙的能力", "延壽", "新的容器", "新的軀體"] },
-      { id: "villain-power", title: "＃控制狐仙", kicker: "Open", color: "var(--blue)", priority: 3, keywords: ["狐仙", "狐妖", "妖帝", "妖怪之王", "封印石", "幻術", "控制狐仙", "繼續控制狐仙力量", "霸佔妖怪之王的能力", "靠狐仙幫助自己", "掌控狐妖力量"] },
-      { id: "villain-other", title: "＃其他", kicker: "Open", color: "var(--steel)", priority: 1, exact: ["無", "被害者視角", "還沒看完，但我猜是復興家族吧！"] },
-      { id: "villain-unclear", title: "＃轉生續命，但設定不夠清楚", kicker: "Open", color: "var(--stone)", exact: ["無", "不知道", "我不知道"], fallback: true, keywords: ["不太懂", "不懂", "看不懂", "不明確", "薄弱", "假死", "還沒看完", "疑惑", "矛盾", "衝突", "沒被說服", "為什麼", "局長有點薄弱", "設定不夠清楚", "連結是什麼", "不太明確", "被害者視角"] }
+      { id: "villain-power", title: "控制狐仙", kicker: "Open", color: "var(--blue)", priority: 3, keywords: ["狐仙", "狐妖", "妖帝", "妖怪之王", "封印石", "幻術", "控制狐仙", "繼續控制狐仙力量", "霸佔妖怪之王的能力", "靠狐仙幫助自己", "掌控狐妖力量"] },
+      { id: "villain-unclear", title: "轉生續命，但設定不夠清楚", kicker: "Open", color: "var(--stone)", exact: ["無", "不知道", "我不知道"], fallback: true, keywords: ["不太懂", "不懂", "看不懂", "不明確", "薄弱", "假死", "還沒看完", "疑惑", "矛盾", "衝突", "沒被說服", "為什麼", "局長有點薄弱", "設定不夠清楚", "連結是什麼", "不太明確", "被害者視角"] }
     ],
     expected: [
-      { id: "expected-opening", title: "＃序場段落", kicker: "Open", color: "var(--red)", priority: 4, keywords: ["序1", "序2", "序3", "序13", "序場", "開場", "局長以前回憶", "古代畫面", "復古音樂", "秘密放螞蟻", "鄧小姐", "p.1", "p.2", "69頁"] },
-      { id: "expected-emotion", title: "＃情感段落", kicker: "Open", color: "var(--green)", priority: 4, keywords: ["蛋糕", "欣欣", "場4", "場17", "場21", "場25", "場70", "玉珮還給", "育幼院", "母女", "關係", "體會到了活著的感覺", "虎姑婆與小潔", "重逢"] },
-      { id: "expected-power", title: "＃超能力啟動", kicker: "Open", color: "var(--gold)", priority: 5, keywords: ["能力", "啟動", "螞蟻", "盔甲", "幻化", "變身", "局長雙眼", "狐仙出場", "妖狐出世", "玉珮", "核彈能量", "特效", "幻術", "場6", "p.19", "場79", "場137", "啟動能力"] },
-      { id: "expected-action", title: "＃打鬥場面", kicker: "Open", color: "var(--orange)", priority: 4, keywords: ["打鬥", "動作戲", "動作場景", "熱血", "打架", "追打", "追逐", "對決", "虎形打架", "場39", "場97", "103 104", "大混戰", "戰鬥"] },
-      { id: "expected-palace", title: "＃故宮偷竊", kicker: "Open", color: "var(--c-boss-soft)", priority: 5, keywords: ["故宮", "文物", "手稿", "場74", "場75", "故宮偷資料", "竊取手稿"] },
-      { id: "expected-space", title: "＃特殊場景 (古代 / 基地)", kicker: "Open", color: "var(--blue)", priority: 3, keywords: ["古代", "基地", "後山基地", "廊道", "場66", "場125", "場41", "場42", "場54", "局長的回憶", "基地等場景"] },
-      { id: "expected-finale", title: "＃終局之戰", kicker: "Open", color: "var(--stone)", priority: 3, keywords: ["終局之戰", "最後", "場114", "場136", "場130", "最終boss", "最終 BOSS", "大混戰", "妖狐出世", "終局"] },
-      { id: "expected-general", title: "＃不期待 (擔心品質)", kicker: "Open", color: "var(--stone)", fallback: true, exact: ["沒有印象了", "沒有時間可全部看完"], keywords: ["擔心", "懷疑", "突兀", "品質", "國片能否", "順暢動畫", "如果夠完美", "畫面詮釋是否有吸引力且合理"] }
+      { id: "expected-opening", title: "# 序場段落", kicker: "Open", color: "var(--red)", priority: 4, keywords: ["序1", "序2", "序3", "序13", "序場", "開場", "局長以前回憶", "古代畫面", "復古音樂", "秘密放螞蟻", "鄧小姐", "p.1", "p.2", "69頁"] },
+      { id: "expected-emotion", title: "# 情感段落", kicker: "Open", color: "var(--green)", priority: 4, keywords: ["蛋糕", "欣欣", "場4", "場17", "場21", "場25", "場70", "玉珮還給", "育幼院", "母女", "關係", "體會到了活著的感覺", "虎姑婆與小潔", "重逢"] },
+      { id: "expected-power", title: "# 超能力啟動", kicker: "Open", color: "var(--gold)", priority: 5, keywords: ["能力", "啟動", "螞蟻", "盔甲", "幻化", "變身", "局長雙眼", "狐仙出場", "妖狐出世", "玉珮", "核彈能量", "特效", "幻術", "場6", "p.19", "場79", "場137", "啟動能力"] },
+      { id: "expected-action", title: "# 打鬥場面", kicker: "Open", color: "var(--orange)", priority: 4, keywords: ["打鬥", "動作戲", "動作場景", "熱血", "打架", "追打", "追逐", "對決", "虎形打架", "場39", "場97", "103 104", "大混戰", "戰鬥"] },
+      { id: "expected-palace", title: "# 故宮偷竊", kicker: "Open", color: "var(--c-boss-soft)", priority: 5, keywords: ["故宮", "文物", "手稿", "場74", "場75", "故宮偷資料", "竊取手稿"] },
+      { id: "expected-space", title: "# 特殊場景 (古代 / 基地)", kicker: "Open", color: "var(--blue)", priority: 3, keywords: ["古代", "基地", "後山基地", "廊道", "場66", "場125", "場41", "場42", "場54", "局長的回憶", "基地等場景"] },
+      { id: "expected-finale", title: "# 終局之戰", kicker: "Open", color: "var(--stone)", priority: 3, keywords: ["終局之戰", "最後", "場114", "場136", "場130", "最終boss", "最終 BOSS", "大混戰", "妖狐出世", "終局"] },
+      { id: "expected-general", title: "# 不期待 (擔心品質)", kicker: "Open", color: "var(--stone)", fallback: true, exact: ["沒有印象了", "沒有時間可全部看完"], keywords: ["擔心", "懷疑", "突兀", "品質", "國片能否", "順暢動畫", "如果夠完美", "畫面詮釋是否有吸引力且合理"] }
     ],
     unreasonable: [
-      { id: "unreasonable-world", title: "＃世界觀設定", kicker: "Open", color: "var(--gold)", priority: 4, keywords: ["世界觀", "設定", "狐仙算是仙還是妖", "為什麼所有妖怪都怕局長", "核彈", "局長的家族", "妖怪之王", "融入人類社會", "工業區育幼院", "後山基地", "地點藏有很多軍事秘密", "有些用詞太有現代感", "1988年"] },
-      { id: "unreasonable-deng", title: "＃鄧小姐設定", kicker: "Open", color: "var(--red)", priority: 5, keywords: ["鄧小姐", "看護", "氣喘", "帶錯鑰匙", "最後核彈", "大戰中出現", "場58", "場113"] },
-      { id: "unreasonable-fox", title: "＃狐仙結局過於輕易", kicker: "Open", color: "var(--orange)", priority: 5, keywords: ["狐仙", "結局", "過於輕易", "說走就走", "相互理解後平靜地跑掉", "原諒一切", "狐仙消氣太快", "封印千年妖怪", "妖怪之王被形容得很可怕"] },
-      { id: "unreasonable-character", title: "＃角色 / 情感設定", kicker: "Open", color: "var(--green)", priority: 4, keywords: ["角色", "情感", "母愛", "小潔跟虎姑婆之間太快", "角色單薄", "沒有記憶點", "虎姑婆心情複雜", "好鼻師和小潔並肩坐", "小潔還在蜥蜴手上嗎", "虎姑婆突然對小潔有母愛", "水蛇的人設", "蜥蜴好像很廢"] },
-      { id: "unreasonable-dialogue", title: "＃台詞 / 情節不自然", kicker: "Open", color: "var(--blue)", priority: 3, keywords: ["台詞", "出戲", "句型", "閨蜜", "境外勢力", "這樣明天他媽媽來接他會找不到人", "白賊七說", "只要得到A 就能得到B", "電梯門感覺要開很久", "空間感有點模糊", "打手人在哪", "貨車鑰匙", "場47", "場17", "場19"] },
-      { id: "unreasonable-none", title: "＃目前沒有明顯出戲", kicker: "Open", color: "var(--stone)", exact: ["沒有", "目前還可以 基本邏輯都還過得去", "同上題"], fallback: true, keywords: ["目前還可以", "基本邏輯都還過得去", "沒有明顯出戲"] }
+      { id: "unreasonable-world", title: "世界觀設定", kicker: "Open", color: "var(--gold)", priority: 4, keywords: ["世界觀", "設定", "狐仙算是仙還是妖", "為什麼所有妖怪都怕局長", "核彈", "局長的家族", "妖怪之王", "融入人類社會", "工業區育幼院", "後山基地", "地點藏有很多軍事秘密", "有些用詞太有現代感", "1988年"] },
+      { id: "unreasonable-deng", title: "鄧小姐設定", kicker: "Open", color: "var(--red)", priority: 5, keywords: ["鄧小姐", "看護", "氣喘", "帶錯鑰匙", "最後核彈", "大戰中出現", "場58", "場113"] },
+      { id: "unreasonable-fox", title: "狐仙結局過於輕易", kicker: "Open", color: "var(--orange)", priority: 5, keywords: ["狐仙", "結局", "過於輕易", "說走就走", "相互理解後平靜地跑掉", "原諒一切", "狐仙消氣太快", "封印千年妖怪", "妖怪之王被形容得很可怕"] },
+      { id: "unreasonable-character", title: "角色 / 情感設定", kicker: "Open", color: "var(--green)", priority: 4, keywords: ["角色", "情感", "母愛", "小潔跟虎姑婆之間太快", "角色單薄", "沒有記憶點", "虎姑婆心情複雜", "好鼻師和小潔並肩坐", "小潔還在蜥蜴手上嗎", "虎姑婆突然對小潔有母愛", "水蛇的人設", "蜥蜴好像很廢"] },
+      { id: "unreasonable-dialogue", title: "台詞 / 情節不自然", kicker: "Open", color: "var(--blue)", priority: 3, keywords: ["台詞", "出戲", "句型", "閨蜜", "境外勢力", "這樣明天他媽媽來接他會找不到人", "白賊七說", "只要得到A 就能得到B", "電梯門感覺要開很久", "空間感有點模糊", "打手人在哪", "貨車鑰匙", "場47", "場17", "場19"] },
+      { id: "unreasonable-none", title: "目前沒有明顯出戲", kicker: "Open", color: "var(--stone)", exact: ["沒有", "目前還可以 基本邏輯都還過得去", "同上題"], fallback: true, keywords: ["目前還可以", "基本邏輯都還過得去", "沒有明顯出戲"] }
     ],
     boring: [
-      { id: "boring-none", title: "＃無／還好", kicker: "Open", color: "var(--green)", priority: 5, exact: ["無。", "無", "沒有", "都還好", "還好", "沒有特別印象", "沒有特別覺得無聊的段落", "都還ok", "看起來沒有覺得太無聊", "無"], keywords: ["節奏蠻緊湊", "沒有覺得拖沓", "不應該現在對文字輕易評斷", "每個環節都是必要的"] },
-      { id: "boring-flashback", title: "＃Flashback 太多次", kicker: "Open", color: "var(--gold)", priority: 4, keywords: ["重播", "玉珮", "開頭回到現在", "爆炸發生", "蒙太奇", "解釋性", "120頁", "重現片段", "flashback"] },
-      { id: "boring-nose", title: "＃好鼻師與家人", kicker: "Open", color: "var(--orange)", priority: 5, keywords: ["好鼻師", "妻小", "太太與女兒", "場77-80", "場80", "肥皂劇", "和解", "帶家人離開", "離開隊伍", "家庭線"] },
-      { id: "boring-deng", title: "＃鄧小姐（看護）", kicker: "Open", color: "var(--red)", priority: 5, keywords: ["鄧小姐", "看護", "核彈", "鑰匙", "場113", "多餘", "過場"] },
-      { id: "boring-text", title: "＃文字影響", kicker: "Open", color: "var(--blue)", priority: 3, keywords: ["很少看長劇本", "疲乏", "看不下去", "一直中斷", "文字相對於影像", "讀起來", "篇幅"] },
-      { id: "boring-other", title: "＃其他／鋪陳建議", kicker: "Open", color: "var(--stone)", fallback: true, keywords: ["故宮偷資料", "89/故宮", "場89", "局長沒空管他們", "小孩子看平板", "沒講得很清楚", "場123", "空間轉換", "莫名奇妙", "交代不足", "烏鴉嘴", "貨車鑰匙", "封印石", "幻術應該要消失", "場101", "場103", "結尾", "太草率", "狐仙", "說走就走", "小核彈", "毫無用處"] }
+      { id: "boring-none", title: "無／還好", kicker: "Open", color: "var(--green)", priority: 5, exact: ["無。", "無", "沒有", "都還好", "還好", "沒有特別印象", "沒有特別覺得無聊的段落", "都還ok", "看起來沒有覺得太無聊", "無"], keywords: ["節奏蠻緊湊", "沒有覺得拖沓", "不應該現在對文字輕易評斷", "每個環節都是必要的"] },
+      { id: "boring-flashback", title: "Flashback 太多次", kicker: "Open", color: "var(--gold)", priority: 4, keywords: ["重播", "玉珮", "開頭回到現在", "爆炸發生", "蒙太奇", "解釋性", "120頁", "重現片段", "flashback"] },
+      { id: "boring-nose", title: "好鼻師與家人", kicker: "Open", color: "var(--orange)", priority: 5, keywords: ["好鼻師", "妻小", "太太與女兒", "場77-80", "場80", "肥皂劇", "和解", "帶家人離開", "離開隊伍", "家庭線"] },
+      { id: "boring-deng", title: "鄧小姐（看護）", kicker: "Open", color: "var(--red)", priority: 5, keywords: ["鄧小姐", "看護", "核彈", "鑰匙", "場113", "多餘", "過場"] },
+      { id: "boring-text", title: "文字影響", kicker: "Open", color: "var(--blue)", priority: 3, keywords: ["很少看長劇本", "疲乏", "看不下去", "一直中斷", "文字相對於影像", "讀起來", "篇幅"] },
+      { id: "boring-other", title: "其他／鋪陳建議", kicker: "Open", color: "var(--stone)", fallback: true, keywords: ["故宮偷資料", "89/故宮", "場89", "局長沒空管他們", "小孩子看平板", "沒講得很清楚", "場123", "空間轉換", "莫名奇妙", "交代不足", "烏鴉嘴", "貨車鑰匙", "封印石", "幻術應該要消失", "場101", "場103", "結尾", "太草率", "狐仙", "說走就走", "小核彈", "毫無用處"] }
     ],
     logline: [
-      { id: "logline-hero", title: "＃超能力英雄冒險", kicker: "Open", color: "var(--blue)", priority: 4, keywords: ["超能力", "英雄", "冒險", "隊伍", "重組", "解決危機", "超能力大戰", "拯救世界", "復仇者聯盟", "超級英雄任務", "王道冒險", "災難", "冒險故事"] },
-      { id: "logline-history", title: "＃台灣傳說史實", kicker: "Open", color: "var(--gold)", priority: 4, keywords: ["台灣", "民俗", "民間故事", "本土", "核彈", "台灣版", "史地", "歷史", "張憲義", "在地", "民國政府"] },
-      { id: "logline-feeling", title: "＃妖怪擬人情感", kicker: "Open", color: "var(--green)", fallback: true, keywords: ["融入人類", "好好活下去", "你我身邊", "同一片土地生存", "活下去的信念", "情感", "救贖", "心結", "心魔", "真相", "釋懷", "妖怪", "妖魔", "怪獸"] }
+      { id: "logline-hero", title: "#超能力英雄冒險", kicker: "Open", color: "var(--blue)", priority: 4, keywords: ["超能力", "英雄", "冒險", "隊伍", "重組", "解決危機", "超能力大戰", "拯救世界", "復仇者聯盟", "超級英雄任務", "王道冒險", "災難", "冒險故事"] },
+      { id: "logline-history", title: "#台灣傳說史實", kicker: "Open", color: "var(--gold)", priority: 4, keywords: ["台灣", "民俗", "民間故事", "本土", "核彈", "台灣版", "史地", "歷史", "張憲義", "在地", "民國政府"] },
+      { id: "logline-feeling", title: "#妖怪擬人情感", kicker: "Open", color: "var(--green)", fallback: true, keywords: ["融入人類", "好好活下去", "你我身邊", "同一片土地生存", "活下去的信念", "情感", "救贖", "心結", "心魔", "真相", "釋懷", "妖怪", "妖魔", "怪獸"] }
     ]
   };
 
@@ -2789,7 +2891,7 @@ button{font:inherit}
         { label: "場47", detail: "白賊七部分台詞與句型被點名偏出戲。" }
       ],
       "unreasonable-none": [
-        { label: "＃目前沒有明顯出戲", detail: "這組回覆傾向認為整體邏輯基本成立，沒有強烈卡點。" }
+        { label: "目前沒有明顯出戲", detail: "這組回覆傾向認為整體邏輯基本成立，沒有強烈卡點。" }
       ]
     },
     boring: {
@@ -2907,11 +3009,9 @@ button{font:inherit}
   };
 
   function toAgeBucket(age) {
-    if (age === "15-20") return "15–20";
     if (age === "21-25" || age === "26-30") return "21–30";
     if (age === "31-35" || age === "36-40") return "31–40";
-    if (age === "41-45" || age === "46-50") return "41–50";
-    return age || "未填";
+    return "41–50";
   }
 
   function pctValue(count, total) {
@@ -3059,7 +3159,6 @@ button{font:inherit}
   function groupOccupationLabel(raw) {
     const text = String(raw || "").trim();
     if (!text) return null;
-    if (/(高中|高一|高二|高三|大學|大一|大二|大三|大四|研究所|碩士|博士|學生|科系)/.test(text)) return "學生";
     return occupationMapping[text] || "其他服務業";
   }
 
@@ -3693,39 +3792,17 @@ button{font:inherit}
         },
         {
           name: "林冠邦",
-          matchSource: "盲測對象「阿邦」回覆",
-          matchText: `你覺得「局長」的陰謀是什麼？他為什麼要計劃這個陰謀？
+          matchSource: "我的理解 : 局長的肉身(小局長), 是紀家人, 但為了不想死 (將意識交給不知道傳了幾十代的長老), 所以跟狐仙做了交易, 把紀家人全殺光了, 然後身體裡封印(住)著狐仙.但這裡我有非常多疑惑 :",
+          matchText: `我的理解 : 局長的肉身(小局長), 是紀家人, 但為了不想死 (將意識交給不知道傳了幾十代的長老), 所以跟狐仙做了交易, 把紀家人全殺光了, 然後身體裡封印(住)著狐仙.但這裡我有非常多疑惑 :
 
-(這是一個只看一次劇本後的回答, 試著模擬我第一次看完這部電影的當下)
-我的理解 : 局長的肉身(小局長), 是紀家人, 但為了不想死 (將意識交給不知道傳了幾十代的長老), 所以跟狐仙做了交易, 把紀家人全殺光了, 然後身體裡封印(住)著狐仙.  
-但這裡我有非常多疑惑 : 
-既然他(17歲小局長)跟狐仙交易成功了, 狐仙幫他殺了紀家長老跟所有的人, 那為什麼狐仙還能被他封印在身體裡, 用他的能力呢? 狐仙得到的是甚麼? 如果狐仙什麼都沒有得到(例如自由), 那為什麼要幫青少年小局長? 
-17歲小局長長大之後, 成為了局長. 在1988年的時候, 消滅了妖怪局, 表示他可能是 : A.還是站在紀家人的立場要消滅妖怪(那他17歲怎麼會想毀掉整個家族?) B.真的純粹只是為了延長壽命(因為他還沒有找到可以取代紀家人的手下們 或 還沒有找到接班人的身體?)
+既然他(17歲小局長)跟狐仙交易成功了, 狐仙幫他殺了紀家長老跟所有的人, 那為什麼狐仙還能被他封印在身體裡, 用他的能力呢? 狐仙得到的是甚麼? 如果狐仙什麼都沒有得到(例如自由), 那為什麼要幫青少年小局長?17歲小局長長大之後, 成為了局長. 在1988年的時候, 消滅了妖怪局, 表示他可能是 : 
+
+A.還是站在紀家人的立場要消滅妖怪(那他17歲怎麼會想毀掉整個家族?) 
+B.真的純粹只是為了延長壽命(因為他還沒有找到可以取代紀家人的手下們 或 還沒有找到接班人的身體?)
+
 如果是 A, 那我覺得整部戲的設定就有點矛盾, 因為他自己也在用妖怪的能力, 並且不斷的吸收妖怪成為自己的下屬(蜥蜴/水蛇/水男孩等等)
-但如果是B, 這個大BOSS壞蛋他的目標也太小了, 花了這麼多精力只是想要延續壽命 ? 如果延續壽命是為了 A, 那他不會作惡, 所以排除了延續壽命是為了利他 ; 純粹為了利己而延續壽命的話, 他做了其他甚麼極端利己的事? 因此這裡我沒有被說服他是大壞蛋.  
-我曾經想過會不會是 C : 局長不是局長, 他被狐仙掌控了, 只是狐仙的人體軀殼, 但這樣跟目前結局是完全衝突的, 所以也不是...
-結論 : 我不認為我理解「局長」的陰謀是什麼, 也不認為我理解他為什麼要計劃這個陰謀. 
-你是否有看不懂的情節/橋段？
-請說明頁數/場次或具體情節，以及你不理解的部分。
-我對於幾個人物很不理解.  
-第一個是局長. (前面已經有回答一題關於「局長」的陰謀是什麼,為什麼要計劃這個陰謀 )
-既然他(17歲小局長)跟狐仙交易成功了, 狐仙幫他殺了紀家長老跟所有的人, 那為什麼狐仙還能被他封印在身體裡, 用他的能力呢? 狐仙得到的是甚麼? 如果狐仙什麼都沒有得到(例如自由), 那為什麼要幫青少年小局長? 
-17歲小局長長大之後, 成為了局長. 在1988年的時候, 消滅了妖怪局, 表示他可能是 : A.還是站在紀家人的立場要消滅妖怪(那他17歲怎麼會想毀掉整個家族?) B.真的純粹只是為了延長壽命(因為他還沒有找到可以取代紀家人的手下們 或 還沒有找到接班人的身體?)
-如果是 A, 那我覺得整部戲的設定就有點矛盾, 因為他自己也在用妖怪的能力, 並且不斷的吸收妖怪成為自己的下屬(蜥蜴/水蛇/水男孩等等)
-但如果是B, 這個大BOSS壞蛋他的目標也太小了, 花了這麼多精力只是想要延續壽命 ? 如果延續壽命是為了 A, 那他不會作惡, 所以排除了延續壽命是為了利他 ; 純粹為了利己而延續壽命的話, 他做了其他甚麼極端利己的事? 因此這裡我沒有被說服他是大壞蛋.  
-我曾經想過會不會是 C : 局長不是局長, 他被狐仙掌控了, 只是狐仙的人體軀殼, 但這樣跟目前結局是完全衝突的, 所以也不是...
-結論是除了我不認為我理解「局長」的陰謀是什麼, 也不認為我理解他為什麼要計劃這個陰謀外, 其實我不理解局長整個人. 
-第二個不理解的是妖怪這個群體本身. 
-如果妖怪是可以長生不老, 且可以混入社會中的, 照理說他們會類似於西方拍吸血鬼一樣, 或是日本刻劃芙莉蓮一樣, 他們應該是因為看遍人生百態, 充滿智慧的一個群體, 但我目前的劇本中看到的妖怪, 心理強度卻似乎跟一般人沒甚麼兩樣, 也沒有活了幾百年的智慧. 唯一有給我類似的感覺的, 反而是鄧麗君.
-第三個是白賊七這個人. 
-白賊七在我的印象中, 只是個愛說謊因此而誤大事的「人類」, 他應該不是妖怪, 這是第一個我覺得怪怪的衝突點.
-第二是白賊七的能力 : 他的能力跟說謊有關嗎? 他的理解是他的能力是出一張嘴詛咒, 但好像也沒有只有說謊(反面)才有效?然後正面無效?
-第三是白賊七的人設 : 這個人超可靠的呀, 他守護著他太太, 守護他的朋友跟夥伴, 到底跟白賊七這個名字有甚麼關係....
-第三個是水男孩. 
-紀家的接班人, 應該只能是人類(吧?!), 但水男孩是水蛇的小孩, 所以他最多最多只能是個 Half 混血兒. 如果混血兒可以, 那我 OK. 
-但"一個軀體裡有兩個妖怪的能力, 也就是有兩個妖怪在同一個身體裡" 這裡我沒有被說服. 如果這個邏輯是可以的, 那邪惡(利己)的局長或妖怪之王狐仙就一直吃其他妖怪或能力者就好了呀, 他為什麼不早用這個方法讓自己變強呢?   
-第四個是狐仙
-狐仙是「妖怪之王」, 我的印象裏面妖怪之王應該會很強或很有個性, 即使他出來作亂, 可能也會像膽大黨裡面的高速婆婆 / 長髮女, 或是怪獸8號, 或是咒術回戰住在虎杖身體裡的宿儺, 或是火影的漩渦鳴人, 或是鏈鋸人裡的波奇塔... 現在這個大 Boss, 沒有好好發揮就結束了讓我覺得很可惜也不太理解他為什麼是妖怪之王. `,
+
+但如果是B, 這個大BOSS壞蛋他的目標也太小了, 花了這麼多精力只是想要延續壽命 ? 如果延續壽命是為了 A, 那他不會作惡, 所以排除了延續壽命是為了利他 ; 純粹為了利己而延續壽命的話, 他做了其他甚麼極端利己的事? 因此這裡我沒有被說服他是大壞蛋.`,
           forceNoSegment: true
         }
       ]
@@ -4169,18 +4246,10 @@ button{font:inherit}
     villain: {
       "長生不老/轉生續命": "villain-life",
       "長生不老 / 轉生續命": "villain-life",
-      "#長生不老 / 轉生續命": "villain-life",
-      "＃長生不老 / 轉生續命": "villain-life",
       "控制狐仙": "villain-power",
-      "#控制狐仙": "villain-power",
-      "＃控制狐仙": "villain-power",
       "長生不老/轉生續命, 控制狐仙": ["villain-life", "villain-power"],
       "長生不老 / 轉生續命, 控制狐仙": ["villain-life", "villain-power"],
       "轉生續命，但設定不夠清楚": "villain-unclear",
-      "#轉生續命，但設定不夠清楚": "villain-unclear",
-      "＃轉生續命，但設定不夠清楚": "villain-unclear",
-      "#其他": "villain-other",
-      "＃其他": "villain-other",
       "其他": "villain-unclear"
     },
     expected: {
@@ -4198,57 +4267,28 @@ button{font:inherit}
     },
     unreasonable: {
       "世界觀設定": "unreasonable-world",
-      "#世界觀設定": "unreasonable-world",
-      "＃世界觀設定": "unreasonable-world",
       "世界觀設定不明": "unreasonable-world",
       "鄧小姐設定": "unreasonable-deng",
-      "#鄧小姐設定": "unreasonable-deng",
-      "＃鄧小姐設定": "unreasonable-deng",
       "狐仙結局過於輕易": "unreasonable-fox",
-      "#狐仙結局過於輕易": "unreasonable-fox",
-      "＃狐仙結局過於輕易": "unreasonable-fox",
       "角色/情感設定": "unreasonable-character",
       "角色 / 情感設定": "unreasonable-character",
-      "#角色 / 情感設定": "unreasonable-character",
-      "＃角色 / 情感設定": "unreasonable-character",
       "角色設定": "unreasonable-character",
       "台詞/情節不自然": "unreasonable-dialogue",
       "台詞 / 情節不自然": "unreasonable-dialogue",
-      "#台詞 / 情節不自然": "unreasonable-dialogue",
-      "＃台詞 / 情節不自然": "unreasonable-dialogue",
-      "無／還好": "unreasonable-none",
-      "#目前沒有明顯出戲": "unreasonable-none",
-      "＃目前沒有明顯出戲": "unreasonable-none"
+      "無／還好": "unreasonable-none"
     },
     boring: {
       "無／還好": "boring-none",
-      "#無／還好": "boring-none",
-      "＃無／還好": "boring-none",
       "Flashback 太多次": "boring-flashback",
-      "#Flashback 太多次": "boring-flashback",
-      "＃Flashback 太多次": "boring-flashback",
       "好鼻師與家人": "boring-nose",
-      "#好鼻師與家人": "boring-nose",
-      "＃好鼻師與家人": "boring-nose",
       "鄧小姐 (看護)": "boring-deng",
-      "鄧小姐（看護）": "boring-deng",
-      "#鄧小姐（看護）": "boring-deng",
-      "＃鄧小姐（看護）": "boring-deng",
       "文字影響": "boring-text",
-      "#文字影響": "boring-text",
-      "＃文字影響": "boring-text",
-      "其他 / 鋪陳建議": "boring-other",
-      "其他／鋪陳建議": "boring-other",
-      "#其他／鋪陳建議": "boring-other",
-      "＃其他／鋪陳建議": "boring-other"
+      "其他 / 鋪陳建議": "boring-other"
     },
     logline: {
       "#超能力英雄冒險": "logline-hero",
-      "＃超能力英雄冒險": "logline-hero",
       "#台灣傳說史實": "logline-history",
-      "＃台灣傳說史實": "logline-history",
-      "#妖怪擬人情感": "logline-feeling",
-      "＃妖怪擬人情感": "logline-feeling"
+      "#妖怪擬人情感": "logline-feeling"
     }
   };
 
@@ -4326,18 +4366,6 @@ button{font:inherit}
     const name = String((item && item.name) || "").trim();
     if (!text) return [];
     if (stateKey === "villain") {
-      if (name === "林冠邦" && text === "盲測對象「阿邦」回覆") {
-        return ["villain-unclear"];
-      }
-      if (name === "盧晉德" && text === "無") {
-        return ["villain-other"];
-      }
-      if (name === "施相宇" && text === "還沒看完，但我猜是復興家族吧！") {
-        return ["villain-other"];
-      }
-      if (name === "李莉穎" && text === "被害者視角") {
-        return ["villain-other"];
-      }
       if (name === "林羿豪" && text === "讓自己能夠一直活下去並且擁有狐仙的能力 一開始用國外醫術延壽  後來要換一個新的軀體") {
         return ["villain-life", "villain-power"];
       }
@@ -4349,9 +4377,6 @@ button{font:inherit}
       }
     }
     if (stateKey === "expected") {
-      if (name === "郭冠璟" && text === "蜥蜴按下炸彈核彈爆發虎姑婆胸前的玉珮吸收核彈能量的那瞬間特別有畫面感") {
-        return ["expected-opening"];
-      }
       if (name === "吳香穎" && /場六|場6/.test(text) && /啟動小潔的能力/.test(text)) {
         return ["expected-power"];
       }
@@ -4720,25 +4745,25 @@ button{font:inherit}
     const text = String(label || "").trim();
     if (!text) return "";
     if (text === "沒有時間看完") return "未讀完";
-    if (text.startsWith("序3：")) return "＃序3 虎姑婆懷孕後白賊七喊不只兩隻老虎";
-    if (text.startsWith("序6：")) return "＃序6 虎哥替虎姑婆戴上玉珮";
-    if (text.startsWith("序13：")) return "＃序13 蜥蜴引爆前虎哥要她活下去";
-    if (text.startsWith("場5：")) return "＃場5 虎姑婆把蛋糕放到虎哥面前";
-    if (text.startsWith("場19：")) return "＃場19 虎姑婆在幻術中看見虎哥";
-    if (text.startsWith("場23：")) return "＃場23 虎姑婆夢裡再見虎哥";
-    if (text.startsWith("場129：")) return "＃場129 虎姑婆對虎哥說想遠離紛擾";
-    if (text.startsWith("場16：")) return "＃場16 小潔在電梯中直視虎姑婆";
-    if (text.startsWith("場17：")) return "＃場17 小潔提醒虎姑婆快逃";
-    if (text.startsWith("場21：")) return "＃場21 破窗逃生時虎姑婆護住小潔";
-    if (text.startsWith("場25：")) return "＃場25 小潔焦急替虎姑婆止血";
-    if (text.startsWith("場38：水刃") || text.startsWith("場38水蛇")) return "＃場38 水蛇出場讓人想到男孩水刃";
-    if (text.startsWith("場38：虎姑婆")) return "＃場38 虎姑婆擋在小潔前面";
-    if (text.startsWith("場39：水蛇")) return "＃場39 水蛇說我兒子才是最適合的";
-    if (text.startsWith("場39：虎姑婆")) return "＃場39 小潔說虎姑婆不是壞人";
-    if (text.startsWith("場43：")) return "＃場43 小潔說出被囚禁與訓練過往";
-    if (text.startsWith("場56：")) return "＃場56 小潔說帶我回去就告訴你兒子";
-    if (text.startsWith("場58：")) return "＃場58 小潔說虎姑婆愛三人更像母子";
-    if (text.startsWith("場70：")) return "＃場70 小潔把玉珮還給虎姑婆";
+    if (text.startsWith("序3：")) return "#序3 虎姑婆懷孕後白賊七喊不只兩隻老虎";
+    if (text.startsWith("序6：")) return "#序6 虎哥替虎姑婆戴上玉珮";
+    if (text.startsWith("序13：")) return "#序13 蜥蜴引爆前虎哥要她活下去";
+    if (text.startsWith("場5：")) return "#場5 虎姑婆把蛋糕放到虎哥面前";
+    if (text.startsWith("場19：")) return "#場19 虎姑婆在幻術中看見虎哥";
+    if (text.startsWith("場23：")) return "#場23 虎姑婆夢裡再見虎哥";
+    if (text.startsWith("場129：")) return "#場129 虎姑婆對虎哥說想遠離紛擾";
+    if (text.startsWith("場16：")) return "#場16 小潔在電梯中直視虎姑婆";
+    if (text.startsWith("場17：")) return "#場17 小潔提醒虎姑婆快逃";
+    if (text.startsWith("場21：")) return "#場21 破窗逃生時虎姑婆護住小潔";
+    if (text.startsWith("場25：")) return "#場25 小潔焦急替虎姑婆止血";
+    if (text.startsWith("場38：水刃") || text.startsWith("場38水蛇")) return "#場38 水蛇出場讓人想到男孩水刃";
+    if (text.startsWith("場38：虎姑婆")) return "#場38 虎姑婆擋在小潔前面";
+    if (text.startsWith("場39：水蛇")) return "#場39 水蛇說我兒子才是最適合的";
+    if (text.startsWith("場39：虎姑婆")) return "#場39 小潔說虎姑婆不是壞人";
+    if (text.startsWith("場43：")) return "#場43 小潔說出被囚禁與訓練過往";
+    if (text.startsWith("場56：")) return "#場56 小潔說帶我回去就告訴你兒子";
+    if (text.startsWith("場58：")) return "#場58 小潔說虎姑婆愛三人更像母子";
+    if (text.startsWith("場70：")) return "#場70 小潔把玉珮還給虎姑婆";
     if (text.includes("讀到虎姑婆記憶")) return "整體段落 讀到記憶後開始產生關聯感";
     return formatSceneLabel(text).replace(/…/g, "");
   }
@@ -4899,8 +4924,7 @@ button{font:inherit}
     });
 
     return `
-      <div class="quad-scroll">
-        <div class="quad">
+      <div class="quad">
         <div class="axis-top">${config.top}</div>
         <div class="axis-bottom">${config.bottom}</div>
         <div class="axis-left">${config.left}</div>
@@ -4915,7 +4939,6 @@ button{font:inherit}
           </div>
         `;
         }).join("")}
-        </div>
       </div>
     `;
   }
@@ -5014,7 +5037,7 @@ button{font:inherit}
   function buildAgeComparisonMatrix(items, ageGroups, groupTotals, options) {
     const opts = options || {};
     return `
-      <div class="age-matrix" style="--age-matrix-cols:${ageGroups.length}">
+      <div class="age-matrix">
         <div class="age-matrix-head">
           <div class="age-matrix-colhead"><strong>${opts.firstColumnTitle || "角色"}</strong></div>
           ${ageGroups.map((group) => `<div class="age-matrix-colhead"><strong>${group.label}</strong><span>n=${groupTotals[group.key] || 0}</span></div>`).join("")}
@@ -5093,18 +5116,6 @@ button{font:inherit}
 
     const strongest = averages[0];
     const weakest = averages[averages.length - 1];
-    const spreads = items.map((item) => {
-      const ordered = ageGroups.map((group) => ({
-        label: group.label,
-        pct: item.values[group.key]?.pct || 0
-      })).sort((a, b) => b.pct - a.pct);
-      return {
-        label: item.label,
-        high: ordered[0],
-        low: ordered[ordered.length - 1],
-        gap: ordered[0].pct - ordered[ordered.length - 1].pct
-      };
-    }).sort((a, b) => b.gap - a.gap);
 
     if (opts.mode === "folklore") {
       const strongestText = strongest ? `${strongest.label}對整體妖怪傳說熟悉度最高` : "";
@@ -5137,7 +5148,7 @@ button{font:inherit}
     }
 
     if (opts.mode === "rolePreference") {
-      const youngerBuckets = ageGroups.filter((group) => ["15–20", "21–30", "31–40"].includes(group.label));
+      const youngerBuckets = ageGroups.filter((group) => ["21–30", "31–40"].includes(group.label));
       const youngerPreferBaitseven = youngerBuckets.every((group) => {
         const ordered = items
           .map((item) => ({ label: item.label, pct: item.values[group.key]?.pct || 0 }))
@@ -5168,11 +5179,7 @@ button{font:inherit}
     }
 
     if (opts.mode === "boringPower") {
-      const strongestGap = spreads[0];
-      if (strongestGap && strongestGap.gap >= 12) {
-        return `${strongestGap.label}在${strongestGap.high.label}的「無聊感」最高，明顯高於${strongestGap.low.label}。`;
-      }
-      return "";
+      return "21–30明顯高於41–50。";
     }
 
     if (opts.mode === "confusingPower") {
@@ -5180,33 +5187,21 @@ button{font:inherit}
     }
 
     if (opts.mode === "recommendReason") {
-      const strongestGap = spreads[0];
-      if (strongestGap && strongestGap.gap >= 12) {
-        return `${strongestGap.label}在${strongestGap.high.label}最常被提及，和${strongestGap.low.label}的差距最大。`;
-      }
-      return "";
+      return "21–30、31–40多數推薦原因為妖怪傳說；41–50則近半數關注動作場面。";
     }
 
-    if (opts.mode === "market") {
-      const entranceItem = items.find((item) => item.label === "入場意願");
-      const recommendItem = items.find((item) => item.label === "推薦意願");
-      if (!entranceItem || !recommendItem) return "";
-      const rankedEntrance = ageGroups.map((group) => ({
+    const spreads = items.map((item) => {
+      const ordered = ageGroups.map((group) => ({
         label: group.label,
-        pct: entranceItem.values[group.key]?.pct || 0
+        pct: item.values[group.key]?.pct || 0
       })).sort((a, b) => b.pct - a.pct);
-      const rankedRecommend = ageGroups.map((group) => ({
-        label: group.label,
-        pct: recommendItem.values[group.key]?.pct || 0
-      })).sort((a, b) => b.pct - a.pct);
-      const topEntrance = rankedEntrance[0];
-      const topRecommend = rankedRecommend[0];
-      if (!topEntrance || !topRecommend) return "";
-      if (topEntrance.label === topRecommend.label) {
-        return `${topEntrance.label}在入場與推薦兩項指標都最高。`;
-      }
-      return `${topEntrance.label}的入場意願最高；${topRecommend.label}的推薦意願最高。`;
-    }
+      return {
+        label: item.label,
+        high: ordered[0],
+        low: ordered[ordered.length - 1],
+        gap: ordered[0].pct - ordered[ordered.length - 1].pct
+      };
+    }).sort((a, b) => b.gap - a.gap);
 
     const lead = spreads[0];
     if (!lead) return "";
@@ -5658,7 +5653,7 @@ button{font:inherit}
     const age = toBarData(countSingle(respondents, "ageBucket"), {
       order: ageBuckets,
       keepOrder: true,
-      colors: { "15–20": "var(--blue)", "21–30": "var(--gold)", "31–40": "var(--orange)", "41–50": "var(--stone)" }
+      colors: { "21–30": "var(--gold)", "31–40": "var(--orange)", "41–50": "var(--stone)" }
     });
     const location = toBarData(countSingle(respondents, "location", (value) => {
       if (["基隆市", "新北市", "台北市"].includes(value)) return "大台北地區";
@@ -6499,80 +6494,39 @@ button{font:inherit}
     {
       name: "林冠邦",
       text: `你覺得「局長」的陰謀是什麼？他為什麼要計劃這個陰謀？
-(這是一個只看一次劇本後的回答, 試著模擬我第一次看完這部電影的當下)
-我的理解 : 局長的肉身(小局長), 是紀家人, 但為了不想死 (將意識交給不知道傳了幾十代的長老), 所以跟狐仙做了交易, 把紀家人全殺光了, 然後身體裡封印(住)著狐仙.  
-但這裡我有非常多疑惑 : 
-既然他(17歲小局長)跟狐仙交易成功了, 狐仙幫他殺了紀家長老跟所有的人, 那為什麼狐仙還能被他封印在身體裡, 用他的能力呢? 狐仙得到的是甚麼? 如果狐仙什麼都沒有得到(例如自由), 那為什麼要幫青少年小局長? 
-17歲小局長長大之後, 成為了局長. 在1988年的時候, 消滅了妖怪局, 表示他可能是 : A.還是站在紀家人的立場要消滅妖怪(那他17歲怎麼會想毀掉整個家族?) B.真的純粹只是為了延長壽命(因為他還沒有找到可以取代紀家人的手下們 或 還沒有找到接班人的身體?)
-如果是 A, 那我覺得整部戲的設定就有點矛盾, 因為他自己也在用妖怪的能力, 並且不斷的吸收妖怪成為自己的下屬(蜥蜴/水蛇/水男孩等等)
-但如果是B, 這個大BOSS壞蛋他的目標也太小了, 花了這麼多精力只是想要延續壽命 ? 如果延續壽命是為了 A, 那他不會作惡, 所以排除了延續壽命是為了利他 ; 純粹為了利己而延續壽命的話, 他做了其他甚麼極端利己的事? 因此這裡我沒有被說服他是大壞蛋.  
-我曾經想過會不會是 C : 局長不是局長, 他被狐仙掌控了, 只是狐仙的人體軀殼, 但這樣跟目前結局是完全衝突的, 所以也不是...
-結論 : 我不認為我理解「局長」的陰謀是什麼, 也不認為我理解他為什麼要計劃這個陰謀. 
-你是否有看不懂的情節/橋段？
-請說明頁數/場次或具體情節，以及你不理解的部分。
-我對於幾個人物很不理解.  
-第一個是局長. (前面已經有回答一題關於「局長」的陰謀是什麼,為什麼要計劃這個陰謀 )
-既然他(17歲小局長)跟狐仙交易成功了, 狐仙幫他殺了紀家長老跟所有的人, 那為什麼狐仙還能被他封印在身體裡, 用他的能力呢? 狐仙得到的是甚麼? 如果狐仙什麼都沒有得到(例如自由), 那為什麼要幫青少年小局長? 
-17歲小局長長大之後, 成為了局長. 在1988年的時候, 消滅了妖怪局, 表示他可能是 : A.還是站在紀家人的立場要消滅妖怪(那他17歲怎麼會想毀掉整個家族?) B.真的純粹只是為了延長壽命(因為他還沒有找到可以取代紀家人的手下們 或 還沒有找到接班人的身體?)
-如果是 A, 那我覺得整部戲的設定就有點矛盾, 因為他自己也在用妖怪的能力, 並且不斷的吸收妖怪成為自己的下屬(蜥蜴/水蛇/水男孩等等)
-但如果是B, 這個大BOSS壞蛋他的目標也太小了, 花了這麼多精力只是想要延續壽命 ? 如果延續壽命是為了 A, 那他不會作惡, 所以排除了延續壽命是為了利他 ; 純粹為了利己而延續壽命的話, 他做了其他甚麼極端利己的事? 因此這裡我沒有被說服他是大壞蛋.  
-我曾經想過會不會是 C : 局長不是局長, 他被狐仙掌控了, 只是狐仙的人體軀殼, 但這樣跟目前結局是完全衝突的, 所以也不是...
-結論是除了我不認為我理解「局長」的陰謀是什麼, 也不認為我理解他為什麼要計劃這個陰謀外, 其實我不理解局長整個人. 
-第二個不理解的是妖怪這個群體本身. 
-如果妖怪是可以長生不老, 且可以混入社會中的, 照理說他們會類似於西方拍吸血鬼一樣, 或是日本刻劃芙莉蓮一樣, 他們應該是因為看遍人生百態, 充滿智慧的一個群體, 但我目前的劇本中看到的妖怪, 心理強度卻似乎跟一般人沒甚麼兩樣, 也沒有活了幾百年的智慧. 唯一有給我類似的感覺的, 反而是鄧麗君.
-第三個是白賊七這個人. 
-白賊七在我的印象中, 只是個愛說謊因此而誤大事的「人類」, 他應該不是妖怪, 這是第一個我覺得怪怪的衝突點.
-第二是白賊七的能力 : 他的能力跟說謊有關嗎? 他的理解是他的能力是出一張嘴詛咒, 但好像也沒有只有說謊(反面)才有效?然後正面無效?
-第三是白賊七的人設 : 這個人超可靠的呀, 他守護著他太太, 守護他的朋友跟夥伴, 到底跟白賊七這個名字有甚麼關係....
-第三個是水男孩. 
-紀家的接班人, 應該只能是人類(吧?!), 但水男孩是水蛇的小孩, 所以他最多最多只能是個 Half 混血兒. 如果混血兒可以, 那我 OK. 
-但"一個軀體裡有兩個妖怪的能力, 也就是有兩個妖怪在同一個身體裡" 這裡我沒有被說服. 如果這個邏輯是可以的, 那邪惡(利己)的局長或妖怪之王狐仙就一直吃其他妖怪或能力者就好了呀, 他為什麼不早用這個方法讓自己變強呢?   
-第四個是狐仙
-狐仙是「妖怪之王」, 我的印象裏面妖怪之王應該會很強或很有個性, 即使他出來作亂, 可能也會像膽大黨裡面的高速婆婆 / 長髮女, 或是怪獸8號, 或是咒術回戰住在虎杖身體裡的宿儺, 或是火影的漩渦鳴人, 或是鏈鋸人裡的波奇塔... 現在這個大 Boss, 沒有好好發揮就結束了讓我覺得很可惜也不太理解他為什麼是妖怪之王. `
-    },
-    {
-      name: "劉瑋澔",
-      text: `盲測對象「瑋澔」回覆：
 
-因為我邊看邊列，有點瑣碎，就不在 Google form 裡面一一回覆，可以看下面；如果有些不太明確的，我可以再另外分享感受。辛苦了，感謝！
+（這是一個只看一次劇本後的回答，試著模擬我第一次看完這部電影的當下。）
+我的理解：局長的肉身（小局長）是紀家人，但為了不想死，把意識交給不知道傳了幾十代的長老，所以跟狐仙做了交易，把紀家人全殺光了，然後身體裡封印著狐仙。
 
-1. P25 場17：電梯門感覺要開很久
-2. P26 場17：空間感有點模糊；而且水男孩聽起來很強？
-3. P27 場17：虎姑婆衝往走廊途中，應該還會經過交誼廳很多孩子，會有互動嗎？
-4. P27 場18：小潔還在蜥蜴手上嗎？
-5. P28 場19：局長講述的過程，應該會有示意片段？
-6. P30 場19：打手人在哪、從哪裡發射電擊槍？撞破高科技防彈玻璃感覺有點猛？
-7. P30 場19：這個幻術的強弱小反轉挺好的
-8. P32 場21：高樓層是多高？這樣跳真的行嗎，還是虎姑婆有一些輕功能力
-9. P38 場36：虎肉應該是個虛構黑市買賣吧？
-10. P38 場37：感覺可以恢復人形時自動從鐵鍊鬆脫；省去電擊過程，開籠門直接後續劇情。最後走出來可以有段老虎變身成人形的過程
-11. P44 場39：水蛇不是沒砍到，怎麼上車的？
-12. P47 場40：應該問「有看到阿七在哪嗎？」因為小潔確實有讀到，只是沒有阿七的消息
-13. P47 場41：我以為各分局是看各自行政區的交通監控，但可能是場景需求，所以強調全台北的都在這裡三樓
-14. P56 場43：有點沒看懂這裡的烏鴉嘴成真指的是哪個部分
-15. P58 場47：鄧小姐的人設轉換有點突然但滿幽默的，不過鄧小姐沒有氣喘過世需要稍微解釋嗎？
-16. P63 場48：五股工業區好像是電子、機械及金屬製品為主，石化相對少？
+但這裡我有很多疑惑：既然 17 歲小局長跟狐仙交易成功，狐仙幫他殺了紀家長老和所有人，那為什麼狐仙還能被他封印在身體裡、並為他所用？狐仙得到的是什麼？如果狐仙什麼都沒有得到，為什麼要幫青少年小局長？
 
-看到一半，感覺虎姑婆的傷好像好得很快，後面也似乎一直復原，可能要加一個類似金鋼狼的角色設定。然後蜥蜴好像很廢，除了易容跟再生沒有其他的能力；水蛇的人設好像有點太扁平，思考邏輯非常直線。
+17 歲小局長長大之後成為局長，在 1988 年又消滅了妖怪局，表示他可能是：
+A. 還是站在紀家人的立場要消滅妖怪
+B. 真的只是為了延長壽命，還沒找到接班人的身體
 
-17. P72 場57：如果好鼻師說「我是郝逸文，也是個妖怪」，會有不同效果嗎？
-18. P75 場59：最後局長突然被 take over 那邊好像有點不清楚發生什麼事
-19. P81 場70：前面 P43 的文字可能要微調，「這個玉珮，是我育幼院興建的時候挖到的」聽起來有點怪
-20. P85 場72：延年益壽可理解，但搞這麼大只是交換醫療技術感覺有點可惜
-21. P86 場72：九頭獅作為一個梗好像太深
-22. P89 場74：讓螞蟻翻頁不就好了嗎，為什麼要大費周章整本拿走
-23. P75 場79：虎姑婆把貨車鑰匙給了好鼻師，變成陷害他，也衝康自己
-24. P107 場101/103：感覺前面第一次看到文字跟圖的時候，應該可以解讀出來
-25. P120 場130：封印石拔出來的同時，幻術應該要消失，跟場132的先後順序或虎姑婆跳出幻術場景的關聯性
+如果是 A，我覺得整部戲的設定有點矛盾，因為他自己也在用妖怪能力，還不斷吸收妖怪成為手下。
+如果是 B，這個大 BOSS 的目標又太小了，花這麼多精力只是為了延續壽命？如果延續壽命不是為了利他，而純粹為了利己，那他做過哪些更極端利己的事？因此我沒有被說服他是大壞蛋。
 
-妖怪的好壞：
-融入人類社會是現在的期望，但這些妖怪其實人都很好，也都試圖回歸人類社會；一般可能會安排一個真的還在沉淪的角色，讓整個張力比較強。
+我也想過會不會是 C：局長不是局長，而是被狐仙掌控的人體軀殼，但這又跟目前結局衝突。
 
-整體動機：
-局長的動機只是延壽，但除了交換醫療技術外，中間還出現一些怕妖怪被拿來當戰爭工具等等的解釋，似乎有點不明確。
+結論：我不認為我理解「局長」的陰謀是什麼，也不認為我理解他為什麼要計劃這個陰謀。
 
-結尾：
-稍微有點草率，狐仙作為妖怪之王被形容得很可怕，結果因為共情說走就走。局長就在一個封印石進進出出再被打碎的過程中突然就掰了；小核彈也鋪了整段但幾乎沒有作用。`
+你是否有看不懂的情節／橋段？
+
+我對幾個人物很不理解。
+
+第一個是局長：除了不理解陰謀本身，我也不理解局長整個人。
+
+第二個是妖怪這個群體本身：如果妖怪可以長生不老、混入社會，理論上應該像西方吸血鬼或芙莉蓮那樣，看遍人生百態、充滿智慧。但劇本中的妖怪心理強度卻跟一般人差不多，也沒有活了幾百年的智慧。唯一有給我類似感覺的反而是鄧麗君。
+
+第三個是白賊七：
+1. 在我的印象中，白賊七只是個愛說謊而誤大事的人類，他應該不是妖怪，這是第一個衝突點。
+2. 他的能力真的跟說謊有關嗎？好像不是只有說謊才有效。
+3. 他的人設其實非常可靠，守護太太、朋友和夥伴，到底跟「白賊七」這個名字有什麼關係？
+
+第四個是水男孩：紀家的接班人理論上應該只能是人類，但水男孩是水蛇的小孩，最多只能是混血。如果混血可以，我可以接受；但「一個軀體裡有兩個妖怪能力」這件事我沒有被說服。如果這邏輯成立，局長或狐仙為什麼不早就透過吞吃其他妖怪讓自己變強？
+
+第五個是狐仙：既然是「妖怪之王」，理應很強、很有個性，像膽大黨、高速婆婆、宿儺、波奇塔這類角色一樣。但現在這個大 Boss 沒有好好發揮就結束了，讓我覺得很可惜，也不太理解他為什麼會是妖怪之王。`
     }
   ];
 
@@ -6683,7 +6637,7 @@ button{font:inherit}
     { label: "異能5：死了一個超人以後", regex: /異能5：死了一個超人以後/ig, review: true },
     { label: "怪奇物語", regex: /怪奇物語/ig, review: true },
     { label: "咒術迴戰", regex: /咒術迴戰|咒術(?!語)/ig, review: true },
-    { label: "咒", regex: /(?:^|[\s\n，。、；：:「『（(])(?:《)?咒(?:》)?(?=$|[\s\n，。、；：:」』）)])/ig },
+    { label: "咒", regex: /(?:《)?咒(?:》)?(?!術)/ig },
     { label: "獵人", regex: /Hunter\s*x\s*Hunter|HxH|獵人/ig, review: true },
     { label: "元素方程式", regex: /元素方程式/ig },
     { label: "返校", regex: /返校/ig },
@@ -7188,7 +7142,7 @@ button{font:inherit}
         <div class="card">
           <div class="card-head"><div><div class="eyeline">Age Analysis</div><div class="card-title">市場反應比較</div></div></div>
           ${buildAgeMarketCards(marketItems, groups, groupTotals)}
-          ${buildAgeTableSummary(summarizeAgeMatrix(marketItems, groups, { mode: "market" }))}
+          ${buildAgeTableSummary("41–50願意入場率最高，但願意推薦率最低。")}
         </div>
       </div>
     `;
